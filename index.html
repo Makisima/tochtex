@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НПО «ТочТех» — Производство металлоизделий под ключ</title>
+    <meta name="description" content="Лазерная резка, координатная пробивка, порошковая окраска, SMT-монтаж печатных плат. 30 лет на рынке. Бесплатный расчёт за 2 часа.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏭</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Микроразметка Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "НПО «ТочТех»",
+        "image": "Images/workshop-panorama.jpg",
+        "telephone": "+79030021883",
+        "email": "mmatveev02@mail.ru",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Рязань",
+            "streetAddress": "проезд Шабулина, 2В"
+        }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- ===== ШАПКА ===== -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">🏭 <strong>НПО «ТочТех»</strong></a>
+                <small>Производство полного цикла</small>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="about.html">О заводе</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-contacts">
+                <a href="tel:+79030021883" class="phone">📞 +7 (903) 002-18-83</a>
+                <a href="#contact" class="btn btn-accent btn-sm">Заказать звонок</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== ГЕРОЙ ===== -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Производство металлоизделий под ключ. 30 лет экспертизы.</h1>
+                <p>Лазерная резка, пробивка, покраска, SMT-монтаж плат. Бесплатный расчёт за 2 часа по вашим чертежам.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-accent btn-lg">Рассчитать стоимость</a>
+                    <a href="services.html" class="btn btn-secondary btn-lg">Все услуги</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat"><span>30+</span> лет на рынке</div>
+                    <div class="stat"><span>350+</span> единиц оборудования</div>
+                    <div class="stat"><span>12 000+ м²</span> производственных площадей</div>
+                    <div class="stat"><span>ISO 9001</span> сертифицированы</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== БЫСТРЫЕ КНОПКИ (10 услуг) ===== -->
+    <section class="quick-nav" id="services">
+        <div class="container">
+            <div class="quick-nav-buttons">
+                <a class="quick-nav-btn" data-service="лазерная">
+                    <span class="icon">🔦</span>
+                    <span class="label">Лазерная резка</span>
+                    <span class="sub">от 6 ₽/метр</span>
+                </a>
+                <a class="quick-nav-btn" data-service="пробивка">
+                    <span class="icon">⚡</span>
+                    <span class="label">Координатная пробивка</span>
+                    <span class="sub">от 4 ₽/удар</span>
+                </a>
+                <a class="quick-nav-btn" data-service="покраска">
+                    <span class="icon">🎨</span>
+                    <span class="label">Порошковая окраска</span>
+                    <span class="sub">от 160 ₽/м²</span>
+                </a>
+                <a class="quick-nav-btn" data-service="гибка">
+                    <span class="icon">📐</span>
+                    <span class="label">Гибка металла</span>
+                    <span class="sub">до 2550 мм</span>
+                </a>
+                <a class="quick-nav-btn" data-service="сварка">
+                    <span class="icon">🔥</span>
+                    <span class="label">Сварочные работы</span>
+                    <span class="sub">MIG/MAG</span>
+                </a>
+                <a class="quick-nav-btn" data-service="токарка">
+                    <span class="icon">⚙️</span>
+                    <span class="label">Токарно-фрезерные</span>
+                    <span class="sub">до ⌀400 мм</span>
+                </a>
+                <a class="quick-nav-btn" data-service="прессформы">
+                    <span class="icon">🔧</span>
+                    <span class="label">Пресс-формы</span>
+                    <span class="sub">индивидуальный расчёт</span>
+                </a>
+                <a class="quick-nav-btn" data-service="гальваника">
+                    <span class="icon">🔬</span>
+                    <span class="label">Гальваника</span>
+                    <span class="sub">цинкование, никелирование</span>
+                </a>
+                <a class="quick-nav-btn" data-service="сборка_кондиционеров">
+                    <span class="icon">💻</span>
+                    <span class="label">SMT-монтаж плат</span>
+                    <span class="sub">автоматизированная линия</span>
+                </a>
+                <a class="quick-nav-btn" data-service="сборочная_чпу">
+                    <span class="icon">📦</span>
+                    <span class="label">Телеком-шкафы</span>
+                    <span class="sub">под заказ</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ЦИФРЫ ===== -->
+    <section class="stats-section" id="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="number">30+</div>
+                    <div class="label">лет на рынке</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">350+</div>
+                    <div class="label">единиц оборудования</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">12 000+</div>
+                    <div class="label">м² производственных площадей</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">180+</div>
+                    <div class="label">высококвалифицированных сотрудников</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== КЕЙС ===== -->
+    <section class="case-section">
+        <div class="container">
+            <div class="case-grid">
+                <div class="case-image">
+                    <img src="Images/cabinet-tele2-1.jpg" alt="Изготовление телекоммуникационных шкафов под заказ" loading="lazy">
+                </div>
+                <div class="case-content">
+                    <h2>Пример: сложный заказ в сжатые сроки</h2>
+                    <p>Крупному телеком-оператору потребовалась партия шкафов для модернизации сети. Мы спроектировали, изготовили, выполнили порошковую окраску и отгрузили продукцию точно в срок, обеспечив высокое качество на всех этапах.</p>
+                    <ul class="case-details">
+                        <li><strong>📦 Объём:</strong> 50 шкафов</li>
+                        <li><strong>⏱️ Срок:</strong> 3 недели</li>
+                        <li><strong>✅ Результат:</strong> 100% соблюдение сроков</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-accent">Обсудить ваш проект</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ПРОЦЕСС РАБОТЫ ===== -->
+    <section class="process-section">
+        <div class="container">
+            <h2 class="section-title">Как мы работаем</h2>
+            <p class="section-subtitle">4 простых шага к вашему заказу</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h4>Отправьте запрос</h4>
+                    <p>Заполните форму на сайте, приложите чертёж или ТЗ</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h4>Мы сделаем расчёт</h4>
+                    <p>В течение 2 часов подготовим коммерческое предложение</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h4>Согласование</h4>
+                    <p>Обсудим детали, подпишем договор</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <h4>Производство и отгрузка</h4>
+                    <p>Изготовим продукцию на своих мощностях и доставим</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ЦЕНЫ ===== -->
+    <section class="prices-section" id="prices" style="padding: 80px 0; background: var(--gray);">
+        <div class="container">
+            <h2 class="section-title">💰 Прайс-лист на услуги</h2>
+            <p class="section-subtitle">Цены указаны ориентировочно и зависят от объёма, сложности и материала.<br>Актуальную стоимость уточняйте у менеджера.</p>
+
+            <div class="prices-tabs" style="display: flex; gap: 8px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap;">
+                <button class="price-tab-btn btn btn-sm" style="background: var(--accent); color: var(--white);" data-tab="лазерная">Лазерная резка</button>
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="пробивка">Координатная пробивка</button>
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="покраска">Порошковая окраска</button>
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="гибка">Гибка металла</button>
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="сварка">Сварочные работы</button>
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="токарка">Токарно-фрезерные</button>
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="прессформы">Пресс-формы</button>
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="гальваника">Гальваника</button>
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="сборка_кондиционеров">SMT-монтаж</button>
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="сборочная_чпу">Телеком-шкафы</button>
+            </div>
+
+            <div id="price-tab-content">
+                <div id="price-loader" style="text-align: center; padding: 40px;">
+                    <p>⏳ Загрузка цен...</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="font-size: 14px; color: var(--gray-dark);">📅 Прайс-лист обновлён: <span id="price-date">сегодня</span></p>
+                <p style="font-size: 13px; color: var(--gray-dark);">* Все цены указаны без НДС. Окончательная стоимость рассчитывается после получения чертежа или ТЗ.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== КОНТАКТЫ ===== -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Получите расчёт за 2 часа</h2>
+                    <p>Отправьте чертёж или опишите задачу — мы подготовим точную стоимость и сроки.</p>
+                    <div class="contact-details">
+                        <p>📞 <a href="tel:+79030021883">+7 (903) 002-18-83</a></p>
+                        <p>✉️ <a href="mailto:mmatveev02@mail.ru">mmatveev02@mail.ru</a></p>
+                        <p>📍 390043, Рязань, проезд Шабулина, 2В</p>
+                        <p>🕐 Пн–Пт: 9:00 – 18:00</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm" action="thanks.html" method="POST" netlify>
+                        <input type="hidden" name="form-name" value="contact">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" name="phone" placeholder="Телефон" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <select name="service">
+                                <option value="">Выберите услугу</option>
+                                <option value="laser">Лазерная резка</option>
+                                <option value="punching">Координатная пробивка</option>
+                                <option value="painting">Порошковая окраска</option>
+                                <option value="bending">Гибка металла</option>
+                                <option value="welding">Сварочные работы</option>
+                                <option value="machining">Токарно-фрезерные</option>
+                                <option value="tooling">Пресс-формы</option>
+                                <option value="galvanic">Гальваника</option>
+                                <option value="smt">SMT-монтаж</option>
+                                <option value="cabinets">Телеком-шкафы</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="file" accept=".dxf,.dwg,.pdf,.jpg,.png" class="file-input">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Опишите задачу, укажите размеры, материал, тираж"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-accent btn-block">Отправить заявку</button>
+                        <p class="form-note">* Мы не передаём данные третьим лицам</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ПОДВАЛ ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>НПО «ТочТех»</h4>
+                    <p>Производство полного цикла с 1994 года. Сертификат ISO 9001-2015.</p>
+                </div>
+                <div>
+                    <h4>Контакты</h4>
+                    <p>📞 +7 (903) 002-18-83</p>
+                    <p>✉️ mmatveev02@mail.ru</p>
+                    <p>📍 Рязань, проезд Шабулина, 2В</p>
+                </div>
+                <div>
+                    <h4>Услуги</h4>
+                    <a href="services.html#sheet-metal">Листовой металл</a>
+                    <a href="services.html#machining">Механообработка</a>
+                    <a href="services.html#coating">Покрытия</a>
+                    <a href="services.html#assembly">Сборка и монтаж</a>
+                    <a href="services.html#tooling">Оснастка</a>
+                </div>
+                <div>
+                    <h4>Информация</h4>
+                    <a href="about.html">О заводе</a>
+                    <a href="contacts.html">Контакты</a>
+                    <a href="#prices">Прайс-лист</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 НПО «ТочТех». Все права защищены.</span>
+                <span>ООО «Максимус» • ИНН 6229064887 • ОГРН 1086230004816</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
