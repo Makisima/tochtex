@@ -1,0 +1,41 @@
+﻿C:\Users\W\Documents\Завод Рязань\Сайт завода 2\
+├── index.html          # Главная страница
+├── about.html          # О заводе
+├── contacts.html       # Контакты
+├── services.html       # Все услуги
+├── thanks.html         # Спасибо за заявку
+├── css/
+│   └── style.css       # Стили (уже есть)
+├── js/
+│   └── main.js         # Скрипты (уже есть)
+├── data/
+│   └── prices.json     # Цены (уже есть)
+└── Images/
+    └── wire-harness-blanks.jpg
+    └── tooling-shop.jpg
+    └── sodick-machine.jpg
+    └── sodick-aq300l-2.jpg
+    └── sodick-aq300l-1.jpg
+    └── pcb-shop.jpg
+    └── painting-parts-2.jpg
+    └── painting-parts-1.jpg
+    └── painting-booth-2.jpg
+    └── injection-molding-machine.jpg
+    └── laser-durma-2.jpg
+    └── laser-durma-1.jpg
+    └── cabinet-tele2-1.jpg
+    └── cabinet-set.jpg
+    └── painting-booth-1.jpg
+    └── injection-molding-shop.jpg
+    └── cabinet-internal.jpg
+    └── cabinet-blanks.jpg
+    └── ac-unit-2.jpg
+    └── ac-unit-1.jpg
+    └── cabinet-painting-prep.jpg
+    └── workshop-panorama.jpg
+    └── map-location.jpg
+    └── punching-strippin.jpg
+    └── smt-shop-main.jpg
+    └── smt-worker.jpg
+    └── smt-shop-2.jpg
+   
