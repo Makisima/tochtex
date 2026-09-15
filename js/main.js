@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (priceLoader) {
         switchPriceTab('лазерная');
 
-        fetch('../data/prices.json')
+        fetch('data/prices.json')
             .then(function(response) {
                 if (!response.ok) {
                     throw new Error('Ошибка загрузки: ' + response.status);

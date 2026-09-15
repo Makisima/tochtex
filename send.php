@@ -13,31 +13,38 @@ if (empty($name) || empty($phone)) {
     exit;
 }
 
+// Обработка прикреплённого файла
+$file_info = 'не прикреплён';
+if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+    $file_name = $_FILES['file']['name'];
+    $file_size = round($_FILES['file']['size'] / 1024, 1) . ' KB';
+    $file_info = "$file_name ($file_size)";
+}
+
 // Формируем тело письма
 $subject = 'Новая заявка с сайта tochtex.ru';
-$body = "Имя: $name\n";
+$body  = "Имя: $name\n";
 $body .= "Телефон: $phone\n";
 $body .= "Email: " . ($email ?: 'не указан') . "\n";
 $body .= "Услуга: " . ($service ?: 'не выбрана') . "\n";
-$body .= "Сообщение:\n" . ($message ?: 'не указано') . "\n";
+$body .= "Файл: $file_info\n";
+$body .= "\nСообщение:\n" . ($message ?: 'не указано') . "\n";
 
 // Заголовки письма
-$headers = "From: no-reply@tochtex.ru\r\n";
-$headers .= "Reply-To: " . ($email ?: 'mmatveev02@mail.ru') . "\r\n";
+$headers  = "From: no-reply@tochtex.ru\r\n";
+$headers .= "Reply-To: " . ($email ?: 'sale@tochtex.ru') . "\r\n";
 $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
 // Отправляем письмо
-$to = 'mmatveev02@mail.ru';
+$to = 'sale@tochtex.ru';
 $mail_sent = mail($to, $subject, $body, $headers);
 
-// Перенаправляем на страницу благодарности
 if ($mail_sent) {
     header('Location: thanks.html');
     exit;
 } else {
-    // Если письмо не отправилось, покажем ошибку
     http_response_code(500);
-    echo 'Ошибка при отправке письма. Попробуйте позвонить по телефону +7 (903) 002-18-83.';
+    echo 'Ошибка при отправке письма. Позвоните: +7 (903) 002-18-83.';
 }
 ?>

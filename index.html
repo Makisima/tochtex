@@ -252,8 +252,7 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm" action="thanks.html" method="POST" netlify>
-                        <input type="hidden" name="form-name" value="contact">
+                    <form id="contactForm" action="send.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="text" name="name" placeholder="Ваше имя" required>
                         </div>
@@ -266,16 +265,16 @@
                         <div class="form-group">
                             <select name="service">
                                 <option value="">Выберите услугу</option>
-                                <option value="laser">Лазерная резка</option>
-                                <option value="punching">Координатная пробивка</option>
-                                <option value="painting">Порошковая окраска</option>
-                                <option value="bending">Гибка металла</option>
-                                <option value="welding">Сварочные работы</option>
-                                <option value="machining">Токарно-фрезерные</option>
-                                <option value="tooling">Пресс-формы</option>
-                                <option value="galvanic">Гальваника</option>
-                                <option value="smt">SMT-монтаж</option>
-                                <option value="cabinets">Телеком-шкафы</option>
+                                <option value="Лазерная резка">Лазерная резка</option>
+                                <option value="Координатная пробивка">Координатная пробивка</option>
+                                <option value="Порошковая окраска">Порошковая окраска</option>
+                                <option value="Гибка металла">Гибка металла</option>
+                                <option value="Сварочные работы">Сварочные работы</option>
+                                <option value="Токарно-фрезерные">Токарно-фрезерные</option>
+                                <option value="Пресс-формы">Пресс-формы</option>
+                                <option value="Гальваника">Гальваника</option>
+                                <option value="SMT-монтаж">SMT-монтаж</option>
+                                <option value="Телеком-шкафы">Телеком-шкафы</option>
                             </select>
                         </div>
                         <div class="form-group">
