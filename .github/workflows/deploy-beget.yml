@@ -1,0 +1,29 @@
+﻿name: Deploy to Beget (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Напишите "yes" для подтверждения деплоя на tochtex.ru'
+        required: true
+        default: 'no'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm == 'yes'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "."
+          target: "tochtex.ru/public_html/"
+          overwrite: true
+          rm: false
+          strip_components: 0
