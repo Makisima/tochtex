@@ -488,6 +488,20 @@ h3 {
     text-align: center;
 }
 
+/* ===== ФИКС: тёмный текст в выпадающем списке услуг ===== */
+/* Без этого правила в Chrome/Edge на Windows опции <select> наследуют
+   белый цвет текста и становятся невидимыми на белом фоне списка. */
+.contact-form select option {
+    color: #1A1A2E;              /* тёмный текст */
+    background-color: #FFFFFF;   /* белый фон списка */
+    padding: 8px;
+}
+.contact-form select option:checked,
+.contact-form select option:hover {
+    color: #FFFFFF;
+    background-color: #FF6B00;   /* оранжевый фон при выборе/наведении */
+}
+
 /* ===== FOOTER ===== */
 .footer {
     background: #061224;
