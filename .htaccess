@@ -1,0 +1,16 @@
+﻿# ===== ЗАЩИТА VENDOR =====
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^vendor/ - [F,L]
+</IfModule>
+
+# ===== ОТКЛЮЧЕНИЕ ЛИСТИНГА ДИРЕКТОРИЙ =====
+Options -Indexes
+
+# ===== ЗАПРЕТ ДОСТУПА К СЛУЖЕБНЫМ ФАЙЛАМ =====
+# Блокируем только composer.json, composer.lock и README.md.
+# ВАЖНО: data/prices.json НЕ блокируется — его читает JS на сайте.
+<FilesMatch "^(composer\.(json|lock)|README\.md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

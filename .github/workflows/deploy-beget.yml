@@ -22,7 +22,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "index.html,about.html,services.html,contacts.html,thanks.html,requisites.html,send.php,css,js,data,Images"
+          source: "index.html,about.html,services.html,contacts.html,thanks.html,requisites.html,privacy.html,send.php,.htaccess,css,js,data,Images"
           target: "tochtex.ru/public_html/"
           overwrite: true
           rm: false

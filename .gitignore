@@ -1,0 +1,32 @@
+﻿# ===== СЕКРЕТЫ (никогда не коммитить!) =====
+config.php
+.env
+*.env
+
+# ===== Composer =====
+/vendor/
+composer.json
+composer.lock
+
+# ===== Загруженные файлы (если появится) =====
+/uploads/
+
+# ===== Системные =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Резервные копии =====
+*.bak
+*.backup
+*.old
+*.orig
+
+# ===== Логи =====
+*.log
+error_log
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
