@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор стоимости — НПО «ТочныеТехнологии»</title>
+    <meta name="description" content="Онлайн-калькулятор стоимости лазерной резки, координатной пробивки и порошковой окраски. Расчёт за 1 минуту.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113089370', 'ym');
+
+        ym(113089370, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/113089370" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">🏭 <strong>НПО «ТочныеТехнологии»</strong></a>
+                <small>Производство полного цикла</small>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="calculator.html" class="active">Калькулятор</a></li>
+                    <li><a href="about.html">О заводе</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-contacts">
+                <a href="tel:+79030021883" class="phone">📞 +7 (903) 002-18-83</a>
+                <a href="#contact" class="btn btn-accent btn-sm">Заказать звонок</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Калькулятор стоимости</h1>
+            <p>Быстрый расчёт по трём услугам. Точная цена — после получения чертежа или ТЗ.</p>
+        </div>
+    </section>
+
+    <main style="padding: 60px 0; background: var(--gray); min-height: 60vh;">
+        <div class="container">
+
+            <div class="calc-loading" id="calc-loading">
+                <p>⏳ Загрузка цен...</p>
+            </div>
+
+            <noscript>
+                <p style="text-align: center; padding: 40px; font-size: 16px;">Калькулятор требует включённого JavaScript. Позвоните: <a href="tel:+79030021883">+7 (903) 002-18-83</a>.</p>
+            </noscript>
+
+            <div id="calc-wrapper" style="display: none;">
+
+                <div class="calc-tabs">
+                    <button type="button" class="calc-tab active" data-calc="лазерная">🔦 Лазерная резка</button>
+                    <button type="button" class="calc-tab" data-calc="пробивка">⚡ Координатная пробивка</button>
+                    <button type="button" class="calc-tab" data-calc="покраска">🎨 Порошковая окраска</button>
+                </div>
+
+                <div class="calc-layout">
+
+                    <div class="calc-form">
+
+                        <div class="calc-panel active" data-panel="лазерная">
+                            <div class="calc-field">
+                                <label for="laser-mat">Материал</label>
+                                <select id="laser-mat">
+                                    <option value="сталь">Сталь / оцинковка</option>
+                                    <option value="нержавейка">Нержавейка</option>
+                                    <option value="алюминий">Алюминий</option>
+                                </select>
+                            </div>
+                            <div class="calc-field">
+                                <label for="laser-thick">Толщина, мм</label>
+                                <select id="laser-thick"></select>
+                            </div>
+                            <div class="calc-field">
+                                <label for="laser-len">Длина реза, метров</label>
+                                <input type="number" id="laser-len" min="0" max="10000" step="0.1" placeholder="например, 250">
+                            </div>
+                            <div class="calc-field calc-checkbox">
+                                <label for="laser-urgent">
+                                    <input type="checkbox" id="laser-urgent">
+                                    <span>Срочно (менее 3 дней) — коэффициент 1.5</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="calc-panel" data-panel="пробивка">
+                            <div class="calc-field">
+                                <label for="punch-thick">Толщина, мм</label>
+                                <select id="punch-thick"></select>
+                            </div>
+                            <div class="calc-field">
+                                <label for="punch-mode">Что считаем</label>
+                                <select id="punch-mode">
+                                    <option value="удар">За удар (отверстие)</option>
+                                    <option value="метр">За метр реза</option>
+                                </select>
+                            </div>
+                            <div class="calc-field">
+                                <label for="punch-qty">Количество</label>
+                                <input type="number" id="punch-qty" min="0" step="1" placeholder="например, 3000">
+                            </div>
+                            <p class="calc-hint" id="punch-hint">Для толщины свыше 3 мм расчёт за удар недоступен — только за метр реза.</p>
+                        </div>
+
+                        <div class="calc-panel" data-panel="покраска">
+                            <div class="calc-field">
+                                <label for="paint-area">Площадь окрашиваемой поверхности, м²</label>
+                                <input type="number" id="paint-area" min="0" max="10000" step="0.1" placeholder="например, 30">
+                            </div>
+                            <div class="calc-field calc-checkbox">
+                                <label for="paint-complex">
+                                    <input type="checkbox" id="paint-complex">
+                                    <span>Сложный профиль — коэффициент 1.2</span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="calc-result">
+                        <div class="calc-result-inner">
+                            <h3>Результат расчёта</h3>
+                            <div class="calc-result-row">
+                                <span>Базовая стоимость:</span>
+                                <span id="res-base">— ₽</span>
+                            </div>
+                            <div class="calc-result-row" id="row-discount" style="display: none;">
+                                <span>Скидка за объём:</span>
+                                <span id="res-discount">—</span>
+                            </div>
+                            <div class="calc-result-row" id="row-coef" style="display: none;">
+                                <span>Коэффициент:</span>
+                                <span id="res-coef">—</span>
+                            </div>
+                            <div class="calc-result-row calc-total">
+                                <span>Без НДС:</span>
+                                <span id="res-total-novat">— ₽</span>
+                            </div>
+                            <div class="calc-result-row calc-total-accent">
+                                <span>С НДС (22%):</span>
+                                <span id="res-total-vat">— ₽</span>
+                            </div>
+                            <p class="calc-min-warning" id="res-warning" style="display: none;"></p>
+                            <p class="calc-note">Расчёт ориентировочный. Точная стоимость — после получения чертежа или ТЗ.</p>
+                            <button type="button" class="btn btn-accent btn-block" id="calc-to-form" disabled>
+                                Оформить заявку с этим расчётом
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Отправить заявку</h2>
+                    <p>Прикрепите чертёж или опишите задачу — мы подготовим точный расчёт.</p>
+                    <div class="contact-details">
+                        <p>📞 <a href="tel:+79030021883">+7 (903) 002-18-83</a></p>
+                        <p>✉️ <a href="mailto:sale@tochtex.ru">sale@tochtex.ru</a></p>
+                        <p>📍 390043, Рязань, проезд Шабулина, 2В</p>
+                        <p>🕐 Пн–Пт: 9:00 – 18:00</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm" action="send.php" method="POST" enctype="multipart/form-data">
+                        <div style="position:absolute; left:-9999px;" aria-hidden="true">
+                            <input type="text" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" name="phone" placeholder="Телефон" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <select name="service" id="form-service">
+                                <option value="">Выберите услугу</option>
+                                <option value="Лазерная резка">Лазерная резка</option>
+                                <option value="Координатная пробивка">Координатная пробивка</option>
+                                <option value="Порошковая окраска">Порошковая окраска</option>
+                                <option value="Гибка металла">Гибка металла</option>
+                                <option value="Сварочные работы">Сварочные работы</option>
+                                <option value="Токарно-фрезерные">Токарно-фрезерные</option>
+                                <option value="Пресс-формы">Пресс-формы</option>
+                                <option value="Гальваника">Гальваника</option>
+                                <option value="SMT-монтаж">SMT-монтаж</option>
+                                <option value="Телеком-шкафы">Телеком-шкафы</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="file" accept=".dxf,.dwg,.pdf,.jpg,.png" class="file-input">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" id="form-message" placeholder="Опишите задачу, укажите размеры, материал, тираж" style="min-height: 140px;"></textarea>
+                        </div>
+
+                        <div class="form-group form-checkbox">
+                            <label>
+                                <input type="checkbox" name="privacy_consent" required>
+                                <span>Я согласен на обработку персональных данных в соответствии с <a href="privacy.html" target="_blank">политикой конфиденциальности</a></span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-accent btn-block">Отправить заявку</button>
+                        <p class="form-note">* Мы не передаём данные третьим лицам</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>НПО «ТочныеТехнологии»</h4>
+                    <p>Производство полного цикла с 1994 года. Сертификат ISO 9001-2015.</p>
+                </div>
+                <div>
+                    <h4>Контакты</h4>
+                    <p>📞 +7 (903) 002-18-83</p>
+                    <p>✉️ sale@tochtex.ru</p>
+                    <p>📍 Рязань, проезд Шабулина, 2В</p>
+                </div>
+                <div>
+                    <h4>Услуги</h4>
+                    <a href="services.html#sheet-metal">Листовой металл</a>
+                    <a href="services.html#machining">Механообработка</a>
+                    <a href="services.html#coating">Покрытия</a>
+                    <a href="services.html#assembly">Сборка и монтаж</a>
+                    <a href="services.html#tooling">Оснастка</a>
+                </div>
+                <div>
+                    <h4>Информация</h4>
+                    <a href="about.html">О заводе</a>
+                    <a href="contacts.html">Контакты</a>
+                    <a href="index.html#prices">Прайс-лист</a>
+                    <a href="calculator.html">Калькулятор</a>
+                    <a href="requisites.html">Реквизиты</a>
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 НПО «ТочныеТехнологии». Все права защищены.</span>
+                <span>ООО «Максимум» • ИНН 7722787277 • ОГРН 1127747004703</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/calculator.js"></script>
+</body>
+</html>

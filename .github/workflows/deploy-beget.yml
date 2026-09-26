@@ -1,4 +1,4 @@
-﻿name: Deploy to Beget (manual)
+name: Deploy to Beget (manual)
 
 on:
   workflow_dispatch:

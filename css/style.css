@@ -489,17 +489,15 @@ h3 {
 }
 
 /* ===== ФИКС: тёмный текст в выпадающем списке услуг ===== */
-/* Без этого правила в Chrome/Edge на Windows опции <select> наследуют
-   белый цвет текста и становятся невидимыми на белом фоне списка. */
 .contact-form select option {
-    color: #1A1A2E;              /* тёмный текст */
-    background-color: #FFFFFF;   /* белый фон списка */
+    color: #1A1A2E;
+    background-color: #FFFFFF;
     padding: 8px;
 }
 .contact-form select option:checked,
 .contact-form select option:hover {
     color: #FFFFFF;
-    background-color: #FF6B00;   /* оранжевый фон при выборе/наведении */
+    background-color: #FF6B00;
 }
 
 /* ===== FOOTER ===== */
@@ -698,6 +696,7 @@ h3 {
         grid-template-columns: 1fr;
     }
 }
+
 /* ===== СТИЛИ ДЛЯ ЧЕКБОКСА СОГЛАСИЯ 152-ФЗ ===== */
 .form-checkbox {
     margin: 18px 0;
@@ -730,4 +729,190 @@ h3 {
 
 .form-checkbox a:hover {
     color: var(--accent-hover);
+}
+
+/* ===== КАЛЬКУЛЯТОР ===== */
+.calc-loading {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 18px;
+    color: var(--gray-dark);
+}
+
+.calc-tabs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.calc-tab {
+    padding: 14px 28px;
+    border: 2px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+.calc-tab:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+.calc-tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+}
+
+.calc-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.calc-form {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+}
+
+.calc-panel {
+    display: none;
+}
+.calc-panel.active {
+    display: block;
+}
+
+.calc-field {
+    margin-bottom: 20px;
+}
+.calc-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: var(--primary);
+}
+.calc-field select,
+.calc-field input[type="number"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e6ed;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    color: #1A1A2E;
+    background: var(--white);
+    transition: var(--transition);
+}
+.calc-field select:focus,
+.calc-field input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.calc-checkbox label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #1A1A2E;
+    cursor: pointer;
+}
+.calc-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.calc-hint {
+    font-size: 13px;
+    color: var(--gray-dark);
+    margin-top: -6px;
+    font-style: italic;
+    display: none;
+}
+
+.calc-result-inner {
+    background: var(--primary);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: var(--calc-sticky-top, 100px);
+    transition: top 0.2s ease;
+}
+.calc-result-inner h3 {
+    color: var(--white);
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+.calc-result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 15px;
+}
+.calc-result-row.calc-total {
+    border-bottom: none;
+    padding-top: 16px;
+    font-size: 17px;
+    font-weight: 600;
+}
+.calc-result-row.calc-total-accent {
+    border-bottom: none;
+    padding-top: 8px;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+}
+.calc-min-warning {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(255,107,0,0.15);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--white);
+}
+.calc-note {
+    margin-top: 20px;
+    font-size: 13px;
+    opacity: 0.7;
+}
+.calc-result-inner .btn-block {
+    margin-top: 20px;
+}
+.calc-result-inner .btn-block:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .calc-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .calc-result-inner {
+        position: static;
+    }
+    .calc-tabs {
+        flex-direction: column;
+    }
+    .calc-tab {
+        width: 100%;
+    }
 }

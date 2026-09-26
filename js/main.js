@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(function(error) {
                 console.error('Ошибка загрузки прайс-листа:', error);
                 if (priceLoader) {
-                    priceLoader.innerHTML = 
+                    priceLoader.innerHTML =
                         '<p style="color: #999;">⚠️ Не удалось загрузить прайс-лист. <br> <a href="index.html#contact" style="color: #FF6B00;">Пожалуйста, оставьте заявку</a> — мы рассчитаем индивидуально.</p>';
                 }
             });
@@ -157,12 +157,26 @@ function renderPrices(data) {
     var allServices = [
         'лазерная', 'пробивка', 'покраска', 'прессформы', 'гибка', 'сварка', 'гальваника',
         'токарка', 'фрезерка', 'шлифовка', 'электроэрозионная', 'чпу',
-        'сборка_жгутов', 'литьё_пластмасс', 'сборка_кондиционеров', 'электромонтаж'
+        'сборочная_чпу', 'сборка_кондиционеров', 'сборка_жгутов',
+        'литьё_пластмасс', 'электромонтаж'
     ];
 
     allServices.forEach(function(serviceKey) {
         var service = data[serviceKey];
         if (!service) return;
+
+        // Определяем колонки и строки
+        var cols, rows;
+        if (service.калькулятор) {
+            var gen = generateRowsFromCalc(serviceKey, service.калькулятор);
+            cols = gen.cols;
+            rows = gen.rows;
+        } else if (service.колонки && service.строки) {
+            cols = service.колонки;
+            rows = service.строки.map(function (row) { return Object.values(row); });
+        } else {
+            return;
+        }
 
         var wrap = document.createElement('div');
         wrap.className = 'price-table-wrap';
@@ -177,15 +191,16 @@ function renderPrices(data) {
         html += '<div style="overflow-x: auto; background: var(--white); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 20px;">';
         html += '<table style="width: 100%; border-collapse: collapse; font-size: 15px;">';
         html += '<thead><tr style="background: var(--primary); color: var(--white);">';
-        service.колонки.forEach(function(col) {
+        cols.forEach(function (col) {
             html += '<th style="padding: 14px 16px; text-align: left; font-weight: 600;">' + col + '</th>';
         });
         html += '</tr></thead>';
         html += '<tbody>';
-        service.строки.forEach(function(row) {
+        rows.forEach(function (row) {
             html += '<tr style="border-bottom: 1px solid #eee;">';
-            Object.values(row).forEach(function(val) {
-                var isPrice = !isNaN(parseFloat(val)) && val.toString().includes('.');
+            row.forEach(function (val, idx) {
+                // Подсветка числовых значений (кроме первой колонки — там параметры)
+                var isPrice = idx > 0 && /^\d+(\.\d+)?$/.test(String(val));
                 html += '<td style="padding: 12px 16px;' + (isPrice ? ' font-weight: 600; color: var(--accent);' : '') + '">' + val + '</td>';
             });
             html += '</tr>';
@@ -196,6 +211,58 @@ function renderPrices(data) {
         wrap.innerHTML = html;
         container.appendChild(wrap);
     });
+}
+
+// ===== ГЕНЕРАЦИЯ СТРОК ИЗ БЛОКА "КАЛЬКУЛЯТОР" =====
+function generateRowsFromCalc(serviceKey, calc) {
+    var cols = [];
+    var rows = [];
+
+    if (serviceKey === 'лазерная') {
+        cols = ['Толщина, мм', 'Сталь / Оцинковка', 'Нержавейка', 'Алюминий'];
+        var allThick = {};
+        ['сталь', 'нержавейка', 'алюминий'].forEach(function (mat) {
+            if (calc.цены[mat]) {
+                Object.keys(calc.цены[mat]).forEach(function (t) { allThick[t] = true; });
+            }
+        });
+        var sorted = Object.keys(allThick).sort(function (a, b) { return parseFloat(a) - parseFloat(b); });
+        sorted.forEach(function (t) {
+            var row = [t];
+            ['сталь', 'нержавейка', 'алюминий'].forEach(function (mat) {
+                row.push(calc.цены[mat] && calc.цены[mat][t] !== undefined ? calc.цены[mat][t].toString() : '—');
+            });
+            rows.push(row);
+        });
+    } else if (serviceKey === 'пробивка') {
+        cols = ['Толщина, мм', 'За удар (без НДС), ₽', 'За метр (без НДС), ₽'];
+        var allThick2 = {};
+        Object.keys(calc.цены_удар).forEach(function (t) { allThick2[t] = true; });
+        Object.keys(calc.цены_метр).forEach(function (t) { allThick2[t] = true; });
+        var sorted2 = Object.keys(allThick2).sort(function (a, b) { return parseFloat(a) - parseFloat(b); });
+        sorted2.forEach(function (t) {
+            var u = calc.цены_удар[t] !== undefined ? calc.цены_удар[t].toString() : '—';
+            var m = calc.цены_метр[t] !== undefined ? calc.цены_метр[t].toString() : '—';
+            rows.push([t, u, m]);
+        });
+    } else if (serviceKey === 'покраска') {
+        cols = ['Объём заказа, м²', 'Цена, ₽/м²'];
+        var prev = 0;
+        calc.цены.forEach(function (r) {
+            var label;
+            if (r.до === null) {
+                label = 'более ' + prev;
+            } else if (prev === 0) {
+                label = 'до ' + r.до;
+            } else {
+                label = prev + '–' + r.до;
+            }
+            rows.push([label, r.цена.toString()]);
+            if (r.до !== null) prev = r.до;
+        });
+    }
+
+    return { cols: cols, rows: rows };
 }
 
 // ===== ОБНОВЛЕНИЕ ДАТЫ ПРАЙСА =====
