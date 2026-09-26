@@ -32,39 +32,85 @@ function clean(string $value, int $max = 2000): string
     return htmlspecialchars($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 }
 
-// ==== 4. Приём данных ====
+// ==== 4. Rate limiting (файловый, 3 заявки в минуту с одного IP) ====
+function checkRateLimit(string $ip, int $maxRequests = 3, int $windowSeconds = 60): bool
+{
+    $dir = sys_get_temp_dir() . '/tochtex_rate';
+    if (!is_dir($dir)) {
+        @mkdir($dir, 0700, true);
+    }
+    if (!is_dir($dir) || !is_writable($dir)) {
+        // Если не удалось создать — не блокируем, но логируем
+        error_log('[send.php] Rate limit dir not writable');
+        return true;
+    }
+
+    $file = $dir . '/' . md5($ip);
+    $now  = time();
+
+    $data = [];
+    if (file_exists($file)) {
+        $raw = @file_get_contents($file);
+        if ($raw !== false) {
+            $decoded = json_decode($raw, true);
+            if (is_array($decoded)) {
+                $data = $decoded;
+            }
+        }
+    }
+
+    // Оставляем только записи в окне
+    $data = array_filter($data, static fn($t) => ($now - (int)$t) < $windowSeconds);
+
+    if (count($data) >= $maxRequests) {
+        return false;
+    }
+
+    $data[] = $now;
+    @file_put_contents($file, json_encode(array_values($data)), LOCK_EX);
+    return true;
+}
+
+// ==== 5. Приём данных ====
 $name    = clean($_POST['name']    ?? '', 200);
 $phone   = clean($_POST['phone']   ?? '', 50);
 $email   = clean($_POST['email']   ?? '', 200);
 $service = clean($_POST['service'] ?? '', 200);
 $message = clean($_POST['message'] ?? '', 5000);
 
-// ==== 5. Honeypot: боты заполняют скрытое поле, люди — нет ====
+// ==== 6. Honeypot ====
 if (!empty($_POST['website'] ?? '')) {
-    // Молча имитируем успех, чтобы бот не понял, что его отсеяли
+    // Имитируем успех, чтобы бот не понял
     header('Location: thanks.html');
     exit;
 }
 
-// ==== 6. Валидация обязательных полей ====
+// ==== 7. Rate limiting по IP ====
+$client_ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+if (!checkRateLimit($client_ip)) {
+    http_response_code(429);
+    exit('Слишком много заявок. Попробуйте через минуту или позвоните: +7 (903) 002-18-83.');
+}
+
+// ==== 8. Валидация обязательных полей ====
 if ($name === '' || $phone === '') {
     http_response_code(400);
     exit('Ошибка: имя и телефон обязательны.');
 }
 
-// ==== 7. Проверка согласия 152-ФЗ ====
+// ==== 9. Проверка согласия 152-ФЗ ====
 if (empty($_POST['privacy_consent'])) {
     http_response_code(400);
     exit('Необходимо согласие на обработку персональных данных.');
 }
 
-// ==== 8. Валидация email ====
+// ==== 10. Валидация email ====
 if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     exit('Ошибка: некорректный email.');
 }
 
-// ==== 9. Обработка файла ====
+// ==== 11. Обработка файла ====
 $attachment_path = null;
 $attachment_name = null;
 $attachment_size = 0;
@@ -77,10 +123,38 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
         exit('Ошибка загрузки файла. Позвоните: +7 (903) 002-18-83.');
     }
 
-    // Лимит 30 МБ (в пределах лимита Beget 75 МБ)
+    // Явная проверка, что файл пришёл через HTTP POST
+    if (!is_uploaded_file($file['tmp_name'])) {
+        error_log('[send.php] is_uploaded_file failed');
+        http_response_code(400);
+        exit('Ошибка загрузки файла.');
+    }
+
+    // Лимит 30 МБ
     if ($file['size'] > 30 * 1024 * 1024) {
         http_response_code(400);
         exit('Файл слишком большой (макс. 30 МБ).');
+    }
+
+    // Проверка расширения
+    $orig_name = basename($file['name']);
+    $ext = strtolower(pathinfo($orig_name, PATHINFO_EXTENSION));
+
+    // Соответствие расширений и допустимых MIME-типов.
+    // Для PDF/JPG/PNG — строго. Для DXF/DWG — допускаем octet-stream,
+    // т.к. многие серверы не знают эти MIME-типы.
+    $ext_to_mimes = [
+        'pdf'  => ['application/pdf'],
+        'jpg'  => ['image/jpeg'],
+        'jpeg' => ['image/jpeg'],
+        'png'  => ['image/png'],
+        'dxf'  => ['image/vnd.dxf', 'application/dxf', 'application/x-dxf', 'application/octet-stream', 'text/plain'],
+        'dwg'  => ['image/vnd.dwg', 'application/acad', 'application/x-autocad', 'application/octet-stream'],
+    ];
+
+    if (!isset($ext_to_mimes[$ext])) {
+        http_response_code(400);
+        exit('Недопустимое расширение файла. Разрешены: DXF, DWG, PDF, JPG, PNG.');
     }
 
     // Проверка MIME через finfo
@@ -88,31 +162,13 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
     $mime  = finfo_file($finfo, $file['tmp_name']);
     finfo_close($finfo);
 
-    $allowed_mimes = [
-        'application/pdf',
-        'image/jpeg',
-        'image/png',
-        'application/acad',
-        'image/vnd.dwg',
-        'image/vnd.dxf',
-        'application/dxf',
-        'application/octet-stream', // некоторые DXF/DWG определяются так
-    ];
-
-    if (!in_array($mime, $allowed_mimes, true)) {
+    if (!in_array($mime, $ext_to_mimes[$ext], true)) {
+        error_log("[send.php] MIME mismatch: ext=$ext, mime=$mime, name=$orig_name");
         http_response_code(400);
         exit('Недопустимый тип файла. Разрешены: DXF, DWG, PDF, JPG, PNG.');
     }
 
-    // Проверка расширения
-    $orig_name = basename($file['name']);
-    $ext = strtolower(pathinfo($orig_name, PATHINFO_EXTENSION));
-    if (!in_array($ext, ['dxf', 'dwg', 'pdf', 'jpg', 'jpeg', 'png'], true)) {
-        http_response_code(400);
-        exit('Недопустимое расширение файла.');
-    }
-
-    // Санитизация имени (path traversal, непечатные символы)
+    // Санитизация имени
     $orig_name = preg_replace('/[^\w\s\.\-\(\)\[\]]/u', '_', $orig_name);
     $orig_name = mb_substr($orig_name, 0, 200);
 
@@ -121,7 +177,7 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
     $attachment_size = $file['size'];
 }
 
-// ==== 10. Тело письма ====
+// ==== 12. Тело письма ====
 $subject = 'Новая заявка с сайта tochtex.ru';
 
 $body  = "Новая заявка с сайта tochtex.ru\n";
@@ -142,7 +198,7 @@ $body .= "=====================================\n";
 $body .= "IP:    " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . "\n";
 $body .= "Время: " . date('Y-m-d H:i:s') . "\n";
 
-// ==== 11. Отправка через PHPMailer ====
+// ==== 13. Отправка через PHPMailer ====
 $mail = new PHPMailer(true);
 
 try {
@@ -172,12 +228,6 @@ try {
 
     $mail->send();
 
-    // Явное удаление tmp-файла (152-ФЗ). PHP удалил бы его сам,
-    // но для аудита — фиксируем явно.
-    if ($attachment_path && file_exists($attachment_path)) {
-        @unlink($attachment_path);
-    }
-
     header('Location: thanks.html');
     exit;
 
@@ -186,4 +236,10 @@ try {
     http_response_code(500);
     echo 'Ошибка отправки. Позвоните: +7 (903) 002-18-83.';
     exit;
+
+} finally {
+    // Гарантированное удаление tmp-файла (152-ФЗ), независимо от результата
+    if ($attachment_path && file_exists($attachment_path)) {
+        @unlink($attachment_path);
+    }
 }

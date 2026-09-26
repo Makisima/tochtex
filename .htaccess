@@ -15,3 +15,29 @@
         Require all denied
     </FilesMatch>
 </IfModule>
+
+# ===== ЗАГОЛОВКИ БЕЗОПАСНОСТИ =====
+<IfModule mod_headers.c>
+    # Защита от кликджекинга
+    Header set X-Frame-Options "DENY"
+
+    # Запрет MIME-сниффинга
+    Header set X-Content-Type-Options "nosniff"
+
+    # HSTS — принудительный HTTPS на год (только после проверки, что сайт стабильно работает на HTTPS)
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+    # Скрываем версию сервера
+    Header unset X-Powered-By
+    Header unset Server
+
+    # Referrer Policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ===== ЗАПРЕТ КЭШИРОВАНИЯ ДЛЯ PHP =====
+<FilesMatch "\.php$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-store, no-cache, must-revalidate"
+    </IfModule>
+</FilesMatch>
