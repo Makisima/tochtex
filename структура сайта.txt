@@ -1,41 +1,373 @@
-﻿C:\Users\W\Documents\Завод Рязань\Сайт завода 2\
-├── index.html          # Главная страница
-├── about.html          # О заводе
-├── contacts.html       # Контакты
-├── services.html       # Все услуги
-├── thanks.html         # Спасибо за заявку
+═══════════════════════════════════════════════════════════════════════════════
+СТРУКТУРА САЙТА «ТОЧТЕХ»
+Дата: 26 сентября 2026 г.
+Версия: 2.0 (после добавления калькулятора и Яндекс.Метрики)
+═══════════════════════════════════════════════════════════════════════════════
+
+Локальный путь (Windows 7):
+    C:\Users\W\Documents\Завод Рязань\Vebsite_zavod_Ryazan_2
+
+Путь в Git Bash (MINGW64):
+    /c/Users/W/Documents/Завод Рязань/Vebsite_zavod_Ryazan_2
+
+Путь на сервере Beget:
+    /home/m/mmatve1x/tochtex.ru/public_html/
+    (конфиг config.php — вне public_html: /home/m/mmatve1x/tochtex.ru/config.php)
+
+═══════════════════════════════════════════════════════════════════════════════
+📂 СТРУКТУРА ПРОЕКТА
+═══════════════════════════════════════════════════════════════════════════════
+
+Сайт завода 2/
+│
+├── index.html                      # Главная страница
+├── about.html                      # О заводе
+├── contacts.html                   # Контакты
+├── services.html                   # Все услуги
+├── calculator.html                 # Калькулятор стоимости (3 услуги)
+├── thanks.html                     # Страница после отправки заявки
+├── requisites.html                 # Юридические реквизиты ООО «Максимум»
+├── privacy.html                    # Политика конфиденциальности (152-ФЗ)
+│
+├── send.php                        # Обработчик формы (PHPMailer + SMTP)
+│
+├── .htaccess                       # Apache 2.4: защита vendor/, security headers
+├── .gitignore                      # Исключения Git (config.php, vendor/)
+├── push_to_github.bat              # Скрипт синхронизации с GitHub (Windows)
+├── структура сайта.txt             # Этот файл (документация)
+│
+├── .github/
+│   └── workflows/
+│       └── deploy-beget.yml        # CI/CD: ручной деплой через GitHub Actions
+│
 ├── css/
-│   └── style.css       # Стили (уже есть)
+│   └── style.css                   # Единый файл стилей
+│
 ├── js/
-│   └── main.js         # Скрипты (уже есть)
+│   ├── main.js                     # Скрипты: прайс, маска телефона, форма
+│   └── calculator.js               # Калькулятор: расчёты + события Метрики
+│
 ├── data/
-│   └── prices.json     # Цены (уже есть)
-└── Images/
-    └── wire-harness-blanks.jpg
-    └── tooling-shop.jpg
-    └── sodick-machine.jpg
-    └── sodick-aq300l-2.jpg
-    └── sodick-aq300l-1.jpg
-    └── pcb-shop.jpg
-    └── painting-parts-2.jpg
-    └── painting-parts-1.jpg
-    └── painting-booth-2.jpg
-    └── injection-molding-machine.jpg
-    └── laser-durma-2.jpg
-    └── laser-durma-1.jpg
-    └── cabinet-tele2-1.jpg
-    └── cabinet-set.jpg
-    └── painting-booth-1.jpg
-    └── injection-molding-shop.jpg
-    └── cabinet-internal.jpg
-    └── cabinet-blanks.jpg
-    └── ac-unit-2.jpg
-    └── ac-unit-1.jpg
-    └── cabinet-painting-prep.jpg
-    └── workshop-panorama.jpg
-    └── map-location.jpg
-    └── punching-strippin.jpg
-    └── smt-shop-main.jpg
-    └── smt-worker.jpg
-    └── smt-shop-2.jpg
-   
+│   └── prices.json                 # Цены (17 услуг + блок «калькулятор» для 3 услуг)
+│
+└── Images/                         # 28 изображений
+    ├── wire-harness-blanks.jpg
+    ├── tooling-shop.jpg
+    ├── sodick-machine.jpg
+    ├── sodick-aq300l-2.jpg
+    ├── sodick-aq300l-1.jpg
+    ├── pcb-shop.jpg
+    ├── painting-parts-2.jpg
+    ├── painting-parts-1.jpg
+    ├── painting-booth-2.jpg
+    ├── injection-molding-machine.jpg
+    ├── laser-durma-2.jpg
+    ├── laser-durma-1.jpg
+    ├── cabinet-tele2-1.jpg
+    ├── cabinet-set.jpg
+    ├── painting-booth-1.jpg
+    ├── injection-molding-shop.jpg
+    ├── cabinet-internal.jpg
+    ├── cabinet-blanks.jpg
+    ├── ac-unit-2.jpg
+    ├── ac-unit-1.jpg
+    ├── cabinet-painting-prep.jpg
+    ├── workshop-panorama.jpg
+    ├── map-location.jpg
+    ├── punching-strippin.jpg
+    ├── smt-shop-main.jpg
+    ├── smt-worker.jpg
+    ├── smt-shop-2.jpg
+    └── (и другие)
+
+═══════════════════════════════════════════════════════════════════════════════
+📄 ОПИСАНИЕ ФАЙЛОВ
+═══════════════════════════════════════════════════════════════════════════════
+
+HTML-СТРАНИЦЫ (8 штук)
+─────────────────────
+index.html
+    Главная. Hero-блок, быстрые кнопки услуг, статистика, кейс, процесс работы,
+    прайс-лист (динамическая подгрузка из prices.json), форма заявки.
+    Навигация: Главная / Услуги / Калькулятор / О заводе / Контакты.
+    Содержит: Schema.org (LocalBusiness), Yandex.Metrika 113089370.
+
+about.html
+    О заводе. История, факты, оборудование (Sodick, Durma, покрасочная камера).
+    Содержит: Yandex.Metrika 113089370.
+
+services.html
+    Полный перечень услуг по 5 категориям:
+    • Листовой металл (лазерная резка, пробивка, гибка, сварка)
+    • Механообработка (токарка, фрезерка, шлифовка, электроэрозия, ЧПУ)
+    • Покрытия (порошковая окраска, гальваника)
+    • Сборка и монтаж (SMT, жгуты, электромонтаж)
+    • Оснастка (пресс-формы, штампы, литьё пластмасс)
+    Содержит: Yandex.Metrika 113089370.
+
+contacts.html
+    Контакты. Телефон, email, адрес, режим работы, схема проезда.
+    Ссылка на реквизиты.
+    Содержит: Yandex.Metrika 113089370.
+
+calculator.html
+    Калькулятор стоимости по 3 услугам:
+    • Лазерная резка (материал + толщина + длина + срочность)
+    • Координатная пробивка (толщина + режим «удар»/«метр» + количество)
+    • Порошковая окраска (площадь + сложность профиля)
+    Читает цены из data/prices.json (блок «калькулятор»).
+    Отправляет события в Метрику: calc_open, calc_tab_switch, calc_result,
+    calc_send, calc_form_submit.
+    Содержит: Yandex.Metrika 113089370.
+
+thanks.html
+    Страница «Спасибо за заявку». Показывается после успешной отправки формы.
+    Содержит: Yandex.Metrika 113089370 (цель «Заявка отправлена»).
+
+requisites.html
+    Юридические реквизиты ООО «Максимум» (ИНН, КПП, ОКПО, ОГРН, юр. адрес).
+    Содержит: Yandex.Metrika 113089370.
+
+privacy.html
+    Политика конфиденциальности (152-ФЗ). Обязательна по закону.
+    Содержит: Yandex.Metrika 113089370.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+PHP
+───
+send.php
+    Обработчик формы обратной связи. Принимает POST, валидирует данные,
+    отправляет письмо через PHPMailer + SMTP (smtp.beget.com:465).
+    Защита: honeypot, rate limiting (3 заявки/60 сек с IP),
+    строгая MIME-валидация (finfo), лимит файла 30 МБ,
+    is_uploaded_file(), finally-блок удаления tmp-файла.
+    Конфиг — в /home/m/mmatve1x/tochtex.ru/config.php (вне public_html, права 600).
+    НЕ содержит вызовов Метрики (серверный скрипт, не рендерится в браузере).
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CSS
+───
+css/style.css
+    Единый файл стилей. Содержит:
+    • Reset, переменные (:root), типографика, кнопки
+    • Шапка, навигация, hero, quick-nav, stats, case, process, contact
+    • Футер, форма (input/select/textarea/file)
+    • Чекбокс 152-ФЗ (.form-checkbox)
+    • Калькулятор (.calc-*) — sticky через --calc-sticky-top
+    • Адаптив (1024/768/480 px)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+JAVASCRIPT
+──────────
+js/main.js
+    Основной модуль сайта:
+    • Загрузка прайс-листа из prices.json
+    • renderPrices() — рисует таблицы
+    • generateRowsFromCalc() — генерирует строки из блока «калькулятор»
+    • switchPriceTab() — переключение вкладок прайса
+    • Маска телефона (+7 (___) ___-__-__)
+    • Плавный скролл по анкорам
+    • Валидация формы перед отправкой
+
+js/calculator.js
+    Калькулятор:
+    • Загрузка prices.json
+    • 3 услуги: лазерная, пробивка, покраска
+    • Расчёт: базовая цена + скидка за объём + коэффициент + НДС 22%
+    • Динамический список толщин для лазера (зависит от материала)
+    • Ограничение: для толщины >3 мм пробивка «за удар» недоступна
+    • Валидация максимумов (10 000 м / 1 000 000 ударов / 10 000 м²)
+    • Кнопка «Оформить заявку» заполняет форму
+    • События Метрики: calc_open, calc_tab_switch, calc_result, calc_send,
+      calc_form_submit
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ДАННЫЕ
+──────
+data/prices.json
+    Единый источник цен. Структура:
+
+    "лазерная":       { название, описание, калькулятор: {цены, скидки, ...}, примечание }
+    "пробивка":       { название, описание, калькулятор: {цены_удар, цены_метр, ...}, примечание }
+    "покраска":       { название, описание, калькулятор: {цены[], коэффициент_сложности, ...}, примечание }
+    "прессформы":     { название, описание, колонки, строки, примечание }
+    "гибка":          { ... }
+    "сварка":         { ... }
+    "гальваника":     { ... }
+    "токарка":        { ... }
+    "фрезерка":       { ... }
+    "шлифовка":       { ... }
+    "электроэрозионная": { ... }
+    "чпу":            { ... }
+    "сборочная_чпу":  { ... }
+    "сборка_кондиционеров": { ... }
+    "сборка_жгутов":  { ... }
+    "литьё_пластмасс": { ... }
+    "электромонтаж":  { ... }
+
+    Блок «калькулятор» — только у 3 услуг (лазерная, пробивка, покраска).
+    Блоки «колонки» + «строки» — у 14 услуг (отображаются в прайсе как таблица).
+
+    ВАЖНО: файл должен быть без BOM. Проверка: head -c 3 data/prices.json
+    Ожидаемо: 7b 0a 20 ({ \n пробел).
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ИЗОБРАЖЕНИЯ
+───────────
+Images/
+    28 файлов. Основные:
+    • workshop-panorama.jpg — фон hero-блока
+    • map-location.jpg — схема проезда
+    • laser-durma-1.jpg, laser-durma-2.jpg — лазерные станки
+    • sodick-aq300l-1.jpg, sodick-aq300l-2.jpg — электроэрозия
+    • painting-booth-1.jpg, painting-booth-2.jpg — покрасочная камера
+    • painting-parts-1.jpg, painting-parts-2.jpg — окрашенные изделия
+    • injection-molding-shop.jpg, injection-molding-machine.jpg — литьё
+    • cabinet-tele2-1.jpg, cabinet-set.jpg, cabinet-internal.jpg — шкафы
+    • smt-shop-main.jpg, smt-shop-2.jpg, smt-worker.jpg — SMT-монтаж
+    • pcb-shop.jpg — печатные платы
+    • ac-unit-1.jpg, ac-unit-2.jpg — блоки кондиционеров
+    • punching-strippin.jpg — пробивка
+    • tooling-shop.jpg — оснастка
+    • wire-harness-blanks.jpg — жгуты
+
+    Использование: относительные пути `Images/имя.jpg` (в HTML),
+    `../Images/имя.jpg` (в CSS).
+
+═══════════════════════════════════════════════════════════════════════════════
+
+СЛУЖЕБНЫЕ ФАЙЛЫ
+───────────────
+.htaccess
+    Apache 2.4 (Beget). Содержит:
+    • Защита vendor/ (RewriteRule)
+    • Отключение листинга директорий (Options -Indexes)
+    • Запрет доступа к composer.json, composer.lock, README.md
+    • Security headers: HSTS, X-Frame-Options, X-Content-Type-Options,
+      Referrer-Policy
+    • Запрет кэширования PHP
+    ВАЖНО: синтаксис Apache 2.4 — «Require all denied» (не «Order allow,deny»).
+    При ошибке 500 — переименовать в .htaccess_disabled, проверить сайт.
+
+.gitignore
+    Исключения Git:
+    • config.php (пароль SMTP)
+    • vendor/ (PHPMailer, ставится на сервере)
+    • composer.json, composer.lock
+    • .DS_Store, Thumbs.db
+
+push_to_github.bat
+    Windows-скрипт: git add . + git commit (авто) + git push origin main.
+    Минус: сообщение коммита неинформативное («Auto-push: дата время»).
+
+.github/workflows/deploy-beget.yml
+    GitHub Actions. Ручной деплой (workflow_dispatch) с подтверждением.
+    source: index.html,calculator.html,about.html,services.html,contacts.html,
+            thanks.html,requisites.html,privacy.html,send.php,.htaccess,
+            css,js,data,Images
+    target: tochtex.ru/public_html/
+    НЕ деплоятся: config.php, vendor/, composer.json, composer.lock
+    Секреты: SSH_HOST, SSH_USER, SSH_PASSWORD (в GitHub Secrets).
+
+структура сайта.txt
+    Этот файл.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+YANDEX.METRIKA
+──────────────
+Счётчик: 113089370
+
+Установлен на всех 8 HTML-страницах (в <head>, перед </head>).
+
+Цели (9 штук):
+    1. Клик по телефону
+    2. Клик по email
+    3. Отправка формы
+    4. Заявка отправлена (thanks) — URL содержит thanks.html
+    5. Калькулятор: открытие — calc_open
+    6. Калькулятор: смена услуги — calc_tab_switch
+    7. Калькулятор: расчёт — calc_result
+    8. Калькулятор: к заявке — calc_send
+    9. Калькулятор: заявка отправлена — calc_form_submit
+
+Кабинет: https://metrika.yandex.ru/dashboard?id=113089370
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ПРОВЕРКА BOM
+────────────
+Перед деплоем проверять все файлы:
+
+    cd "/c/Users/W/Documents/Завод Рязань/Vebsite_zavod_Ryazan_2"
+    for f in index.html about.html services.html contacts.html thanks.html \
+             requisites.html privacy.html calculator.html \
+             data/prices.json js/main.js js/calculator.js css/style.css \
+             .github/workflows/deploy-beget.yml; do
+        printf "%-40s: " "$f"
+        head -c 3 "$f" | od -An -tx1 | tr -d ' \n'
+        echo
+    done
+
+Ожидаемые значения:
+    HTML-файлы:                   3c2144  (<!D)
+    data/prices.json:             7b0a20  ({ \n )
+    js/main.js:                   2f2f20  (// )
+    js/calculator.js:             2f2f20  (// )
+    css/style.css:                2f2a20  (/* )
+    .github/workflows/*.yml:      6e616d  (nam)
+
+Если где-то efbbbf — убрать BOM:
+    sed -i '1s/^\xEF\xBB\xBF//' <файл>
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ДЕПЛОЙ
+──────
+Полный цикл:
+    1. Правка файлов локально
+    2. Проверка BOM
+    3. git add . → git commit → git push origin main
+    4. Netlify staging (авто) — проверить изменения
+    5. GitHub Actions → «Deploy to Beget (manual)» → Run workflow → yes
+    6. Проверка https://tochtex.ru
+
+Краткая шпаргалка:
+    cd "/c/Users/W/Documents/Завод Рязань/Vebsite_zavod_Ryazan_2"
+    git add .
+    git commit -m "описание"
+    git push origin main
+    # → https://github.com/Makisima/tochtex/actions → Run workflow → yes
+
+═══════════════════════════════════════════════════════════════════════════════
+
+КОНТАКТЫ
+────────
+Телефон:        +7 (903) 002-18-83
+Email:          sale@tochtex.ru
+Адрес:          390043, Рязань, проезд Шабулина, 2В
+Юр. лицо:       ООО «Максимум»
+ИНН:            7722787277
+ОГРН:           1127747004703
+
+Домен:          tochtex.ru (оплачен до 04.09.2027)
+Хостинг:        Beget, тариф Blog (оплачен до 27.10.2026)
+Сервер:         mmatve1x.beget.tech
+Панель:         https://cp.beget.com
+Файловый менеджер: https://sprutio.beget.com
+Веб-почта:      https://web.beget.email
+
+GitHub:         https://github.com/Makisima/tochtex
+Staging:        https://tochtex.netlify.app
+Production:     https://tochtex.ru
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Структура сайта обновлена 26 сентября 2026 г.
+Следующее обновление — после подключения CRM и/или расширения калькулятора.
+═══════════════════════════════════════════════════════════════════════════════
