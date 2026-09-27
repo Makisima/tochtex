@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Service files
+Disallow: /send.php
+Disallow: /data/
+Disallow: /vendor/
+Disallow: /config.php
+Disallow: /thanks.html
+
+# Sitemap
+Sitemap: https://tochtex.ru/sitemap.xml
