@@ -16,11 +16,13 @@ composer.lock
 Thumbs.db
 desktop.ini
 
-# ===== Резервные копии =====
+# ===== Резервные копии и бэкапы =====
 *.bak
 *.backup
 *.old
 *.orig
+blog_backup_*/
+*_backup_*/
 
 # ===== Логи =====
 *.log
@@ -29,8 +31,5 @@ error_log
 # ===== IDE =====
 .vscode/
 .idea/
-*.swpblog_backup_*/
-.htaccess.bak
-sitemap.xml.bak
-services.html.bak
-calculator.html.bak
+*.swp
+
