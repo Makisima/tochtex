@@ -29,4 +29,8 @@ error_log
 # ===== IDE =====
 .vscode/
 .idea/
-*.swp
+*.swpblog_backup_*/
+.htaccess.bak
+sitemap.xml.bak
+services.html.bak
+calculator.html.bak
