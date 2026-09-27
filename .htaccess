@@ -2,6 +2,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^vendor/ - [F,L]
+
+    # 301: старая статья → новая категория
+    RewriteRule ^blog/kak-rasschitat-stoimost-lazernoy-rezki\.html$ https://tochtex.ru/blog/tehnologii/kak-rasschitat-stoimost-lazernoy-rezki.html [R=301,L]
+
 </IfModule>
 
 # ===== ОТКЛЮЧЕНИЕ ЛИСТИНГА ДИРЕКТОРИЙ =====

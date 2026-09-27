@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стоимость лазерной резки: формула расчёта и примеры</title>
+    <meta name="description" content="Как рассчитать стоимость лазерной резки: формула, скидки за объём, коэффициент срочности. Примеры расчётов и онлайн-калькулятор. Цены от 6 ₽/м. НДС 22%.">
+    <link rel="canonical" href="https://tochtex.ru/blog/tehnologii/kak-rasschitat-stoimost-lazernoy-rezki.html">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css?v=4">
+    <link rel="stylesheet" href="../blog.css?v=1">
+
+    <!-- Schema.org: Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Как рассчитать стоимость лазерной резки металла: формула и примеры",
+        "description": "Формула расчёта стоимости лазерной резки металла, примеры с ценами, скидки за объём и коэффициент срочности.",
+        "image": "https://tochtex.ru/Images/laser-durma-1.jpg",
+        "author": {
+            "@type": "Organization",
+            "name": "НПО «ТочныеТехнологии»"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "НПО «ТочныеТехнологии»",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://tochtex.ru/Images/workshop-panorama.jpg"
+            }
+        },
+        "datePublished": "2026-10-08",
+        "dateModified": "2026-10-08",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://tochtex.ru/blog/tehnologii/kak-rasschitat-stoimost-lazernoy-rezki.html"
+        }
+    }
+    </script>
+
+    <!-- Schema.org: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://tochtex.ru/"},
+            {"@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://tochtex.ru/services.html"},
+            {"@type": "ListItem", "position": 3, "name": "Лазерная резка", "item": "https://tochtex.ru/services.html#sheet-metal"},
+            {"@type": "ListItem", "position": 4, "name": "Как рассчитать стоимость"}
+        ]
+    }
+    </script>
+
+    <!-- Schema.org: FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Включён ли НДС в цены на сайте?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Нет. Все цены в прайс-листе и калькуляторе указаны без НДС. НДС 22% добавляется при оформлении заявки. Основание: ФЗ от 28.11.2025 №425-ФЗ."}
+            },
+            {
+                "@type": "Question",
+                "name": "Что считается срочным заказом?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Заказ со сроком выполнения менее 3 рабочих дней. В этом случае применяется коэффициент 1.5 к базовой стоимости."}
+            },
+            {
+                "@type": "Question",
+                "name": "Какой минимальный заказ на лазерную резку?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Минимальная стоимость заказа — 2000 ₽ без НДС. Если расчёт даёт меньшую сумму, итоговая цена всё равно составит 2000 ₽."}
+            },
+            {
+                "@type": "Question",
+                "name": "Какой максимальный объём можно заказать через калькулятор?",
+                "acceptedAnswer": {"@type": "Answer", "text": "До 10 000 погонных метров. Для больших объёмов свяжитесь с менеджером по телефону +7 (903) 002-18-83 — рассчитаем индивидуально."}
+            },
+            {
+                "@type": "Question",
+                "name": "Включён ли материал в стоимость резки?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Цены указаны за услугу резки. Стоимость материала рассчитывается отдельно. Уточните у менеджера, нужен ли вам металл или вы предоставляете свой."}
+            }
+        ]
+    }
+    </script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113089370', 'ym');
+
+        ym(113089370, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/113089370" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+
+    <!-- ===== ШАПКА ===== -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">🏭 <strong>НПО «ТочныеТехнологии»</strong></a>
+                <small>Производство полного цикла</small>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../../index.html">Главная</a></li>
+                    <li><a href="../../services.html">Услуги</a></li>
+                    <li><a href="../../calculator.html">Калькулятор</a></li>
+                    <li><a href="../../about.html">О заводе</a></li>
+                    <li><a href="../../contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-contacts">
+                <a href="tel:+79030021883" class="phone">📞 +7 (903) 002-18-83</a>
+                <a href="../../index.html#contact" class="btn btn-accent btn-sm">Заказать звонок</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== ГЕРОЙ СТРАНИЦЫ ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <nav class="breadcrumbs" aria-label="Хлебные крошки">
+                <a href="../../index.html">Главная</a><span>→</span>
+                <a href="../../services.html">Услуги</a><span>→</span>
+                <a href="../../services.html#sheet-metal">Лазерная резка</a><span>→</span>
+                Как рассчитать стоимость
+            </nav>
+            <h1>Как рассчитать стоимость лазерной резки металла: формула и примеры</h1>
+            <p>Разбираем ценообразование по шагам — с формулами, примерами и скидками</p>
+        </div>
+    </section>
+
+    <!-- ===== СТАТЬЯ ===== -->
+    <main style="padding: 60px 0; background: var(--white);">
+        <div class="container">
+            <div class="article-wrap">
+
+                <div class="article-meta">
+                    <span>📅 8 октября 2026</span>
+                    <span>⏱️ 6 минут чтения</span>
+                    <span>🏭 НПО «ТочныеТехнологии»</span>
+                </div>
+
+                <article class="article-content">
+
+                    <p>Стоимость лазерной резки металла зависит не только от толщины листа. На цену влияют материал, длина реза, объём партии, срочность и сложность контура. В этой статье мы покажем, как рассчитать стоимость самостоятельно — по той же формуле, что использует наш <a href="../../calculator.html">онлайн-калькулятор</a>.</p>
+
+                    <p>Если после прочтения останутся вопросы — позвоните: <a href="tel:+79030021883">+7 (903) 002-18-83</a>. Подготовим точный расчёт за 2 часа.</p>
+
+                    <!-- ===== TOC ===== -->
+                    <nav class="article-toc" aria-label="Содержание статьи">
+                        <h2>Содержание</h2>
+                        <ol>
+                            <li><a href="#factors">Из чего складывается стоимость</a></li>
+                            <li><a href="#formula">Формула расчёта</a></li>
+                            <li><a href="#examples">Примеры расчёта</a></li>
+                            <li><a href="#save">Как сэкономить на резке</a></li>
+                            <li><a href="#calculator">Онлайн-калькулятор</a></li>
+                            <li><a href="#faq">Частые вопросы</a></li>
+                        </ol>
+                    </nav>
+
+                    <!-- ===== H2: ФАКТОРЫ ===== -->
+                    <h2 id="factors">Из чего складывается стоимость лазерной резки</h2>
+
+                    <p>Цена формируется из четырёх основных параметров. Разберём каждый.</p>
+
+                    <h3>1. Материал и толщина</h3>
+                    <p>Каждый материал режется по-разному. Сталь — самый доступный вариант, нержавейка и алюминий дороже из-за физических свойств: они хуже проводят тепло, требуют больше мощности лазера и защитного газа. Чем толще лист, тем выше цена за погонный метр реза.</p>
+
+                    <p>Пример цен за метр для популярных позиций (без НДС):</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>Материал</th>
+                                <th>Толщина</th>
+                                <th>Цена за 1 м</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Сталь / оцинковка</td>
+                                <td>3 мм</td>
+                                <td>18 ₽</td>
+                            </tr>
+                            <tr>
+                                <td>Нержавейка</td>
+                                <td>5 мм</td>
+                                <td>38 ₽</td>
+                            </tr>
+                            <tr>
+                                <td>Алюминий</td>
+                                <td>5 мм</td>
+                                <td>45 ₽</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>Полный прайс по 17 услугам — в разделе <a href="../../index.html#prices">«Прайс-лист»</a> на главной.</p>
+
+                    <figure class="article-figure">
+                        <img src="../../Images/laser-durma-1.jpg" alt="Лазерная резка металла на станке Durma HD 3015 — НПО «ТочныеТехнологии»" loading="lazy">
+                        <figcaption>Лазерный станок Durma HD 3015 — резка стали до 20 мм, нержавейки и алюминия до 10 мм</figcaption>
+                    </figure>
+
+                    <h3>2. Длина реза</h3>
+                    <p>Основная единица измерения — <strong>погонный метр</strong>. Чем больше длина, тем выше базовая стоимость. Но при объёмах от 100 метров начинают действовать скидки — о них ниже.</p>
+
+                    <h3>3. Срочность</h3>
+                    <p>Если заказ нужно выполнить менее чем за 3 рабочих дня — применяется <strong>коэффициент 1.5</strong>. Это связано с перестройкой производственного графика и возможными сверхурочными. Обычный срок — 3–5 рабочих дней.</p>
+
+                    <h3>4. Сложность контура</h3>
+                    <p>Простая прямая резка дешевле. Сложная геометрия с множеством отверстий, острых углов и кривых требует больше машинного времени и программирования. Для нестандартных задач коэффициент обсуждается индивидуально.</p>
+
+                    <!-- ===== H2: ФОРМУЛА ===== -->
+                    <h2 id="formula">Формула расчёта стоимости</h2>
+
+                    <p>Базовая формула, по которой работает наш калькулятор:</p>
+
+                    <div class="article-formula">
+                        <code>Стоимость = Цена_за_метр × Длина_реза × (1 − Скидка) × Коэф_срочности</code>
+                    </div>
+
+                    <p>Где:</p>
+                    <ul>
+                        <li><strong>Цена_за_метр</strong> — из прайса, зависит от материала и толщины;</li>
+                        <li><strong>Длина_реза</strong> — в погонных метрах;</li>
+                        <li><strong>Скидка</strong> — 0, 5%, 10% или 15% в зависимости от объёма;</li>
+                        <li><strong>Коэф_срочности</strong> — 1.0 (обычно) или 1.5 (срочно).</li>
+                    </ul>
+
+                    <p>После расчёта без НДС добавляется НДС 22%:</p>
+
+                    <div class="article-formula">
+                        <code>Итоговая_цена = Стоимость × 1.22</code>
+                    </div>
+
+                    <h3>Скидки за объём</h3>
+                    <p>Мы поощряем крупные заказы:</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>Объём, метров</th>
+                                <th>Скидка</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>до 100</td><td>0%</td></tr>
+                            <tr><td>101 – 500</td><td>5%</td></tr>
+                            <tr><td>501 – 2000</td><td>10%</td></tr>
+                            <tr><td>от 2001</td><td>15%</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Минимальная стоимость заказа</h3>
+                    <p>Минимальная сумма заказа — <strong>2000 ₽</strong> (без НДС). Если по расчёту получается меньше, итоговая цена всё равно составит 2000 ₽. Это связано с затратами на подготовку станка и программирование.</p>
+
+                    <h3>Максимальный объём онлайн-расчёта</h3>
+                    <p>Калькулятор рассчитывает заказы до <strong>10 000 погонных метров</strong>. Если нужно больше — позвоните менеджеру, рассчитаем индивидуально.</p>
+
+                    <!-- ===== H2: ПРИМЕРЫ ===== -->
+                    <h2 id="examples">Примеры расчёта</h2>
+
+                    <h3>Пример 1: Сталь 3 мм, 200 метров</h3>
+                    <p>Исходные данные: цена 18 ₽/м, длина 200 м, скидка 5% (объём 101–500 м), без срочности.</p>
+                    <ul>
+                        <li>База: 18 × 200 = <strong>3 600 ₽</strong></li>
+                        <li>Скидка 5%: 3 600 × 0.95 = <strong>3 420 ₽</strong></li>
+                        <li>Без НДС: <strong>3 420 ₽</strong></li>
+                        <li>С НДС 22%: 3 420 × 1.22 = <strong>4 172 ₽</strong></li>
+                    </ul>
+
+                    <h3>Пример 2: Нержавейка 5 мм, 50 метров — как срочность меняет цену</h3>
+                    <p>Возьмём цену 38 ₽/м для нержавейки 5 мм и длину 50 м. Покажем оба сценария.</p>
+
+                    <p><strong>Без срочности:</strong></p>
+                    <ul>
+                        <li>База: 38 × 50 = <strong>1 900 ₽</strong></li>
+                        <li>Скидка: 0% (объём меньше 100 м)</li>
+                        <li>Расчёт: 1 900 ₽ → применяется <strong>минимум 2 000 ₽</strong></li>
+                        <li>С НДС 22%: <strong>2 440 ₽</strong></li>
+                    </ul>
+
+                    <p><strong>Со срочностью (коэффициент 1.5):</strong></p>
+                    <ul>
+                        <li>База: 1 900 ₽</li>
+                        <li>× 1.5 = <strong>2 850 ₽</strong> (это уже больше минимума, поэтому минимум не применяется)</li>
+                        <li>Без НДС: <strong>2 850 ₽</strong></li>
+                        <li>С НДС 22%: <strong>3 477 ₽</strong></li>
+                    </ul>
+
+                    <div class="article-note">
+                        <strong>💡 Вывод:</strong> срочность добавляет 850 ₽ к небольшому заказу. Если есть 3–5 дней запаса — экономия почти треть стоимости.
+                    </div>
+
+                    <h3>Пример 3: Алюминий 5 мм, 600 метров (скидка 10%)</h3>
+                    <p>Исходные данные: цена 45 ₽/м, длина 600 м, скидка 10% (объём 501–2000 м), без срочности.</p>
+                    <ul>
+                        <li>База: 45 × 600 = <strong>27 000 ₽</strong></li>
+                        <li>Скидка 10%: 27 000 × 0.90 = <strong>24 300 ₽</strong></li>
+                        <li>Без НДС: <strong>24 300 ₽</strong></li>
+                        <li>С НДС 22%: 24 300 × 1.22 = <strong>29 646 ₽</strong></li>
+                    </ul>
+
+                    <!-- ===== H2: ЭКОНОМИЯ ===== -->
+                    <h2 id="save">Как сэкономить на лазерной резке</h2>
+
+                    <h3>1. Объединяйте заказы</h3>
+                    <p>Скидка 15% при объёме от 2000 метров — существенная экономия. Если у вас несколько партий, выгоднее запустить их вместе: одна наладка станка вместо трёх.</p>
+
+                    <h3>2. Планируйте сроки</h3>
+                    <p>Срочность увеличивает цену в 1.5 раза. Если есть возможность подождать 3–5 рабочих дней — сэкономите треть стоимости. Планируйте заказы заранее.</p>
+
+                    <h3>3. Оптимизируйте чертёж</h3>
+                    <p>Меньше отверстий, простая геометрия, минимальное количество врезок — всё это снижает машинное время и цену. Размещайте детали плотнее на листе, чтобы уменьшить отходы. Используйте стандартные толщины металла — они всегда дешевле.</p>
+
+                    <!-- ===== H2: КАЛЬКУЛЯТОР ===== -->
+                    <h2 id="calculator">Онлайн-калькулятор — расчёт за 1 минуту</h2>
+
+                    <p>Не хотите считать вручную? Воспользуйтесь нашим <a href="../../calculator.html">онлайн-калькулятором</a>. Он работает по той же формуле, что описана выше, и учитывает:</p>
+                    <ul>
+                        <li>Материал (сталь, нержавейка, алюминий);</li>
+                        <li>Толщину от 1 до 20 мм;</li>
+                        <li>Длину реза;</li>
+                        <li>Срочность;</li>
+                        <li>Скидки за объём;</li>
+                        <li>НДС 22%.</li>
+                    </ul>
+
+                    <p>Результат — моментально. Кнопка «Оформить заявку» автоматически перенесёт расчёт в форму — вам останется указать контакты и приложить чертёж.</p>
+
+                    <div style="text-align: center; margin: 32px 0;">
+                        <a href="../../calculator.html" class="btn btn-accent btn-lg">Перейти в калькулятор →</a>
+                    </div>
+
+                    <!-- ===== H2: FAQ ===== -->
+                    <h2 id="faq">Частые вопросы</h2>
+
+                    <h3>Включён ли НДС в цены на сайте?</h3>
+                    <p>Нет. Все цены в прайсе и калькуляторе указаны <strong>без НДС</strong>. НДС 22% добавляется при оформлении заявки. Основание: ФЗ от 28.11.2025 №425-ФЗ.</p>
+
+                    <h3>Что считается срочным заказом?</h3>
+                    <p>Заказ со сроком выполнения менее 3 рабочих дней. В этом случае применяется коэффициент 1.5.</p>
+
+                    <h3>Какой минимальный заказ?</h3>
+                    <p>2000 ₽ без НДС для лазерной резки. Для пробивки — 1500 ₽ (за удар) или 2000 ₽ (за метр).</p>
+
+                    <h3>Какой максимальный объём можно заказать через калькулятор?</h3>
+                    <p>До 10 000 погонных метров. Для больших объёмов свяжитесь с менеджером по телефону <a href="tel:+79030021883">+7 (903) 002-18-83</a> — рассчитаем индивидуально.</p>
+
+                    <h3>Включён ли материал в стоимость резки?</h3>
+                    <p>Цены указаны за услугу резки. Стоимость материала рассчитывается отдельно. Уточните у менеджера, нужен ли вам металл или вы предоставляете свой.</p>
+
+                    <h3>Работаете ли вы с юридическими лицами?</h3>
+                    <p>Да, мы работаем с юридическими лицами и ИП по договору. Предоставляем полный пакет закрывающих документов. Реквизиты компании — на странице <a href="../../requisites.html">«Реквизиты»</a>.</p>
+
+                    <!-- ===== CTA ===== -->
+                    <div class="article-cta">
+                        <h2>Нужен точный расчёт?</h2>
+                        <p>Пришлите чертёж в DXF, DWG или PDF — подготовим коммерческое предложение за 2 часа.</p>
+                        <div class="article-cta-buttons">
+                            <a href="tel:+79030021883" class="btn btn-accent btn-lg">📞 +7 (903) 002-18-83</a>
+                            <a href="../../index.html#contact" class="btn btn-secondary btn-lg">Оставить заявку</a>
+                        </div>
+                    </div>
+
+                </article>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== ПОДВАЛ ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>НПО «ТочныеТехнологии»</h4>
+                    <p>Производство полного цикла с 1994 года. Сертификат ISO 9001-2015.</p>
+                </div>
+                <div>
+                    <h4>Контакты</h4>
+                    <p>📞 +7 (903) 002-18-83</p>
+                    <p>✉️ sale@tochtex.ru</p>
+                    <p>📍 Рязань, проезд Шабулина, 2В</p>
+                </div>
+                <div>
+                    <h4>Услуги</h4>
+                    <a href="../../services.html#sheet-metal">Листовой металл</a>
+                    <a href="../../services.html#machining">Механообработка</a>
+                    <a href="../../services.html#coating">Покрытия</a>
+                    <a href="../../services.html#assembly">Сборка и монтаж</a>
+                    <a href="../../services.html#tooling">Оснастка</a>
+                </div>
+                <div>
+                    <h4>Информация</h4>
+                    <a href="../../about.html">О заводе</a>
+                    <a href="../../contacts.html">Контакты</a>
+                    <a href="../../index.html#prices">Прайс-лист</a>
+                    <a href="../../calculator.html">Калькулятор</a>
+                    <a href="../index.html">Блог</a>
+                    <a href="../../requisites.html">Реквизиты</a>
+                    <a href="../../privacy.html">Политика конфиденциальности</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 НПО «ТочныеТехнологии». Все права защищены.</span>
+                <span>ООО «Максимум» • ИНН 7722787277 • ОГРН 1127747004703</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js?v=4"></script>
+</body>
+</html>
