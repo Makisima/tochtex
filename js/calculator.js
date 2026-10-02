@@ -1,5 +1,6 @@
 // ===== КАЛЬКУЛЯТОР СТОИМОСТИ =====
 // Зависимости: data/prices.json (блоки "калькулятор" в услугах).
+// Версия: ТД-4 v2 (разложение цены: формула, скидка, коэффициент, минимум, НДС).
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -195,19 +196,25 @@ document.addEventListener('DOMContentLoaded', function () {
         var discount = pickDiscount(cfg.скидки, len);
         var coef = urgent ? cfg.коэффициент_срочности : 1;
         var total = base * (1 - discount) * coef;
-        var warning = '';
+
+        // Применение минимума
+        var totalBeforeMin = total;
         if (total < cfg.минимум) {
-            warning = 'Минимальная стоимость заказа — ' + cfg.минимум + ' ₽. Итоговая цена: ' + cfg.минимум + ' ₽.';
             total = cfg.минимум;
         }
+        var minApplied = total - totalBeforeMin;
 
         showResult({
+            formula: pricePerMeter + ' ₽/м × ' + fmtNum(len) + ' м',
             base: base,
-            discount: discount > 0 ? '-' + (discount * 100).toFixed(0) + '%' : null,
-            coef: urgent ? '×' + coef + ' (срочность)' : null,
+            discountPct: discount > 0 ? discount : null,
+            discountAmt: discount > 0 ? base * discount : null,
+            coefLabel: urgent ? 'Коэффициент срочности ×' + coef : null,
+            coefAmt: urgent ? base * (1 - discount) * (coef - 1) : null,
+            minApplied: minApplied > 0 ? minApplied : 0,
             totalNovat: total,
-            totalVat: total * (1 + cfg.ндс),
-            warning: warning
+            vatRate: cfg.ндс,
+            warning: ''
         });
     }
 
@@ -266,19 +273,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         var total = base * (1 - discount);
-        var warning = '';
+        var totalBeforeMin = total;
         if (minimum > 0 && total < minimum) {
-            warning = 'Минимальная стоимость заказа — ' + minimum + ' ₽. Итоговая цена: ' + minimum + ' ₽.';
             total = minimum;
         }
+        var minApplied = total - totalBeforeMin;
+
+        var modeLabel = (mode === 'удар') ? 'за удар' : 'за метр';
+        var formulaText = (mode === 'удар')
+            ? cfg.цены_удар[thick] + ' ₽/удар × ' + qty + ' уд.'
+            : cfg.цены_метр[thick] + ' ₽/м × ' + qty + ' м';
 
         showResult({
+            formula: '(' + modeLabel + ') ' + formulaText,
             base: base,
-            discount: discount > 0 ? '-' + (discount * 100).toFixed(0) + '%' : null,
-            coef: null,
+            discountPct: discount > 0 ? discount : null,
+            discountAmt: discount > 0 ? base * discount : null,
+            coefLabel: null,
+            coefAmt: null,
+            minApplied: minApplied > 0 ? minApplied : 0,
             totalNovat: total,
-            totalVat: total * (1 + cfg.ндс),
-            warning: warning
+            vatRate: cfg.ндс,
+            warning: ''
         });
     }
 
@@ -308,19 +324,24 @@ document.addEventListener('DOMContentLoaded', function () {
         var base = pricePerM2 * area;
         var coef = complex ? cfg.коэффициент_сложности : 1;
         var total = base * coef;
-        var warning = '';
+
+        var totalBeforeMin = total;
         if (cfg.минимум > 0 && total < cfg.минимум) {
-            warning = 'Минимальная стоимость заказа — ' + cfg.минимум + ' ₽.';
             total = cfg.минимум;
         }
+        var minApplied = total - totalBeforeMin;
 
         showResult({
+            formula: pricePerM2 + ' ₽/м² × ' + fmtNum(area) + ' м²',
             base: base,
-            discount: null,
-            coef: complex ? '×' + coef + ' (сложный профиль)' : null,
+            discountPct: null,
+            discountAmt: null,
+            coefLabel: complex ? 'Коэффициент сложности ×' + coef : null,
+            coefAmt: complex ? base * (coef - 1) : null,
+            minApplied: minApplied > 0 ? minApplied : 0,
             totalNovat: total,
-            totalVat: total * (1 + cfg.ндс),
-            warning: warning
+            vatRate: cfg.ндс,
+            warning: ''
         });
     }
 
@@ -338,22 +359,33 @@ document.addEventListener('DOMContentLoaded', function () {
         return n.toLocaleString('ru-RU', { maximumFractionDigits: 0 }).replace(/\u00A0/g, ' ') + ' ₽';
     }
 
+    // Число без валюты — для формул. Округляет до 1 знака после запятой.
+    function fmtNum(n) {
+        return n.toLocaleString('ru-RU', { maximumFractionDigits: 1 }).replace(/\u00A0/g, ' ');
+    }
+
     function showEmpty() {
+        document.getElementById('res-formula').textContent = '—';
         document.getElementById('res-base').textContent = '— ₽';
         document.getElementById('res-total-novat').textContent = '— ₽';
+        document.getElementById('res-vat').textContent = '— ₽';
         document.getElementById('res-total-vat').textContent = '— ₽';
         document.getElementById('row-discount').style.display = 'none';
         document.getElementById('row-coef').style.display = 'none';
+        document.getElementById('row-min').style.display = 'none';
         document.getElementById('res-warning').style.display = 'none';
         document.getElementById('calc-to-form').disabled = true;
     }
 
     function showOverMax(msg) {
+        document.getElementById('res-formula').textContent = '—';
         document.getElementById('res-base').textContent = '— ₽';
         document.getElementById('res-total-novat').textContent = '— ₽';
+        document.getElementById('res-vat').textContent = '— ₽';
         document.getElementById('res-total-vat').textContent = '— ₽';
         document.getElementById('row-discount').style.display = 'none';
         document.getElementById('row-coef').style.display = 'none';
+        document.getElementById('row-min').style.display = 'none';
         var warn = document.getElementById('res-warning');
         warn.style.display = 'block';
         warn.textContent = '⚠️ ' + msg;
@@ -361,26 +393,50 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showResult(r) {
+        // Формула + базовая стоимость
+        document.getElementById('res-formula').textContent = r.formula || '—';
         document.getElementById('res-base').textContent = fmt(r.base);
-        document.getElementById('res-total-novat').textContent = fmt(r.totalNovat);
-        document.getElementById('res-total-vat').textContent = fmt(r.totalVat);
 
+        // Скидка
         var rowDisc = document.getElementById('row-discount');
-        if (r.discount) {
+        if (r.discountPct && r.discountPct > 0) {
             rowDisc.style.display = 'flex';
-            document.getElementById('res-discount').textContent = r.discount;
+            document.getElementById('res-discount-label').textContent =
+                'Скидка за объём -' + (r.discountPct * 100).toFixed(0) + '%:';
+            document.getElementById('res-discount').textContent = '- ' + fmt(r.discountAmt);
         } else {
             rowDisc.style.display = 'none';
         }
 
+        // Коэффициент
         var rowCoef = document.getElementById('row-coef');
-        if (r.coef) {
+        if (r.coefLabel) {
             rowCoef.style.display = 'flex';
-            document.getElementById('res-coef').textContent = r.coef;
+            document.getElementById('res-coef-label').textContent = r.coefLabel + ':';
+            document.getElementById('res-coef').textContent = '+ ' + fmt(r.coefAmt);
         } else {
             rowCoef.style.display = 'none';
         }
 
+        // Применённый минимум
+        var rowMin = document.getElementById('row-min');
+        if (r.minApplied && r.minApplied > 0) {
+            rowMin.style.display = 'flex';
+            document.getElementById('res-min').textContent = '+ ' + fmt(r.minApplied);
+        } else {
+            rowMin.style.display = 'none';
+        }
+
+        // Итоги. НДС считаем от округлённых значений, чтобы сумма сходилась
+        var totalNovatRounded = Math.round(r.totalNovat);
+        var totalVatRounded   = Math.round(r.totalNovat * (1 + r.vatRate));
+        var vatRounded        = totalVatRounded - totalNovatRounded;
+
+        document.getElementById('res-total-novat').textContent = fmt(totalNovatRounded);
+        document.getElementById('res-vat').textContent         = fmt(vatRounded);
+        document.getElementById('res-total-vat').textContent   = fmt(totalVatRounded);
+
+        // Предупреждение (оставлено для совместимости — сейчас пустое)
         var warn = document.getElementById('res-warning');
         if (r.warning) {
             warn.style.display = 'block';
@@ -410,23 +466,49 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         lines.push('=== Расчёт с калькулятора ===');
         lines.push('Услуга: ' + serviceNames[currentService]);
+        lines.push('');
 
+        lines.push('--- Параметры ---');
         if (currentService === 'лазерная') {
             lines.push('Материал: ' + document.getElementById('laser-mat').value);
             lines.push('Толщина: ' + document.getElementById('laser-thick').value + ' мм');
-            lines.push('Длина реза: ' + document.getElementById('laser-len').value + ' м');
+            lines.push('Длина реза: ' + fmtNum(parseFloat(document.getElementById('laser-len').value) || 0) + ' м');
             if (document.getElementById('laser-urgent').checked) lines.push('Срочность: да');
         } else if (currentService === 'пробивка') {
             lines.push('Толщина: ' + document.getElementById('punch-thick').value + ' мм');
             lines.push('Режим: ' + (document.getElementById('punch-mode').value === 'удар' ? 'за удар' : 'за метр'));
             lines.push('Количество: ' + document.getElementById('punch-qty').value);
         } else if (currentService === 'покраска') {
-            lines.push('Площадь: ' + document.getElementById('paint-area').value + ' м²');
+            lines.push('Площадь: ' + fmtNum(parseFloat(document.getElementById('paint-area').value) || 0) + ' м²');
             if (document.getElementById('paint-complex').checked) lines.push('Сложный профиль: да');
         }
+        lines.push('');
 
+        lines.push('--- Расчёт ---');
+        var formulaEl = document.getElementById('res-formula').textContent;
+        if (formulaEl && formulaEl !== '—') {
+            lines.push('Формула: ' + formulaEl);
+            lines.push('База: ' + document.getElementById('res-base').textContent);
+        }
+
+        if (document.getElementById('row-discount').style.display !== 'none') {
+            lines.push(document.getElementById('res-discount-label').textContent + ' ' +
+                       document.getElementById('res-discount').textContent);
+        }
+
+        if (document.getElementById('row-coef').style.display !== 'none') {
+            lines.push(document.getElementById('res-coef-label').textContent + ' ' +
+                       document.getElementById('res-coef').textContent);
+        }
+
+        if (document.getElementById('row-min').style.display !== 'none') {
+            lines.push('Применён минимум заказа: ' + document.getElementById('res-min').textContent);
+        }
+
+        lines.push('');
         lines.push('Без НДС: ' + document.getElementById('res-total-novat').textContent);
-        lines.push('С НДС: ' + document.getElementById('res-total-vat').textContent);
+        lines.push('НДС 22%: ' + document.getElementById('res-vat').textContent);
+        lines.push('Итого с НДС: ' + document.getElementById('res-total-vat').textContent);
         lines.push('');
         lines.push('--- Прикрепите, пожалуйста, чертёж или эскиз ---');
 

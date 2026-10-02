@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <link rel="stylesheet" href="css/style.css?v=5">
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -144,25 +144,33 @@
 
                     <div class="calc-result">
                         <div class="calc-result-inner">
-                            <h3>Результат расчёта</h3>
-                            <div class="calc-result-row">
-                                <span>Базовая стоимость:</span>
+                            <h3>Расчёт стоимости</h3>
+                            <div class="calc-result-row calc-result-formula">
+                                <span id="res-formula">—</span>
                                 <span id="res-base">— ₽</span>
                             </div>
-                            <div class="calc-result-row" id="row-discount" style="display: none;">
-                                <span>Скидка за объём:</span>
+                            <div class="calc-result-row calc-result-mod" id="row-discount" style="display: none;">
+                                <span id="res-discount-label">Скидка за объём:</span>
                                 <span id="res-discount">—</span>
                             </div>
-                            <div class="calc-result-row" id="row-coef" style="display: none;">
-                                <span>Коэффициент:</span>
+                            <div class="calc-result-row calc-result-mod" id="row-coef" style="display: none;">
+                                <span id="res-coef-label">Коэффициент:</span>
                                 <span id="res-coef">—</span>
+                            </div>
+                            <div class="calc-result-row calc-result-mod" id="row-min" style="display: none;">
+                                <span>Применён минимум заказа:</span>
+                                <span id="res-min">—</span>
                             </div>
                             <div class="calc-result-row calc-total">
                                 <span>Без НДС:</span>
                                 <span id="res-total-novat">— ₽</span>
                             </div>
+                            <div class="calc-result-row calc-vat">
+                                <span>НДС 22%:</span>
+                                <span id="res-vat">— ₽</span>
+                            </div>
                             <div class="calc-result-row calc-total-accent">
-                                <span>С НДС (22%):</span>
+                                <span>Итого с НДС:</span>
                                 <span id="res-total-vat">— ₽</span>
                             </div>
                             <p class="calc-min-warning" id="res-warning" style="display: none;"></p>
@@ -283,7 +291,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=4"></script>
-    <script src="js/calculator.js?v=4"></script>
+    <script src="js/main.js?v=5"></script>
+    <script src="js/calculator.js?v=5"></script>
 </body>
 </html>

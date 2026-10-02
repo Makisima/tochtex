@@ -297,9 +297,28 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
     transition: top 0.2s ease;
 }
 .calc-result-inner h3 { color: var(--white); margin-bottom: 20px; font-size: 20px; }
+
+/* ===== СТРОКИ РЕЗУЛЬТАТА (ТД-4 v2) ===== */
 .calc-result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 15px; }
-.calc-result-row.calc-total { border-bottom: none; padding-top: 16px; font-size: 17px; font-weight: 600; }
-.calc-result-row.calc-total-accent { border-bottom: none; padding-top: 8px; font-size: 22px; font-weight: 800; color: var(--accent); }
+
+/* Формула базы — курсив + серый, справа — базовая стоимость белым */
+.calc-result-row.calc-result-formula { font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px; }
+.calc-result-row.calc-result-formula span:first-child { font-style: italic; color: rgba(255,255,255,0.7); }
+.calc-result-row.calc-result-formula span:last-child { font-weight: 600; font-size: 15px; color: var(--white); }
+
+/* Скидка, коэффициент, минимум — компактнее, без нижней границы */
+.calc-result-row.calc-result-mod { padding: 6px 0; border-bottom: none; font-size: 14px; color: rgba(255,255,255,0.85); }
+.calc-result-row.calc-result-mod span:last-child { font-weight: 600; }
+
+/* Без НДС — промежуточный итог с верхней чертой */
+.calc-result-row.calc-total { border-top: 1px solid rgba(255,255,255,0.2); border-bottom: none; padding-top: 14px; font-size: 16px; font-weight: 600; }
+
+/* НДС — мелкая строка без границ */
+.calc-result-row.calc-vat { border-bottom: none; padding: 6px 0 12px; font-size: 14px; color: rgba(255,255,255,0.75); }
+
+/* Итого с НДС — финальный акцент с верхней жирной чертой */
+.calc-result-row.calc-total-accent { border-top: 2px solid rgba(255,255,255,0.3); border-bottom: none; padding-top: 12px; font-size: 22px; font-weight: 800; color: var(--accent); }
+
 .calc-min-warning { margin-top: 16px; padding: 12px 16px; background: rgba(255,107,0,0.15); border-left: 4px solid var(--accent); border-radius: 4px; font-size: 13px; color: var(--white); }
 .calc-note { margin-top: 20px; font-size: 13px; opacity: 0.7; }
 .calc-result-inner .btn-block { margin-top: 20px; }
@@ -310,4 +329,10 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
     .calc-result-inner { position: static; }
     .calc-tabs { flex-direction: column; }
     .calc-tab { width: 100%; }
+}
+
+/* На мобильных формула может переноситься */
+@media (max-width: 480px) {
+    .calc-result-row.calc-result-formula { flex-direction: column; gap: 4px; }
+    .calc-result-row.calc-result-formula span:last-child { align-self: flex-end; }
 }
