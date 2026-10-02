@@ -298,7 +298,7 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
 }
 .calc-result-inner h3 { color: var(--white); margin-bottom: 20px; font-size: 20px; }
 
-/* ===== СТРОКИ РЕЗУЛЬТАТА (ТД-4 v2) ===== */
+/* ===== СТРОКИ РЕЗУЛЬТАТА ===== */
 .calc-result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 15px; }
 
 /* Формула базы — курсив + серый, справа — базовая стоимость белым */
@@ -324,11 +324,117 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
 .calc-result-inner .btn-block { margin-top: 20px; }
 .calc-result-inner .btn-block:disabled { opacity: 0.4; cursor: not-allowed; }
 
+/* ===== ТД-5: РЕЖИМ МАТЕРИАЛА ===== */
+
+.calc-mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 24px;
+    border-radius: 50px;
+    background: var(--white);
+    padding: 4px;
+    box-shadow: var(--shadow);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.calc-mode-btn {
+    padding: 12px 28px;
+    border: none;
+    background: transparent;
+    color: var(--primary);
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+.calc-mode-btn:hover { background: var(--gray); }
+.calc-mode-btn.active {
+    background: var(--accent);
+    color: var(--white);
+    box-shadow: 0 4px 16px rgba(255,107,0,0.3);
+}
+
+/* Поля материала внутри панели */
+.calc-material-fields {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px dashed #c9d2dd;
+}
+
+.calc-material-header {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    opacity: 0.65;
+}
+
+.calc-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Результат: блок материала */
+.calc-material-result {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.calc-material-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    opacity: 0.95;
+}
+
+/* Промежуточная строка "Работа без НДС" — пунктирная черта сверху */
+.calc-result-row.calc-total#row-work-total {
+    border-top: 1px dashed rgba(255,255,255,0.25);
+}
+
+/* CTA «Позвонить» под калькулятором */
+.calc-cta-phone {
+    margin-top: 32px;
+    padding: 20px 24px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    font-size: 15px;
+    color: var(--gray-dark);
+    line-height: 1.6;
+}
+.calc-cta-phone a {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 17px;
+    white-space: nowrap;
+}
+.calc-cta-phone a:hover { color: var(--accent-hover); text-decoration: underline; }
+
 @media (max-width: 768px) {
     .calc-layout { grid-template-columns: 1fr; gap: 20px; }
     .calc-result-inner { position: static; }
     .calc-tabs { flex-direction: column; }
     .calc-tab { width: 100%; }
+    .calc-mode-toggle { width: 100%; }
+    .calc-mode-btn { flex: 1; padding: 12px 12px; font-size: 14px; }
+    .calc-field-row { grid-template-columns: 1fr; gap: 0; }
+    .calc-cta-phone { font-size: 14px; padding: 16px 18px; }
+    .calc-cta-phone a { font-size: 16px; }
 }
 
 /* На мобильных формула может переноситься */
