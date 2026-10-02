@@ -1,5 +1,5 @@
 // ===== КАЛЬКУЛЯТОР СТОИМОСТИ =====
-// Версия: ТД-5 v2 (материал + расчёт по целым листам, КИМ фиксирован 75%)
+// Версия: ТД-5 v3 (материал + целые листы + КИМ 75% + UX-фиксы)
 // Зависимости: /data/prices.json (блоки "калькулятор" услуг + "материалы")
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var materialMode = 'off'; // 'off' | 'on'
     var resultSent = false;
     var calcWasUsed = false;
+
+    // Флаги: были ли уже автозаполнены поля материала
+    var materialPrefilled = { laser: false, punch: false };
 
     // КИМ фиксирован — клиент его не вводит
     var KIM = 0.75;
@@ -85,6 +88,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentService = tab.dataset.calc;
                 var panel = document.querySelector('.calc-panel[data-panel="' + currentService + '"]');
                 if (panel) panel.classList.add('active');
+
+                // Скрываем тумблер материала для покраски
+                updateModeToggleVisibility();
+
                 sendGoal('calc_tab_switch');
                 recalc();
             });
@@ -99,6 +106,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.querySelectorAll('.calc-mode-btn').forEach(function (b) {
                     b.classList.toggle('active', b.dataset.materialMode === mode);
                 });
+
+                // При первом входе в режим «С материалом» — автозаполнить поля
+                if (mode === 'on') {
+                    if (!materialPrefilled.laser) {
+                        prefillMaterialFields('laser');
+                        materialPrefilled.laser = true;
+                    }
+                    if (!materialPrefilled.punch) {
+                        prefillMaterialFields('punch');
+                        materialPrefilled.punch = true;
+                    }
+                }
+
                 sendGoal('calc_material_mode_' + mode);
                 recalc();
             });
@@ -186,7 +206,27 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
+        // Начальное состояние тумблера
+        updateModeToggleVisibility();
+
         recalc();
+    }
+
+    // Скрыть тумблер материала для покраски
+    function updateModeToggleVisibility() {
+        var toggle = document.querySelector('.calc-mode-toggle');
+        if (!toggle) return;
+        toggle.style.display = (currentService === 'покраска') ? 'none' : 'flex';
+    }
+
+    // Автозаполнение полей материала демо-значениями (только пустые)
+    function prefillMaterialFields(prefix) {
+        var L = document.getElementById(prefix + '-part-l');
+        var W = document.getElementById(prefix + '-part-w');
+        var Q = document.getElementById(prefix + '-part-qty');
+        if (L && !L.value) L.value = 200;
+        if (W && !W.value) W.value = 300;
+        if (Q && !Q.value) Q.value = 100;
     }
 
     // ==================================================
@@ -197,7 +237,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var gradeSel = document.getElementById(prefix + '-mat-grade');
         if (!catSel || !gradeSel) return;
 
-        // Первичное заполнение категорий
         updateMaterialCategoryList(prefix);
 
         catSel.addEventListener('change', function () {
@@ -205,13 +244,11 @@ document.addEventListener('DOMContentLoaded', function () {
             recalc();
         });
 
-        // Первичное заполнение марок
         if (catSel.value) {
             fillGrades(prefix, catSel.value);
         }
     }
 
-    // Фильтрация категорий по выбранному материалу резки (только для лазера)
     function updateMaterialCategoryList(prefix) {
         var catSel = document.getElementById(prefix + '-mat-cat');
         if (!catSel) return;
@@ -248,7 +285,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (catKey === prevValue) catSel.value = catKey;
         });
 
-        // Если прежнее значение не попало в список — ставим первое
         if (catSel.value === '' && added > 0) {
             catSel.selectedIndex = 0;
         }
@@ -638,6 +674,12 @@ document.addEventListener('DOMContentLoaded', function () {
         setDisplay('res-warning', 'none');
         var btn = document.getElementById('calc-to-form');
         if (btn) btn.disabled = true;
+
+        // Сброс примечания — иначе останется от предыдущего расчёта
+        var noteEl = document.querySelector('.calc-note');
+        if (noteEl) {
+            noteEl.textContent = 'Расчёт ориентировочный. Точная стоимость — после получения чертежа или ТЗ.';
+        }
     }
 
     function showOverMax(msg) {
@@ -693,7 +735,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setDisplay('res-material-block', 'none');
         }
 
-        // Промежуточная строка «Работа без НДС» — показываем только если есть материал
+        // Промежуточная строка «Работа без НДС» — только с материалом
         if (hasMaterial) {
             setDisplay('row-work-total', 'flex');
             setText('res-work-total', fmt(r.workTotal));
