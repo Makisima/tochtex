@@ -1,5 +1,8 @@
 // ===== КАЛЬКУЛЯТОР СТОИМОСТИ =====
 // Версия: ТД-5 v3 (материал + целые листы + КИМ 75% + UX-фиксы)
+// + ПЭК: доставка (публичный API)
+// + v4: приоритетный поиск городов (город перед деревнями)
+// + v5: автозаполнение полей доставки + точные сообщения об ошибках
 // Зависимости: /data/prices.json (блоки "калькулятор" услуг + "материалы")
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -266,11 +269,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var added = 0;
         Object.keys(MATERIALS).forEach(function (catKey) {
-            // Пропускаем служебные ключи
             if (catKey === 'ндс_включён' || catKey === 'ндс_ставка' || catKey === 'источник'
                 || catKey === 'обновлено' || catKey === 'формат_листа_мм' || catKey === 'примечание') return;
 
-            // Фильтрация для лазера
             if (allowedCats && allowedCats.indexOf(catKey) === -1) return;
 
             var cat = MATERIALS[catKey];
@@ -360,6 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentService === 'лазерная')  calcLaser();
         if (currentService === 'пробивка')  calcPunch();
         if (currentService === 'покраска')  calcPaint();
+        if (typeof window.__updateGrandTotal === 'function') window.__updateGrandTotal();
     }
 
     // ==================================================
@@ -564,7 +566,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!catKey || !gradeKey || L <= 0 || W <= 0 || qty <= 0) return null;
         if (!thicknessMm || thicknessMm <= 0) return null;
 
-        // Проверка габаритов детали
         if (L > 2500 || W > 1500) {
             return { error: 'Габариты детали ' + L + '×' + W + ' мм превышают максимум 2500×1500 мм' };
         }
@@ -574,7 +575,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var grade = cat.марки[gradeKey];
         if (!grade) return { error: 'Марка не найдена' };
 
-        // ⚠️ Цены МетВэл — с НДС. Переводим в базу «без НДС»
         var priceKgWithVat = grade.цена_кг;
         if (!priceKgWithVat || priceKgWithVat <= 0) {
             return { error: 'Цена для марки «' + (grade.название || gradeKey) + '» уточняется у менеджера' };
@@ -584,30 +584,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var density = cat.плотность || 7850;
 
-        // Формат листа
         var fmt = MATERIALS.формат_листа_мм;
         var sheetW_m = fmt.ширина / 1000;
         var sheetL_m = fmt.длина / 1000;
         var t_m = thicknessMm / 1000;
 
-        var sheetMass = sheetW_m * sheetL_m * t_m * density; // кг
+        var sheetMass = sheetW_m * sheetL_m * t_m * density;
 
-        // Площадь деталей
-        var sOne = (L * W) / 1000000;   // м²
-        var sAll = sOne * qty;          // м²
+        var sOne = (L * W) / 1000000;
+        var sAll = sOne * qty;
 
-        // Масса деталей (чистый металл в деталях)
         var massParts = sAll * t_m * density;
 
-        // Количество листов с учётом КИМ
         var sheetsNeeded = massParts / (sheetMass * KIM);
         var sheetCount = Math.ceil(sheetsNeeded);
         if (sheetCount < 1) sheetCount = 1;
 
-        // Реальная масса покупки (целыми листами)
         var massPurchase = sheetCount * sheetMass;
 
-        // Стоимость материала
         var costNoVat = massPurchase * priceKgNoVat;
         var costWithVat = massPurchase * priceKgWithVat;
 
@@ -675,7 +669,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var btn = document.getElementById('calc-to-form');
         if (btn) btn.disabled = true;
 
-        // Сброс примечания — иначе останется от предыдущего расчёта
         var noteEl = document.querySelector('.calc-note');
         if (noteEl) {
             noteEl.textContent = 'Расчёт ориентировочный. Точная стоимость — после получения чертежа или ТЗ.';
@@ -695,7 +688,6 @@ document.addEventListener('DOMContentLoaded', function () {
         setText('res-formula', r.formula || '—');
         setText('res-base', fmt(r.base));
 
-        // Скидка
         if (r.discountPct && r.discountPct > 0) {
             setDisplay('row-discount', 'flex');
             setText('res-discount-label', 'Скидка за объём -' + (r.discountPct * 100).toFixed(0) + '%:');
@@ -704,7 +696,6 @@ document.addEventListener('DOMContentLoaded', function () {
             setDisplay('row-discount', 'none');
         }
 
-        // Коэффициент
         if (r.coefLabel) {
             setDisplay('row-coef', 'flex');
             setText('res-coef-label', r.coefLabel + ':');
@@ -713,7 +704,6 @@ document.addEventListener('DOMContentLoaded', function () {
             setDisplay('row-coef', 'none');
         }
 
-        // Минимум
         if (r.minApplied && r.minApplied > 0) {
             setDisplay('row-min', 'flex');
             setText('res-min', '+ ' + fmt(r.minApplied));
@@ -721,7 +711,6 @@ document.addEventListener('DOMContentLoaded', function () {
             setDisplay('row-min', 'none');
         }
 
-        // Материал
         var matBlock = document.getElementById('res-material-block');
         var hasMaterial = r.material && !r.material.error && r.material.costNoVat > 0;
 
@@ -735,7 +724,6 @@ document.addEventListener('DOMContentLoaded', function () {
             setDisplay('res-material-block', 'none');
         }
 
-        // Промежуточная строка «Работа без НДС» — только с материалом
         if (hasMaterial) {
             setDisplay('row-work-total', 'flex');
             setText('res-work-total', fmt(r.workTotal));
@@ -743,7 +731,6 @@ document.addEventListener('DOMContentLoaded', function () {
             setDisplay('row-work-total', 'none');
         }
 
-        // Итоги: работа + материал в одной базе «без НДС»
         var materialNoVat = hasMaterial ? r.material.costNoVat : 0;
         var baseNoVat = Math.round(r.workTotal + materialNoVat);
         var vatAmount = Math.round(baseNoVat * r.vatRate);
@@ -753,7 +740,6 @@ document.addEventListener('DOMContentLoaded', function () {
         setText('res-vat', fmt(vatAmount));
         setText('res-total-vat', fmt(totalWithVat));
 
-        // Проверки и предупреждения
         var warn = document.getElementById('res-warning');
         var btn = document.getElementById('calc-to-form');
         var warningText = '';
@@ -775,7 +761,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (btn) btn.disabled = false;
         }
 
-        // Приписка про НДС и доставку
         var noteEl = document.querySelector('.calc-note');
         if (noteEl && materialMode === 'on' && currentService !== 'покраска') {
             noteEl.textContent = 'Расчёт ориентировочный. Цены материала указаны с НДС. Доставка и рез в размер не учтены. Точная стоимость — после получения чертежа или ТЗ.';
@@ -854,7 +839,6 @@ document.addEventListener('DOMContentLoaded', function () {
             lines.push('Применён минимум заказа: ' + document.getElementById('res-min').textContent);
         }
 
-        // Материал
         var matBlock = document.getElementById('res-material-block');
         if (matBlock && matBlock.style.display !== 'none') {
             lines.push('');
@@ -877,11 +861,425 @@ document.addEventListener('DOMContentLoaded', function () {
         lines.push('НДС 22%: ' + document.getElementById('res-vat').textContent);
         lines.push('Итого с НДС: ' + document.getElementById('res-total-vat').textContent);
         lines.push('');
-        lines.push('Примечание: цены материала указаны с НДС. Доставка и рез в размер не учтены.');
+        lines.push('Примечание: цены материала указаны с НДС. Рез в размер не учтён.');
         lines.push('');
         lines.push('--- Прикрепите, пожалуйста, чертёж или эскиз ---');
 
+        // ==== ДОСТАВКА ====
+        if (typeof window.__getDeliverySummary === 'function') {
+            var deliveryText = window.__getDeliverySummary();
+            if (deliveryText) {
+                lines.push(deliveryText);
+            }
+        }
+
         return lines.join('\n');
     }
+
+    // ==================================================
+    //  ДОСТАВКА ПЭК
+    // ==================================================
+    (function initDelivery() {
+
+        var elEnabled   = document.getElementById('delivery-enabled');
+        var elFields    = document.getElementById('delivery-fields');
+        if (!elEnabled || !elFields) return;
+
+        var elCity      = document.getElementById('delivery-city');
+        var elCityId    = document.getElementById('delivery-city-id');
+        var elCityList  = document.getElementById('delivery-city-list');
+        var elL         = document.getElementById('delivery-l');
+        var elW         = document.getElementById('delivery-w');
+        var elH         = document.getElementById('delivery-h');
+        var elWeight    = document.getElementById('delivery-weight');
+        var elQty       = document.getElementById('delivery-qty');
+        var elCalcBtn   = document.getElementById('delivery-calc-btn');
+
+        var elResult        = document.getElementById('delivery-result');
+        var elError         = document.getElementById('delivery-error');
+        var elAuto          = document.getElementById('res-delivery-auto');
+        var elTake          = document.getElementById('res-delivery-take');
+        var elAddress       = document.getElementById('res-delivery-address');
+        var elPeriod        = document.getElementById('res-delivery-period');
+        var elTotal         = document.getElementById('res-delivery-total');
+        var elRowTake       = document.getElementById('row-delivery-take');
+        var elRowAddress    = document.getElementById('row-delivery-address');
+        var elGrandTotal    = document.getElementById('row-grand-total');
+        var elGrandValue    = document.getElementById('res-grand-total');
+
+        var TOWNS = null;
+        var TOWNS_LOADING = false;
+        var currentAbort = null;
+        var lastResult = null;
+        var debounceTimer = null;
+
+        // ---- Утилиты ----
+        function parseMoney(text) {
+            if (!text || text === '— ₽') return 0;
+            var n = parseFloat(String(text).replace(/[^\d.,-]/g, '').replace(',', '.'));
+            return isNaN(n) ? 0 : n;
+        }
+
+        function fmtMoney(n) {
+            return Math.round(n).toLocaleString('ru-RU', { maximumFractionDigits: 0 }).replace(/\u00A0/g, ' ') + ' ₽';
+        }
+
+        // ---- Загрузка списка городов (ленивая) ----
+        function loadTowns(cb) {
+            if (TOWNS) { cb(TOWNS); return; }
+            if (TOWNS_LOADING) return;
+            TOWNS_LOADING = true;
+
+            // Пробуем localStorage
+            try {
+                var cached = localStorage.getItem('pek_towns');
+                if (cached) {
+                    var obj = JSON.parse(cached);
+                    if (obj && obj.ts && (Date.now() - obj.ts) < 7 * 24 * 3600 * 1000 && obj.data) {
+                        TOWNS = obj.data;
+                        TOWNS_LOADING = false;
+                        cb(TOWNS);
+                        return;
+                    }
+                }
+            } catch (e) {}
+
+            // Грузим с сервера
+            fetch('/data/pek_towns.json')
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    TOWNS = data.towns || [];
+                    TOWNS_LOADING = false;
+                    try {
+                        localStorage.setItem('pek_towns', JSON.stringify({ ts: Date.now(), data: TOWNS }));
+                    } catch (e) {}
+                    cb(TOWNS);
+                })
+                .catch(function (err) {
+                    TOWNS_LOADING = false;
+                    console.error('Не удалось загрузить города ПЭК', err);
+                    cb([]);
+                });
+        }
+
+        // ---- Автокомплит ----
+        function showList(items) {
+            if (!items.length) {
+                elCityList.style.display = 'none';
+                return;
+            }
+            elCityList.innerHTML = '';
+            items.forEach(function (t) {
+                var div = document.createElement('div');
+                div.className = 'calc-autocomplete-item';
+
+                var label = t.name;
+                if (t.region && t.region !== t.name) {
+                    label += ' — ' + t.region;
+                }
+                div.textContent = label;
+
+                div.addEventListener('mousedown', function (e) {
+                    e.preventDefault();
+                    elCity.value = label;
+                    elCityId.value = t.id;
+                    elCityList.style.display = 'none';
+                    hideError();
+                    if (lastResult) resetResult();
+                });
+                elCityList.appendChild(div);
+            });
+            elCityList.style.display = 'block';
+        }
+
+        // ---- Поиск с приоритетом: name(startsWith) > name(contains) > region(contains) ----
+        function filterTowns(query) {
+            if (!TOWNS || query.length < 2) return [];
+            var q = query.toLowerCase();
+            var startsWith = [];   // name начинается с q
+            var nameContains = []; // name содержит q
+            var regionMatch = [];  // region содержит q (деревни, сёла)
+
+            for (var i = 0; i < TOWNS.length; i++) {
+                var t = TOWNS[i];
+                var nameLow = t.name.toLowerCase();
+                var regLow  = t.region.toLowerCase();
+
+                if (nameLow.indexOf(q) === 0) {
+                    startsWith.push(t);
+                } else if (nameLow.indexOf(q) !== -1) {
+                    nameContains.push(t);
+                } else if (regLow.indexOf(q) !== -1) {
+                    regionMatch.push(t);
+                }
+            }
+
+            // Собираем: сначала startsWith, потом nameContains, потом regionMatch (не более 15)
+            var out = startsWith.concat(nameContains);
+            var remaining = 15 - out.length;
+            if (remaining > 0) {
+                out = out.concat(regionMatch.slice(0, remaining));
+            }
+            return out;
+        }
+
+        // ---- UI состояние ----
+        function showError(msg) {
+            elError.textContent = '⚠️ ' + msg;
+            elError.style.display = 'block';
+            elError.style.background = 'rgba(255,60,60,0.15)';
+            elError.style.borderLeftColor = '#ff3c3c';
+        }
+        function showWarning(msg) {
+            elError.textContent = '⚠️ ' + msg;
+            elError.style.display = 'block';
+            elError.style.background = 'rgba(255,200,0,0.15)';
+            elError.style.borderLeftColor = '#ffc800';
+        }
+        function hideError() {
+            elError.style.display = 'none';
+            elError.style.background = '';
+            elError.style.borderLeftColor = '';
+        }
+        function setLoading(loading) {
+            elCalcBtn.disabled = loading;
+            elCalcBtn.textContent = loading ? 'Расчёт…' : 'Рассчитать доставку';
+        }
+
+        // ---- Сброс результата доставки ----
+        function resetResult() {
+            lastResult = null;
+            elResult.style.display = 'none';
+            elGrandTotal.style.display = 'none';
+            hideError();
+        }
+        window.__resetDelivery = resetResult;
+
+        // ---- Обновление grand total (пересчёт работы + доставка) ----
+        function updateGrandTotal() {
+            if (!lastResult) {
+                elGrandTotal.style.display = 'none';
+                return;
+            }
+            var workEl = document.getElementById('res-total-vat');
+            var work = parseMoney(workEl ? workEl.textContent : '0');
+            if (work <= 0) {
+                elGrandTotal.style.display = 'none';
+                return;
+            }
+            elGrandTotal.style.display = 'flex';
+            elGrandValue.textContent = fmtMoney(work + lastResult.cost_total);
+        }
+        window.__updateGrandTotal = updateGrandTotal;
+
+        // ---- Автозаполнение полей доставки (демо-значения, только пустые) ----
+        function prefillDeliveryFields() {
+            if (elL && !elL.value)      elL.value = 50;
+            if (elW && !elW.value)      elW.value = 40;
+            if (elH && !elH.value)      elH.value = 30;
+            if (elWeight && !elWeight.value) elWeight.value = 10;
+            // elQty уже имеет value="1" в HTML
+        }
+
+        // ---- Обработчик галочки ----
+        elEnabled.addEventListener('change', function () {
+            if (elEnabled.checked) {
+                elFields.style.display = 'block';
+                prefillDeliveryFields();
+                loadTowns(function () {});
+            } else {
+                elFields.style.display = 'none';
+                resetResult();
+            }
+        });
+
+        // ---- Автокомплит: input/blur/focus ----
+        elCity.addEventListener('input', function () {
+            elCityId.value = '';
+            if (lastResult) resetResult();
+            hideError();
+
+            if (debounceTimer) clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(function () {
+                var q = elCity.value.trim();
+                if (q.length < 2) {
+                    elCityList.style.display = 'none';
+                    return;
+                }
+                if (!TOWNS) {
+                    elCityList.innerHTML = '<div class="calc-autocomplete-item" style="cursor: default;">Загрузка городов…</div>';
+                    elCityList.style.display = 'block';
+                    loadTowns(function () {
+                        showList(filterTowns(elCity.value.trim()));
+                    });
+                    return;
+                }
+                showList(filterTowns(q));
+            }, 150);
+        });
+        elCity.addEventListener('blur', function () {
+            setTimeout(function () { elCityList.style.display = 'none'; }, 200);
+        });
+        elCity.addEventListener('focus', function () {
+            var q = elCity.value.trim();
+            if (q.length >= 2 && TOWNS) {
+                showList(filterTowns(q));
+            }
+        });
+        document.addEventListener('click', function (e) {
+            if (!elCity.contains(e.target) && !elCityList.contains(e.target)) {
+                elCityList.style.display = 'none';
+            }
+        });
+
+        // ---- Сброс результата при смене параметров доставки ----
+        [elL, elW, elH, elWeight, elQty].forEach(function (el) {
+            el.addEventListener('input', function () {
+                if (lastResult) resetResult();
+            });
+        });
+        document.querySelectorAll('input[name="delivery-mode"]').forEach(function (r) {
+            r.addEventListener('change', function () {
+                if (lastResult) resetResult();
+                hideError();
+            });
+        });
+
+        // ---- Расчёт ----
+        elCalcBtn.addEventListener('click', function () {
+            hideError();
+
+            var toId = elCityId.value;
+            if (!toId) {
+                showError('Выберите город из списка');
+                return;
+            }
+
+            var l = parseFloat(elL.value) || 0;
+            var w = parseFloat(elW.value) || 0;
+            var h = parseFloat(elH.value) || 0;
+            var weight = parseFloat(elWeight.value) || 0;
+            var qty = parseInt(elQty.value, 10) || 1;
+
+            if (l <= 0)      { showError('Введите длину места (см)'); return; }
+            if (w <= 0)      { showError('Введите ширину места (см)'); return; }
+            if (h <= 0)      { showError('Введите высоту места (см)'); return; }
+            if (weight <= 0) { showError('Введите вес места (кг)'); return; }
+
+            if (qty < 1 || qty > 20) {
+                showError('Количество мест: от 1 до 20');
+                return;
+            }
+
+            // Формируем места: N штук с одинаковыми параметрами
+            var places = [];
+            for (var i = 0; i < qty; i++) {
+                places.push({
+                    l: l / 100,
+                    w: w / 100,
+                    h: h / 100,
+                    weight: weight
+                });
+            }
+
+            var withDeliver = document.querySelector('input[name="delivery-mode"]:checked');
+            withDeliver = withDeliver && withDeliver.value === 'address';
+
+            if (currentAbort) currentAbort.abort();
+            currentAbort = new AbortController();
+
+            setLoading(true);
+
+            fetch('/pek_calc.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    to_id: toId,
+                    places: places,
+                    with_deliver: withDeliver
+                }),
+                signal: currentAbort.signal
+            })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    setLoading(false);
+                    if (!data.success) {
+                        showError(data.error || 'Не удалось рассчитать доставку');
+                        resetResult();
+                        return;
+                    }
+                    lastResult = data;
+                    renderDelivery(data, withDeliver);
+                })
+                .catch(function (err) {
+                    if (err.name === 'AbortError') return;
+                    setLoading(false);
+                    showError('Сервис недоступен. Позвоните: +7 (939) 440-40-01');
+                    console.error('Delivery error', err);
+                });
+        });
+
+        function renderDelivery(data, withDeliver) {
+            elResult.style.display = 'block';
+
+            elAuto.textContent = fmtMoney(data.cost_auto);
+
+            if (data.cost_take) {
+                elRowTake.style.display = 'flex';
+                elTake.textContent = fmtMoney(data.cost_take);
+            } else {
+                elRowTake.style.display = 'none';
+            }
+
+            if (withDeliver && data.cost_deliver) {
+                elRowAddress.style.display = 'flex';
+                elAddress.textContent = fmtMoney(data.cost_deliver);
+            } else {
+                elRowAddress.style.display = 'none';
+            }
+
+            elPeriod.textContent = data.period || '—';
+            elTotal.textContent = fmtMoney(data.cost_total);
+
+            if (data.warning) {
+                showWarning(data.warning);
+            }
+
+            updateGrandTotal();
+
+            var btn = document.getElementById('calc-to-form');
+            if (btn) btn.disabled = false;
+        }
+
+        // ---- Публичный метод для buildSummary ----
+        window.__getDeliverySummary = function () {
+            if (!lastResult) return '';
+            var lines = [];
+            lines.push('');
+            lines.push('--- Доставка ПЭК ---');
+            var mode = document.querySelector('input[name="delivery-mode"]:checked');
+            lines.push('Способ получения: ' + (mode && mode.value === 'address' ? 'доставка до адреса' : 'самовывоз с терминала'));
+            lines.push('Город: ' + elCity.value);
+            lines.push('Перевозка: ' + fmtMoney(lastResult.cost_auto));
+            if (lastResult.cost_take) lines.push('Забор: ' + fmtMoney(lastResult.cost_take));
+            if (lastResult.cost_deliver) lines.push('Доставка до адреса: ' + fmtMoney(lastResult.cost_deliver));
+            lines.push('Срок: ' + (lastResult.period || '—'));
+            lines.push('Доставка итого: ' + fmtMoney(lastResult.cost_total));
+
+            // Итог с доставкой
+            var workEl = document.getElementById('res-total-vat');
+            var work = parseMoney(workEl ? workEl.textContent : '0');
+            if (work > 0) {
+                lines.push('');
+                lines.push('--- ВСЕГО С ДОСТАВКОЙ ---');
+                lines.push('Работа + материал: ' + fmtMoney(work));
+                lines.push('Доставка: ' + fmtMoney(lastResult.cost_total));
+                lines.push('Итого: ' + fmtMoney(work + lastResult.cost_total));
+            }
+
+            return lines.join('\n');
+        };
+
+    })();
 
 });

@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=8">
+    <link rel="stylesheet" href="css/style.css?v=9">
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -201,6 +201,86 @@
                             </div>
                         </div>
 
+                        <!-- ============ ДОСТАВКА ============ -->
+                        <div class="calc-delivery-block">
+                            <div class="calc-delivery-toggle">
+                                <label for="delivery-enabled">
+                                    <input type="checkbox" id="delivery-enabled">
+                                    <span>🚚 Добавить доставку</span>
+                                </label>
+                            </div>
+
+                            <div class="calc-delivery-fields" id="delivery-fields" style="display: none;">
+
+                                <div class="calc-field">
+                                    <label for="delivery-provider">Транспортная компания</label>
+                                    <select id="delivery-provider">
+                                        <option value="pek">ПЭК (Первая Экспедиционная Компания)</option>
+                                    </select>
+                                </div>
+
+                                <div class="calc-field">
+                                    <label for="delivery-city">Город доставки</label>
+                                    <div class="calc-autocomplete-wrap">
+                                        <input type="text" id="delivery-city" placeholder="Начните вводить название" autocomplete="off">
+                                        <input type="hidden" id="delivery-city-id">
+                                        <div class="calc-autocomplete-list" id="delivery-city-list"></div>
+                                    </div>
+                                    <small class="calc-field-hint">Выберите из списка — это важно для точного расчёта</small>
+                                </div>
+
+                                <div class="calc-field">
+                                    <label>Способ получения</label>
+                                    <div class="calc-radio-group">
+                                        <label class="calc-radio">
+                                            <input type="radio" name="delivery-mode" value="pickup" checked>
+                                            <span>Самовывоз с терминала ПЭК</span>
+                                        </label>
+                                        <label class="calc-radio">
+                                            <input type="radio" name="delivery-mode" value="address">
+                                            <span>Доставка до адреса</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="calc-material-header">Параметры одного места</div>
+
+                                <div class="calc-field-row">
+                                    <div class="calc-field">
+                                        <label for="delivery-l">Длина, см</label>
+                                        <input type="number" id="delivery-l" min="1" max="1200" step="1" placeholder="50">
+                                    </div>
+                                    <div class="calc-field">
+                                        <label for="delivery-w">Ширина, см</label>
+                                        <input type="number" id="delivery-w" min="1" max="1200" step="1" placeholder="40">
+                                    </div>
+                                </div>
+                                <div class="calc-field-row">
+                                    <div class="calc-field">
+                                        <label for="delivery-h">Высота, см</label>
+                                        <input type="number" id="delivery-h" min="1" max="1200" step="1" placeholder="30">
+                                    </div>
+                                    <div class="calc-field">
+                                        <label for="delivery-weight">Вес, кг</label>
+                                        <input type="number" id="delivery-weight" min="0.1" max="20000" step="0.1" placeholder="10">
+                                    </div>
+                                </div>
+                                <div class="calc-field">
+                                    <label for="delivery-qty">Количество мест</label>
+                                    <input type="number" id="delivery-qty" min="1" max="20" step="1" value="1">
+                                </div>
+
+                                <button type="button" class="btn btn-accent btn-block" id="delivery-calc-btn">
+                                    Рассчитать доставку
+                                </button>
+
+                                <p class="calc-delivery-note">
+                                    Забор груза с производства включён в стоимость. Расчёт ориентировочный.
+                                </p>
+
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="calc-result">
@@ -257,6 +337,38 @@
                                 <span>Итого с НДС:</span>
                                 <span id="res-total-vat">— ₽</span>
                             </div>
+
+                            <div class="calc-delivery-result" id="delivery-result" style="display: none;">
+                                <div class="calc-delivery-result-title">Доставка ПЭК</div>
+                                <div class="calc-result-row calc-result-mod">
+                                    <span>Перевозка:</span>
+                                    <span id="res-delivery-auto">— ₽</span>
+                                </div>
+                                <div class="calc-result-row calc-result-mod" id="row-delivery-take" style="display: none;">
+                                    <span>Забор:</span>
+                                    <span id="res-delivery-take">— ₽</span>
+                                </div>
+                                <div class="calc-result-row calc-result-mod" id="row-delivery-address" style="display: none;">
+                                    <span>Доставка до адреса:</span>
+                                    <span id="res-delivery-address">— ₽</span>
+                                </div>
+                                <div class="calc-result-row calc-result-mod">
+                                    <span>Срок:</span>
+                                    <span id="res-delivery-period">—</span>
+                                </div>
+                                <div class="calc-result-row calc-total">
+                                    <span>Доставка итого:</span>
+                                    <span id="res-delivery-total">— ₽</span>
+                                </div>
+                            </div>
+
+                            <div class="calc-result-row calc-total-accent" id="row-grand-total" style="display: none;">
+                                <span>ВСЕГО с доставкой:</span>
+                                <span id="res-grand-total">— ₽</span>
+                            </div>
+
+                            <div class="calc-delivery-error" id="delivery-error" style="display: none;"></div>
+
                             <p class="calc-min-warning" id="res-warning" style="display: none;"></p>
                             <p class="calc-note">Расчёт ориентировочный. Точная стоимость — после получения чертежа или ТЗ.</p>
                             <button type="button" class="btn btn-accent btn-block" id="calc-to-form" disabled>
@@ -381,7 +493,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=8"></script>
-    <script src="js/calculator.js?v=8"></script>
+    <script src="js/main.js?v=9"></script>
+    <script src="js/calculator.js?v=11"></script>
 </body>
 </html>

@@ -298,25 +298,19 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
 }
 .calc-result-inner h3 { color: var(--white); margin-bottom: 20px; font-size: 20px; }
 
-/* ===== СТРОКИ РЕЗУЛЬТАТА ===== */
 .calc-result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 15px; }
 
-/* Формула базы — курсив + серый, справа — базовая стоимость белым */
 .calc-result-row.calc-result-formula { font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px; }
 .calc-result-row.calc-result-formula span:first-child { font-style: italic; color: rgba(255,255,255,0.7); }
 .calc-result-row.calc-result-formula span:last-child { font-weight: 600; font-size: 15px; color: var(--white); }
 
-/* Скидка, коэффициент, минимум — компактнее, без нижней границы */
 .calc-result-row.calc-result-mod { padding: 6px 0; border-bottom: none; font-size: 14px; color: rgba(255,255,255,0.85); }
 .calc-result-row.calc-result-mod span:last-child { font-weight: 600; }
 
-/* Без НДС — промежуточный итог с верхней чертой */
 .calc-result-row.calc-total { border-top: 1px solid rgba(255,255,255,0.2); border-bottom: none; padding-top: 14px; font-size: 16px; font-weight: 600; }
 
-/* НДС — мелкая строка без границ */
 .calc-result-row.calc-vat { border-bottom: none; padding: 6px 0 12px; font-size: 14px; color: rgba(255,255,255,0.75); }
 
-/* Итого с НДС — финальный акцент с верхней жирной чертой */
 .calc-result-row.calc-total-accent { border-top: 2px solid rgba(255,255,255,0.3); border-bottom: none; padding-top: 12px; font-size: 22px; font-weight: 800; color: var(--accent); }
 
 .calc-min-warning { margin-top: 16px; padding: 12px 16px; background: rgba(255,107,0,0.15); border-left: 4px solid var(--accent); border-radius: 4px; font-size: 13px; color: var(--white); }
@@ -359,7 +353,6 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
     box-shadow: 0 4px 16px rgba(255,107,0,0.3);
 }
 
-/* Поля материала внутри панели */
 .calc-material-fields {
     margin-top: 24px;
     padding-top: 24px;
@@ -382,7 +375,6 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
     gap: 12px;
 }
 
-/* Результат: блок материала */
 .calc-material-result {
     margin-top: 16px;
     padding-top: 16px;
@@ -399,12 +391,10 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
     opacity: 0.95;
 }
 
-/* Промежуточная строка "Работа без НДС" — пунктирная черта сверху */
 .calc-result-row.calc-total#row-work-total {
     border-top: 1px dashed rgba(255,255,255,0.25);
 }
 
-/* CTA «Позвонить» под калькулятором */
 .calc-cta-phone {
     margin-top: 32px;
     padding: 20px 24px;
@@ -437,8 +427,145 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
     .calc-cta-phone a { font-size: 16px; }
 }
 
-/* На мобильных формула может переноситься */
 @media (max-width: 480px) {
     .calc-result-row.calc-result-formula { flex-direction: column; gap: 4px; }
     .calc-result-row.calc-result-formula span:last-child { align-self: flex-end; }
+}
+
+/* ===== ДОСТАВКА (НОВЫЙ БЛОК) ===== */
+.calc-delivery-block {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px dashed #c9d2dd;
+}
+
+.calc-delivery-toggle label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--primary);
+    padding: 12px 16px;
+    background: var(--gray);
+    border-radius: 8px;
+    transition: var(--transition);
+}
+.calc-delivery-toggle label:hover { background: #e8eef5; }
+.calc-delivery-toggle input[type="checkbox"] {
+    width: 20px; height: 20px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.calc-delivery-fields {
+    margin-top: 20px;
+    padding: 20px;
+    background: #fafbfc;
+    border-radius: 8px;
+    border: 1px solid #e0e6ed;
+}
+
+.calc-field-hint {
+    display: block;
+    font-size: 12px;
+    color: var(--gray-dark);
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.calc-autocomplete-wrap { position: relative; }
+
+.calc-autocomplete-list {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: #fff;
+    border: 2px solid var(--accent);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 280px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.calc-autocomplete-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #1A1A2E;
+    transition: background 0.15s;
+    border-bottom: 1px solid #f0f3f6;
+}
+.calc-autocomplete-item:last-child { border-bottom: none; }
+.calc-autocomplete-item:hover { background: var(--accent); color: #fff; }
+
+.calc-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 6px;
+}
+.calc-radio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px 14px;
+    background: #fff;
+    border: 2px solid #e0e6ed;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+.calc-radio:hover { border-color: var(--accent); }
+.calc-radio input[type="radio"] {
+    width: 18px; height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.calc-radio input[type="radio"]:checked + span { font-weight: 600; color: var(--primary); }
+
+.calc-delivery-note {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--gray-dark);
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.calc-delivery-result {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.calc-delivery-result-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    opacity: 0.95;
+}
+
+.calc-delivery-error {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(255,60,60,0.15);
+    border-left: 4px solid #ff3c3c;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--white);
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .calc-delivery-fields { padding: 14px; }
+    .calc-autocomplete-list { max-height: 200px; }
 }
