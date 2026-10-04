@@ -65,13 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 sendGoal('calc_error');
                 wrapper.style.display = 'none';
                 loading.style.display = 'block';
-                loading.innerHTML = '<p>⚠️ Калькулятор временно недоступен. Позвоните: <a href="tel:+79030021883">+7 (903) 002-18-83</a>.</p>';
+                loading.innerHTML = '<p>⚠️ Калькулятор временно недоступен. Позвоните: <a href="tel:+79394404001">+7 (939) 440-40-01</a>.</p>';
             }
         })
         .catch(function (err) {
             console.error('Калькулятор: не удалось загрузить цены', err);
             sendGoal('calc_error');
-            loading.innerHTML = '<p>⚠️ Не удалось загрузить цены. Позвоните: <a href="tel:+79030021883">+7 (903) 002-18-83</a>.</p>';
+            loading.innerHTML = '<p>⚠️ Не удалось загрузить цены. Позвоните: <a href="tel:+79394404001">+7 (939) 440-40-01</a>.</p>';
         });
 
     // ==================================================
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var urgent = document.getElementById('laser-urgent').checked;
 
         if (len > cfg.максимум) {
-            showOverMax('Для объёмов свыше ' + cfg.максимум.toLocaleString('ru-RU') + ' м свяжитесь с менеджером: +7 (903) 002-18-83.');
+            showOverMax('Для объёмов свыше ' + cfg.максимум.toLocaleString('ru-RU') + ' м свяжитесь с менеджером: +7 (939) 440-40-01.');
             return;
         }
 
@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!isHitAvailable || qty <= 0) { showEmpty(); return; }
             maximum = cfg.максимум_удар;
             if (qty > maximum) {
-                showOverMax('Для объёмов свыше ' + maximum.toLocaleString('ru-RU') + ' ударов свяжитесь с менеджером: +7 (903) 002-18-83.');
+                showOverMax('Для объёмов свыше ' + maximum.toLocaleString('ru-RU') + ' ударов свяжитесь с менеджером: +7 (939) 440-40-01.');
                 return;
             }
             base = cfg.цены_удар[thick] * qty;
@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!pricePerMeter || qty <= 0) { showEmpty(); return; }
             maximum = cfg.максимум_метр;
             if (qty > maximum) {
-                showOverMax('Для объёмов свыше ' + maximum.toLocaleString('ru-RU') + ' м свяжитесь с менеджером: +7 (903) 002-18-83.');
+                showOverMax('Для объёмов свыше ' + maximum.toLocaleString('ru-RU') + ' м свяжитесь с менеджером: +7 (939) 440-40-01.');
                 return;
             }
             base = pricePerMeter * qty;
@@ -506,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var complex = complexEl ? complexEl.checked : false;
 
         if (area > cfg.максимум) {
-            showOverMax('Для объёмов свыше ' + cfg.максимум.toLocaleString('ru-RU') + ' м² свяжитесь с менеджером: +7 (903) 002-18-83.');
+            showOverMax('Для объёмов свыше ' + cfg.максимум.toLocaleString('ru-RU') + ' м² свяжитесь с менеджером: +7 (939) 440-40-01.');
             return;
         }
         if (area <= 0) { showEmpty(); return; }

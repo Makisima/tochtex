@@ -9,7 +9,7 @@ $config_path = __DIR__ . '/../config.php';
 if (!file_exists($config_path)) {
     error_log('[send.php] config.php not found');
     http_response_code(500);
-    exit('Ошибка конфигурации. Позвоните: +7 (903) 002-18-83.');
+    exit('Ошибка конфигурации. Позвоните: +7 (939) 440-40-01.');
 }
 $config = require $config_path;
 
@@ -18,7 +18,7 @@ $autoload = __DIR__ . '/vendor/autoload.php';
 if (!file_exists($autoload)) {
     error_log('[send.php] PHPMailer not installed');
     http_response_code(500);
-    exit('Ошибка сервера. Позвоните: +7 (903) 002-18-83.');
+    exit('Ошибка сервера. Позвоните: +7 (939) 440-40-01.');
 }
 require $autoload;
 
@@ -89,7 +89,7 @@ if (!empty($_POST['website'] ?? '')) {
 $client_ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 if (!checkRateLimit($client_ip)) {
     http_response_code(429);
-    exit('Слишком много заявок. Попробуйте через минуту или позвоните: +7 (903) 002-18-83.');
+    exit('Слишком много заявок. Попробуйте через минуту или позвоните: +7 (939) 440-40-01.');
 }
 
 // ==== 8. Валидация обязательных полей ====
@@ -120,7 +120,7 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
 
     if ($file['error'] !== UPLOAD_ERR_OK) {
         http_response_code(400);
-        exit('Ошибка загрузки файла. Позвоните: +7 (903) 002-18-83.');
+        exit('Ошибка загрузки файла. Позвоните: +7 (939) 440-40-01.');
     }
 
     // Явная проверка, что файл пришёл через HTTP POST
@@ -234,7 +234,7 @@ try {
 } catch (Exception $e) {
     error_log('[send.php] Mail send failed: ' . $mail->ErrorInfo);
     http_response_code(500);
-    echo 'Ошибка отправки. Позвоните: +7 (903) 002-18-83.';
+    echo 'Ошибка отправки. Позвоните: +7 (939) 440-40-01.';
     exit;
 
 } finally {

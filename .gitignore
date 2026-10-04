@@ -34,3 +34,4 @@ error_log
 *.swp
 
 _for_next_chat/
+phone_backup_*.tar.gz
