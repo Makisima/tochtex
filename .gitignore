@@ -36,3 +36,7 @@ error_log
 _for_next_chat/
 phone_backup_*.tar.gz
 canonical_backup_*.tar.gz
+
+# ===== Сгенерированные данные ПЭК =====
+data/pek_towns.json
+public_html/data/pek_towns.json
