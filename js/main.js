@@ -26,7 +26,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==== 2. ЗАГРУЗКА ПРАЙС-ЛИСТА ====
     const priceLoader = document.getElementById('price-loader');
     if (priceLoader) {
-        switchPriceTab('лазерная');
+        // Проверяем URL-параметр ?tab=<slug>
+        var urlParams = new URLSearchParams(window.location.search);
+        var initialTab = urlParams.get('tab') || 'лазерная';
+        switchPriceTab(initialTab);
 
         fetch('data/prices.json')
             .then(function(response) {
@@ -38,6 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(function(data) {
                 renderPrices(data);
                 updatePriceDate();
+                // Повторно применяем вкладку после рендера (элементы только что созданы)
+                switchPriceTab(initialTab);
             })
             .catch(function(error) {
                 console.error('Ошибка загрузки прайс-листа:', error);
@@ -145,6 +150,8 @@ function switchPriceTab(tabId) {
     var target = document.getElementById('price-table-' + tabId);
     if (target) {
         target.style.display = 'block';
+    } else {
+        console.warn('Панель не найдена: price-table-' + tabId);
     }
 }
 

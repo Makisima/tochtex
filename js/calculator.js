@@ -1265,6 +1265,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (lastResult.cost_deliver) lines.push('Доставка до адреса: ' + fmtMoney(lastResult.cost_deliver));
             lines.push('Срок: ' + (lastResult.period || '—'));
             lines.push('Доставка итого: ' + fmtMoney(lastResult.cost_total));
+            lines.push('(Расчёт ориентировочный, для средней зоны города. Точная стоимость — после уточнения адреса и условий разгрузки.)');
 
             // Итог с доставкой
             var workEl = document.getElementById('res-total-vat');

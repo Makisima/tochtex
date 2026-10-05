@@ -40,3 +40,8 @@ canonical_backup_*.tar.gz
 # ===== Сгенерированные данные ПЭК =====
 data/pek_towns.json
 public_html/data/pek_towns.json
+
+# ===== Бэкапы статей и файлов =====
+*.bak_*
+*.broken_*
+*.broken
