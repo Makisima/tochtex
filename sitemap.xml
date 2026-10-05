@@ -14,7 +14,7 @@
     </url>
     <url>
         <loc>https://tochtex.ru/calculator.html</loc>
-        <lastmod>2026-09-27</lastmod>
+        <lastmod>2026-10-05</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -38,19 +38,25 @@
     </url>
     <url>
         <loc>https://tochtex.ru/privacy.html</loc>
-        <lastmod>2026-09-27</lastmod>
+        <lastmod>2026-10-05</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
     <url>
         <loc>https://tochtex.ru/blog/</loc>
-        <lastmod>2026-10-08</lastmod>
+        <lastmod>2026-10-05</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://tochtex.ru/blog/tehnologii/kak-rasschitat-stoimost-lazernoy-rezki.html</loc>
-        <lastmod>2026-10-08</lastmod>
+        <lastmod>2026-10-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tochtex.ru/blog/tehnologii/elektroerozionnaya-obrabotka-metalla.html</loc>
+        <lastmod>2026-10-05</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
