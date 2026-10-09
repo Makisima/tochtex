@@ -343,28 +343,42 @@
                     <!-- ===== ФОРМА ЗАЯВКИ ===== -->
                      <div class="cta-form">
                         <h2>Пришлите чертёж — посчитаем за 2 часа</h2>
-                        <form action="/send.php" method="post" enctype="multipart/form-data">
+                        <form action="/send.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="source" value="eeo_5os_article">
+
+                            <!-- Honeypot -->
+                            <div style="position:absolute; left:-9999px;" aria-hidden="true">
+                                <input type="text" name="website" tabindex="-1" autocomplete="off">
+                            </div>
+
                             <label>Имя:
-                                <input type="text" name="name" required>
+                                <input type="text" name="name" placeholder="Ваше имя" required>
                             </label>
                             <label>Телефон:
-                                <input type="tel" name="phone" required>
+                                <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
                             </label>
                             <label>Email:
-                                <input type="email" name="email" required>
+                                <input type="email" name="email" placeholder="name@company.ru">
                             </label>
-                            <label>Чертёж (PDF, DWG, DXF, JPG, PNG, ZIP):
-                                <input type="file" name="file" accept=".pdf,.dwg,.dxf,.jpg,.png,.zip">
+                            <label>Услуга:
+                                <select name="service">
+                                    <option value="Электроэрозионная обработка">Электроэрозионная обработка</option>
+                                    <option value="Электроэрозионная обработка (5 осей)">Электроэрозионная обработка (5 осей)</option>
+                                    <option value="Проволочная вырезка">Проволочная вырезка</option>
+                                    <option value="Прошивка отверстий">Прошивка отверстий</option>
+                                    <option value="Другое">Другое</option>
+                                </select>
+                            </label>
+                            <label>Чертёж (DXF, DWG, PDF, JPG, PNG, до 30 МБ):
+                                <input type="file" name="file" accept=".dxf,.dwg,.pdf,.jpg,.jpeg,.png">
                             </label>
                             <label>Комментарий:
-                                <textarea name="comment" rows="4"></textarea>
+                                <textarea name="message" rows="4" placeholder="Опишите задачу: материал, габариты, твёрдость, тираж"></textarea>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="consent" required>
-                                <span>Согласен с <a href="../../privacy.html" target="_blank">политикой обработки персональных данных</a></span>
+                                <input type="checkbox" name="privacy_consent" required>
+                                <span>Я согласен на обработку персональных данных в соответствии с <a href="../../privacy.html" target="_blank">политикой конфиденциальности</a></span>
                             </label>
-                            <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
                             <button type="submit">Отправить заявку</button>
                         </form>
                         <p class="cta-form-phone">Или позвоните: <a href="tel:+79394404001">+7 (939) 440-40-01</a>, <a href="mailto:sale@tochtex.ru">sale@tochtex.ru</a></p>

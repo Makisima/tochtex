@@ -617,6 +617,20 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
   background: #fff;
   color: #1a1a1a;
 }
+.article-content .cta-form label > select,
+.cta-form label > select {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+  background: #fff;
+  color: #1a1a1a;
+}
 .article-content .cta-form label > input[type="file"],
 .cta-form label > input[type="file"] {
   padding: 8px;
