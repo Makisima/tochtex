@@ -568,7 +568,9 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
 @media (max-width: 768px) {
     .calc-delivery-fields { padding: 14px; }
     .calc-autocomplete-list { max-height: 200px; }
- /* Форма заявки в статье */
+}
+ /* ===== ФОРМА ЗАЯВКИ В СТАТЬЕ (усиленные селекторы) ===== */
+.article-content .cta-form,
 .cta-form {
   background: #f7f7f7;
   border: 1px solid #e0e0e0;
@@ -576,58 +578,105 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
   padding: 24px;
   margin: 32px 0;
 }
+.article-content .cta-form h2,
 .cta-form h2 {
   margin-top: 0;
+  margin-bottom: 20px;
   color: #1a1a1a;
 }
+.article-content .cta-form form,
 .cta-form form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: block;
 }
+.article-content .cta-form label,
 .cta-form label {
-  display: flex;
-  flex-direction: column;
+  display: block !important;
+  margin-bottom: 14px;
   font-size: 14px;
   color: #333;
-  gap: 4px;
 }
-.cta-form input[type="text"],
-.cta-form input[type="tel"],
-.cta-form input[type="email"],
-.cta-form textarea {
+.article-content .cta-form label > input[type="text"],
+.article-content .cta-form label > input[type="tel"],
+.article-content .cta-form label > input[type="email"],
+.article-content .cta-form label > textarea,
+.article-content .cta-form label > input[type="file"],
+.cta-form label > input[type="text"],
+.cta-form label > input[type="tel"],
+.cta-form label > input[type="email"],
+.cta-form label > textarea,
+.cta-form label > input[type="file"] {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 6px;
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
   font-family: inherit;
+  box-sizing: border-box;
+  background: #fff;
+  color: #1a1a1a;
 }
-.cta-form input[type="file"] {
-  font-size: 13px;
+.article-content .cta-form label > input[type="file"],
+.cta-form label > input[type="file"] {
+  padding: 8px;
 }
+.article-content .cta-form textarea,
 .cta-form textarea {
   resize: vertical;
   min-height: 80px;
 }
-.cta-form button {
+.article-content .cta-form .checkbox-label,
+.cta-form .checkbox-label {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: #555;
+}
+.article-content .cta-form .checkbox-label input[type="checkbox"],
+.cta-form .checkbox-label input[type="checkbox"] {
+  display: inline-block !important;
+  width: auto !important;
+  margin: 2px 0 0 0;
+  padding: 0;
+  flex-shrink: 0;
+  accent-color: #FF6B00;
+}
+.article-content .cta-form .checkbox-label a,
+.cta-form .checkbox-label a {
+  color: #FF6B00;
+  text-decoration: underline;
+}
+.article-content .cta-form button[type="submit"],
+.cta-form button[type="submit"] {
+  display: inline-block !important;
   background: #FF6B00;
   color: #fff;
   border: none;
-  padding: 12px 20px;
+  padding: 12px 24px;
   font-size: 15px;
   font-weight: 600;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s;
+  font-family: inherit;
 }
-.cta-form button:hover {
+.article-content .cta-form button[type="submit"]:hover,
+.cta-form button[type="submit"]:hover {
   background: #e55f00;
 }
-.cta-form input[type="checkbox"] {
-  width: auto;
-  margin-right: 6px;
+.article-content .cta-form .cta-form-phone,
+.cta-form .cta-form-phone {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #666;
 }
-.cta-form a {
+.article-content .cta-form .cta-form-phone a,
+.cta-form .cta-form-phone a {
   color: #FF6B00;
-  text-decoration: underline;
-}}
+  text-decoration: none;
+  font-weight: 600;
+}

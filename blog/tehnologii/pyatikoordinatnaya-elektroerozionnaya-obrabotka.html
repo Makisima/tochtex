@@ -341,23 +341,33 @@
                     <p>Все цены указаны без НДС. НДС 22% добавляется при оформлении заявки (ФЗ от 28.11.2025 №425-ФЗ).</p>
 
                     <!-- ===== ФОРМА ЗАЯВКИ ===== -->
-                    <div class="cta-form">
+                     <div class="cta-form">
                         <h2>Пришлите чертёж — посчитаем за 2 часа</h2>
                         <form action="/send.php" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="source" value="eeo_5os_article">
-                            <label>Имя: <input type="text" name="name" required></label>
-                            <label>Телефон: <input type="tel" name="phone" required></label>
-                            <label>Email: <input type="email" name="email" required></label>
-                            <label>Чертёж (PDF, DWG, DXF, JPG, PNG, ZIP): <input type="file" name="file" accept=".pdf,.dwg,.dxf,.jpg,.png,.zip"></label>
-                            <label>Комментарий: <textarea name="comment" rows="4"></textarea></label>
-                            <label>
+                            <label>Имя:
+                                <input type="text" name="name" required>
+                            </label>
+                            <label>Телефон:
+                                <input type="tel" name="phone" required>
+                            </label>
+                            <label>Email:
+                                <input type="email" name="email" required>
+                            </label>
+                            <label>Чертёж (PDF, DWG, DXF, JPG, PNG, ZIP):
+                                <input type="file" name="file" accept=".pdf,.dwg,.dxf,.jpg,.png,.zip">
+                            </label>
+                            <label>Комментарий:
+                                <textarea name="comment" rows="4"></textarea>
+                            </label>
+                            <label class="checkbox-label">
                                 <input type="checkbox" name="consent" required>
-                                Согласен с <a href="../../privacy.html" target="_blank">политикой обработки персональных данных</a>
+                                <span>Согласен с <a href="../../privacy.html" target="_blank">политикой обработки персональных данных</a></span>
                             </label>
                             <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
                             <button type="submit">Отправить заявку</button>
                         </form>
-                        <p>Или позвоните: <a href="tel:+79394404001">+7 (939) 440-40-01</a>, <a href="mailto:sale@tochtex.ru">sale@tochtex.ru</a></p>
+                        <p class="cta-form-phone">Или позвоните: <a href="tel:+79394404001">+7 (939) 440-40-01</a>, <a href="mailto:sale@tochtex.ru">sale@tochtex.ru</a></p>
                     </div>
 
                     <!-- ===== H2: FAQ ===== -->
