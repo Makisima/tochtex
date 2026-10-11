@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="/favicon.png" type="image/png">
+    <title>ЭЭО в медицинских изделиях: где нужна, а где нет</title>
+    <meta name="description" content="Электроэрозионная обработка в производстве медицинских изделий: прошивка нестандартных интерфейсов, извлечение сломанного инструмента, обработка титана. Честно о границах.">
+    <link rel="canonical" href="https://tochtex.ru/blog/tehnologii/elektroerozionnaya-obrabotka-v-meditsine.html">
+    <meta name="robots" content="index, follow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css?v=9">
+    <link rel="stylesheet" href="../blog.css?v=1">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Электроэрозионная обработка в медицинских изделиях: где нужна, а где нет",
+        "description": "Прошивка нестандартных интерфейсов, извлечение сломанного инструмента, обработка титана. Честно о границах ЭЭО в медицине.",
+        "image": "https://tochtex.ru/Images/titanium-implant.jpg",
+        "author": {"@type": "Organization", "name": "НПО «ТочныеТехнологии»"},
+        "publisher": {
+            "@type": "Organization",
+            "name": "НПО «ТочныеТехнологии»",
+            "logo": {"@type": "ImageObject", "url": "https://tochtex.ru/Images/workshop-panorama.jpg"}
+        },
+        "datePublished": "2026-10-14",
+        "dateModified": "2026-10-14",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://tochtex.ru/blog/tehnologii/elektroerozionnaya-obrabotka-v-meditsine.html"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://tochtex.ru/"},
+            {"@type": "ListItem", "position": 2, "name": "Блог", "item": "https://tochtex.ru/blog/"},
+            {"@type": "ListItem", "position": 3, "name": "Технологии", "item": "https://tochtex.ru/blog/tehnologii/"},
+            {"@type": "ListItem", "position": 4, "name": "ЭЭО в медицине"}
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "Когда ЭЭО оправдана в медицинских изделиях?", "acceptedAnswer": {"@type": "Answer", "text": "Прошивка нестандартных или мелкосерийных интерфейсов, извлечение сломанного инструмента из закалённых деталей, обработка закалённых сталей и твёрдых сплавов, глубокие и глухие полости сложного профиля, а также биоконтактирующие поверхности из титана, где нельзя допустить переноса меди или цинка с электрода."}},
+            {"@type": "Question", "name": "Когда ЭЭО не нужна?", "acceptedAnswer": {"@type": "Answer", "text": "Серийное производство деталей с простыми геометриями. Например, внутренний шестигранник в титановом имплантате в серии прошивается пуансоном на токарном автомате за 1–2 секунды — в 10–20 раз дешевле ЭЭО-прошивки той же полости. То же — для шлицев, лысок, торцевых профилей."}},
+            {"@type": "Question", "name": "Какие особенности ЭЭО титана для медицинских изделий?", "acceptedAnswer": {"@type": "Answer", "text": "Три ключевых: среда (для ответственных поверхностей — деионизированная вода вместо углеводородов), электрод (для биоконтактирующих поверхностей — только титановый, недопустим перенос меди и цинка с латуни), финиш (ультразвуковая очистка и 100% визуальный контроль)."}},
+            {"@type": "Question", "name": "Можно ли использовать ЭЭО для серийного производства?", "acceptedAnswer": {"@type": "Answer", "text": "Для простых стандартных геометрий — нет, механика дешевле и быстрее. Для сложных нестандартных профилей и мелких серий — да, ЭЭО может быть выгоднее за счёт отсутствия затрат на специализированную оснастку."}}
+        ]
+    }
+    </script>
+
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113089370', 'ym');
+        ym(113089370, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/113089370" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">🏭 <strong>НПО «ТочныеТехнологии»</strong></a>
+                <small>Производство полного цикла</small>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../../index.html">Главная</a></li>
+                    <li><a href="../../services.html">Услуги</a></li>
+                    <li><a href="../../calculator.html">Калькулятор</a></li>
+                    <li><a href="../../about.html">О заводе</a></li>
+                    <li><a href="../../contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-contacts">
+                <a href="tel:+79394404001" class="phone">📞 +7 (939) 440-40-01</a>
+                <a href="../../index.html#contact" class="btn btn-accent btn-sm">Заказать звонок</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <nav class="breadcrumbs" aria-label="Хлебные крошки">
+                <a href="../../index.html">Главная</a><span>→</span>
+                <a href="../index.html">Блог</a><span>→</span>
+                <a href="../index.html">Технологии</a><span>→</span>
+                ЭЭО в медицине
+            </nav>
+            <h1>Электроэрозионная обработка в медицинских изделиях: где нужна, а где нет</h1>
+            <p>Прошивка нестандартных интерфейсов, извлечение сломанного инструмента, обработка титана. Честно о границах ЭЭО.</p>
+        </div>
+    </section>
+
+    <main style="padding: 60px 0; background: var(--white);">
+        <div class="container">
+            <div class="article-wrap">
+
+                <div class="article-meta">
+                    <span>📅 14 октября 2026</span>
+                    <span>⏱️ 5 минут чтения</span>
+                    <span>🏭 НПО «ТочныеТехнологии»</span>
+                </div>
+
+                <article class="article-content">
+
+                    <p><strong>Короткий ответ:</strong> ЭЭО в медицине — не «замена механики», а инструмент для задач, где механика не может или невыгодна. Ниже — где она реально нужна, а где дешевле и быстрее на механике.</p>
+
+                    <p>Вокруг ЭЭО в медицине много мифов в обе стороны: от «ЭЭО решит всё» до «это экзотика для пресс-форм». Разбираем честно: какие задачи в производстве медицинских изделий и инструментов реально решаются ЭЭО, а какие — дешевле и быстрее на механике. С примерами на титане, металле номер один в имплантологии.</p>
+                    
+					<figure class="article-figure">
+                        <img src="../../Images/edm-wire-cutting.jpg" alt="Электроэрозионная обработка: проволочная вырезка цилиндрической детали" loading="lazy">
+                        <figcaption>Проволочная вырезка на станке Sodick: искра, струя диэлектрика, никакой силы резания</figcaption>
+                    </figure>
+                    
+					<nav class="article-toc" aria-label="Содержание статьи">
+                        <h2>Содержание</h2>
+                        <ol>
+                            <li><a href="#gde-nuzhna">Где ЭЭО — правильный инструмент</a></li>
+                            <li><a href="#gde-ne-nuzhna">Где ЭЭО не нужна — честно</a></li>
+                            <li><a href="#osobennosti-titana">Особенности ЭЭО титана для медицинских изделий</a></li>
+                            <li><a href="#checklist">Практический чек-лист</a></li>
+                            <li><a href="#faq">Частые вопросы</a></li>
+                        </ol>
+                    </nav>
+
+                    <h2 id="gde-nuzhna">Где ЭЭО — правильный инструмент</h2>
+
+                    <ol>
+                        <li>
+                            <p><strong>Прошивка внутренних профилей в мелких сериях и на нестандартные интерфейсы.</strong> Внутренние шестигранники, шлицевые и фигурные гнёзда под инструмент — типовая задача в имплантатах, абатментах и аналогах. На стандартных интерфейсах серийного выпуска механика (прошивка пуансоном на токарном центре, ротационная протяжка) делает это за секунды — и в серии ЭЭО там не конкурент. Но как только интерфейс нестандартный, геометрия сложная или серия мелкая — стоимость оснастки и переналадки механики растёт, а ЭЭО позволяет получить полость электродом, выточенным за час.</p>
+                        </li>
+                        <li>
+                            <p><strong>Извлечение сломанного инструмента.</strong> Закалённое сверло или метчик, обломившийся в детали из закалённой стали или твёрдого сплава, не берёт ни одно лезвие. ЭЭО выжигает локально — вокруг обломка, не задевая деталь. Это классическая ремонтная задача, где у электроэрозии нет альтернатив вообще.</p>
+                        </li>
+                        <li>
+                            <p><strong>Обработка закалённых и твёрдых материалов.</strong> Твёрдые сплавы, закалённая сталь выше 45 HRC, наплавленные слои — все они за пределами комфортной зоны лезвийного инструмента. Электроэрозия их режет без оглядки на твёрдость.</p>
+                        </li>
+                        <li>
+                            <p><strong>Глубокие и глухие полости со сложным профилем.</strong> Пазы, каналы, фигурные полости, куда не дотянется фреза нужного диаметра или где съём фрезерованием оставил бы борозды и заусенцы, требующие ручной доводки.</p>
+                        </li>
+                    </ol>
+
+                    <figure class="article-figure">
+                        <img src="../../Images/titanium-implant.jpg" alt="Титановый дентальный имплантат с резьбой" loading="lazy">
+                        <figcaption>Титановый имплантат. Для биоконтактирующих поверхностей — только титановый электрод</figcaption>
+                    </figure>
+
+                    <h2 id="gde-ne-nuzhna">Где ЭЭО не нужна — честно</h2>
+
+                    <p>Серийное производство деталей с простыми геометриями — не территория ЭЭО. Пример из практики рынка: внутренний шестигранник «под ключ» в титановом имплантате в серийном производстве прошивается пуансоном на токарном автомате за 1–2 секунды — <strong>в 10–20 раз дешевле ЭЭО-прошивки той же полости.</strong></p>
+
+                    <p>Тот же принцип работает для шлицев, лысок, торцевых профилей: если геометрия стандартная, серия крупная, а материал позволяет лезвийную обработку — механика выигрывает всегда.</p>
+
+                    <p>Это принципиально: ЭЭО — не «замена механики», а инструмент для задач, где механика не может или невыгодна. Грамотный подрядчик скажет об этом прямо — и сэкономит вам деньги на маршруте.</p>
+
+                    <h2 id="osobennosti-titana">Особенности ЭЭО титана для медицинских изделий</h2>
+
+                    <p>Титан в ЭЭО требует внимания к трём вещам (подробно — в <a href="elektroerozionnaya-obrabotka-titana.html">нашей предыдущей статье «Электроэрозионная обработка титана»</a>):</p>
+
+                    <ul>
+                        <li><strong>среда:</strong> для ответственных поверхностей — деионизированная или дистиллированная вода вместо углеводородных диэлектриков;</li>
+                        <li><strong>электрод:</strong> для биоконтактирующих поверхностей — только титановый электрод, недопустим перенос меди и цинка с латуни;</li>
+                        <li><strong>финиш:</strong> ультразвуковая очистка и 100% визуальный контроль — стандарт завершения операции.</li>
+                    </ul>
+
+                    <h2 id="checklist">Практический чек-лист: знать ли ЭЭО на вашу задачу</h2>
+
+                    <p>Ответьте на пять вопросов:</p>
+
+                    <ol>
+                        <li>Твёрдость материала выше 45 HRC или это титан / твёрдый сплав?</li>
+                        <li>Геометрия нестандартная или мелкосерийная?</li>
+                        <li>Полость глубокая, глухая или фигурная?</li>
+                        <li>Нужна нулевая сила резания (тонкие стенки, риск деформации)?</li>
+                        <li>Это ремонт обломанного инструмента в детали?</li>
+                    </ol>
+
+                    <p>Если хотя бы на два — «да», ЭЭО стоит рассматривать всерьёз. Если на все пять — «нет», отправляйте на механообработку, там дешевле.</p>
+
+                    <div class="cta-form">
+                        <h2>Разберём вашу задачу</h2>
+                        <form action="/send.php" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="source" value="eeo_medicine_article">
+                            <div style="position:absolute; left:-9999px;" aria-hidden="true">
+                                <input type="text" name="website" tabindex="-1" autocomplete="off">
+                            </div>
+                            <label>Имя:
+                                <input type="text" name="name" placeholder="Ваше имя" required>
+                            </label>
+                            <label>Телефон:
+                                <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
+                            </label>
+                            <label>Email:
+                                <input type="email" name="email" placeholder="name@company.ru">
+                            </label>
+                            <label>Услуга:
+                                <select name="service">
+                                    <option value="Электроэрозионная обработка (медицина)">Электроэрозионная обработка (медицина)</option>
+                                    <option value="Электроэрозионная обработка титана">Электроэрозионная обработка титана</option>
+                                    <option value="Извлечение сломанного инструмента">Извлечение сломанного инструмента</option>
+                                    <option value="Изготовление электродов">Изготовление электродов</option>
+                                    <option value="Другое">Другое</option>
+                                </select>
+                            </label>
+                            <label>Чертёж (DXF, DWG, PDF, JPG, PNG, до 30 МБ):
+                                <input type="file" name="file" accept=".dxf,.dwg,.pdf,.jpg,.jpeg,.png">
+                            </label>
+                            <label>Комментарий:
+                                <textarea name="message" rows="4" placeholder="Материал, габариты, серия, требования"></textarea>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="privacy_consent" required>
+                                <span>Я согласен на обработку персональных данных в соответствии с <a href="../../privacy.html" target="_blank">политикой конфиденциальности</a></span>
+                            </label>
+                            <button type="submit">Отправить заявку</button>
+                        </form>
+                        <p class="cta-form-phone">Или позвоните: <a href="tel:+79394404001">+7 (939) 440-40-01</a>, <a href="mailto:sale@tochtex.ru">sale@tochtex.ru</a></p>
+                    </div>
+
+                    <h2 id="faq">Частые вопросы</h2>
+                    <h3>Когда ЭЭО оправдана в медицинских изделиях?</h3>
+                    <p>Прошивка нестандартных или мелкосерийных интерфейсов, извлечение сломанного инструмента из закалённых деталей, обработка закалённых сталей и твёрдых сплавов, глубокие и глухие полости сложного профиля, а также биоконтактирующие поверхности из титана.</p>
+                    <h3>Когда ЭЭО не нужна?</h3>
+                    <p>Серийное производство деталей с простыми геометриями. Внутренний шестигранник в титановом имплантате в серии прошивается пуансоном за 1–2 секунды — в 10–20 раз дешевле ЭЭО.</p>
+                    <h3>Какие особенности ЭЭО титана для медицинских изделий?</h3>
+                    <p>Три ключевых: среда (вода вместо углеводородов), электрод (титановый, не латунный), финиш (ультразвуковая очистка и 100% визуальный контроль).</p>
+
+                    <h2>Другие услуги</h2>
+                    <ul>
+                        <li><a href="../../services.html#machining">Электроэрозионная обработка: проволочная вырезка и прошивка</a></li>
+                        <li><a href="../../services.html#machining">Токарные, фрезерные, шлифовальные работы</a></li>
+                        <li><a href="../../services.html#tooling">Изготовление пресс-форм и штампов</a></li>
+                    </ul>
+
+                    <h2>Читайте также</h2>
+                    <ul>
+                        <li><a href="elektroerozionnaya-obrabotka-titana.html">Электроэрозионная обработка титана: среда, электрод и подводные камни</a></li>
+                        <li><a href="poverhnost-dentalnogo-implantata.html">Поверхность дентального имплантата: SLA, лазер и ЭЭО — честное сравнение</a></li>
+                        <li><a href="elektroerozionnaya-obrabotka-metalla.html">Электроэрозионная обработка металла: полный обзор</a></li>
+                    </ul>
+
+                    <div class="article-cta">
+                        <h2>Нужна ЭЭО для медицинских изделий?</h2>
+                        <p>Прошивка внутренних профилей, извлечение сломанного инструмента, изготовление электродов-инструментов. Станки Sodick.</p>
+                        <div class="article-cta-buttons">
+                            <a href="tel:+79394404001" class="btn btn-accent btn-lg">📞 +7 (939) 440-40-01</a>
+                            <a href="../../index.html#contact" class="btn btn-secondary btn-lg">Оставить заявку</a>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>НПО «ТочныеТехнологии»</h4>
+                    <p>Производство полного цикла с 1994 года. Сертификат ISO 9001-2015.</p>
+                </div>
+                <div>
+                    <h4>Контакты</h4>
+                    <p>📞 +7 (939) 440-40-01</p>
+                    <p>✉️ sale@tochtex.ru</p>
+                    <p>📍 Рязань, проезд Шабулина, 2В</p>
+                </div>
+                <div>
+                    <h4>Услуги</h4>
+                    <a href="../../services.html#sheet-metal">Листовой металл</a>
+                    <a href="../../services.html#machining">Механообработка</a>
+                    <a href="../../services.html#coating">Покрытия</a>
+                    <a href="../../services.html#assembly">Сборка и монтаж</a>
+                    <a href="../../services.html#tooling">Оснастка</a>
+                </div>
+                <div>
+                    <h4>Информация</h4>
+                    <a href="../../about.html">О заводе</a>
+                    <a href="../../contacts.html">Контакты</a>
+                    <a href="../../index.html#prices">Прайс-лист</a>
+                    <a href="../../calculator.html">Калькулятор</a>
+                    <a href="../index.html">Блог</a>
+                    <a href="../../requisites.html">Реквизиты</a>
+                    <a href="../../privacy.html">Политика конфиденциальности</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 НПО «ТочныеТехнологии». Все права защищены.</span>
+                <span>ООО «Максимум» • ИНН 7722787277 • ОГРН 1127747004703</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js?v=11"></script>
+</body>
+</html>
