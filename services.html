@@ -5,14 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="alternate icon" href="/favicon.png" type="image/png">
-    <title>Все услуги НПО «ТочныеТехнологии» — полный перечень</title>
-    <meta name="description" content="Полный список услуг НПО «ТочныеТехнологии»: лазерная резка, пробивка, гибка, сварка, покраска, гальваника, SMT, пресс-формы и другие.">
-    
+    <title>Услуги НПО «ТочныеТехнологии» — сборка телеком-оборудования и металлообработка</title>
+    <meta name="description" content="Сборка и монтаж телеком-оборудования «под ключ»: ИБП, БРП, коммутаторы, жгуты, маркировка. Контрактное производство металлоизделий: лазерная резка, пробивка, гибка, ЭЭО, покрытия, оснастка.">
+
     <link rel="canonical" href="https://tochtex.ru/services.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=9">
+
+    <!-- Schema.org: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "НПО «ТочныеТехнологии»",
+      "legalName": "ООО «Максимум»",
+      "url": "https://tochtex.ru",
+      "logo": "https://tochtex.ru/favicon.png",
+      "email": "sale@tochtex.ru",
+      "telephone": "+79394404001",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "проезд Шабулина, 2В",
+        "addressLocality": "Рязань",
+        "addressCountry": "RU"
+      },
+      "sameAs": ["https://dzen.ru/tochtex"]
+    }
+    </script>
+    <!-- Schema.org: ItemList of Services -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "item": {"@type": "Service", "name": "Сборка и монтаж телекоммуникационного оборудования", "url": "https://tochtex.ru/services.html#telecom-assembly"}},
+        {"@type": "ListItem", "position": 2, "item": {"@type": "Service", "name": "Листовой металл: лазерная резка, пробивка, гибка, сварка", "url": "https://tochtex.ru/services.html#sheet-metal"}},
+        {"@type": "ListItem", "position": 3, "item": {"@type": "Service", "name": "Механообработка: токарные, фрезерные, шлифовальные, электроэрозионные работы", "url": "https://tochtex.ru/services.html#machining"}},
+        {"@type": "ListItem", "position": 4, "item": {"@type": "Service", "name": "Покрытия: порошковая окраска, гальваника", "url": "https://tochtex.ru/services.html#coating"}},
+        {"@type": "ListItem", "position": 5, "item": {"@type": "Service", "name": "SMT-монтаж печатных плат и сборка жгутов", "url": "https://tochtex.ru/services.html#assembly"}},
+        {"@type": "ListItem", "position": 6, "item": {"@type": "Service", "name": "Оснастка: пресс-формы, штампы, литьё пластмасс", "url": "https://tochtex.ru/services.html#tooling"}}
+      ]
+    }
+    </script>
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -41,7 +77,7 @@
                 <ul>
                     <li><a href="index.html">Главная</a></li>
                     <li><a href="products/index.html">Продукция</a></li>
-                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="services.html" class="active">Услуги</a></li>
                     <li><a href="calculator.html">Калькулятор</a></li>
                     <li><a href="about.html">О заводе</a></li>
                     <li><a href="blog/index.html">Блог</a></li>
@@ -50,23 +86,72 @@
             </nav>
             <div class="header-contacts">
                 <a href="tel:+79394404001" class="phone">📞 +7 (939) 440-40-01</a>
-                <a href="index.html#contact" class="btn btn-accent btn-sm">Заказать звонок</a>
+                <a href="#contact" class="btn btn-accent btn-sm">Заказать звонок</a>
             </div>
         </div>
     </header>
 
-    <!-- ===== ГЕРОЙ СТРАНИЦЫ ===== -->
+    <!-- ===== ГЕРОЙ ===== -->
     <section class="page-hero">
         <div class="container">
-            <h1>Все услуги НПО «ТочныеТехнологии»</h1>
-            <p>Полный цикл металлообработки: от листового металла до готовых изделий</p>
+            <h1>Услуги НПО «ТочныеТехнологии»</h1>
+            <p>Сборка и монтаж телеком-оборудования «под ключ» и контрактное производство металлоизделий</p>
         </div>
     </section>
 
-    <!-- ===== КАТЕГОРИИ УСЛУГ ===== -->
-    <main style="padding: 60px 0;">
+    <!-- ===== КРОСС-БАННЕР ===== -->
+    <div style="background: var(--gray); padding: 16px 0; text-align: center;">
+        <div class="container">
+            <span style="color: var(--primary); font-weight: 600; font-size: 15px;">Ищете готовые шкафы и стойки? </span>
+            <a href="products/index.html" style="color: var(--accent); font-weight: 700; text-decoration: none;">Перейти в каталог продукции →</a>
+        </div>
+    </div>
 
-        <!-- ===== 1. ЛИСТОВОЙ МЕТАЛЛ ===== -->
+    <main>
+
+        <!-- ===== БЛОК 1: ТЕЛЕКОМ-СБОРКА ===== -->
+        <section id="telecom-assembly" style="padding: 60px 0; scroll-margin-top: 80px;">
+            <div class="container">
+                <h2 style="margin-bottom: 12px;">🔌 Сборка и монтаж телекоммуникационного оборудования</h2>
+                <p style="color: var(--gray-dark); margin-bottom: 30px; font-size: 17px;">Собираем и монтируем телеком-шкафы, стойки и оборудование связи «под ключ»: ИБП, БРП, коммутаторы, кроссовое оборудование. Для операторов связи, ЦОД и системных интеграторов.</p>
+                <div class="services-grid-full">
+                    <div class="service-card-full" style="cursor: default;">
+                        <span class="icon">🔧</span>
+                        <h3>Монтаж «под ключ»</h3>
+                        <p>ИБП, БРП, коммутаторы, кроссовое оборудование: установка, подключение, пусконаладка на объекте.</p>
+                    </div>
+                    <div class="service-card-full" style="cursor: default;">
+                        <span class="icon">🔌</span>
+                        <h3>Жгуты и кабельные сборки</h3>
+                        <p>Изготовление по ТЗ заказчика, прозвонка, маркировка, упаковка.</p>
+                    </div>
+                    <div class="service-card-full" style="cursor: default;">
+                        <span class="icon">📋</span>
+                        <h3>Маркировка и подготовка к отгрузке</h3>
+                        <p>По стандартам заказчика, с подготовкой к монтажу на объекте.</p>
+                    </div>
+                    <div class="service-card-full" style="cursor: default;">
+                        <span class="icon">🤝</span>
+                        <h3>Один подрядчик</h3>
+                        <p>Металлообработка и сборка на своей площадке: короче сроки, меньше логистики и согласований.</p>
+                    </div>
+                </div>
+                <div style="margin-top: 32px; display: flex; gap: 20px; flex-wrap: wrap; align-items: center;">
+                    <a href="#contact" class="btn btn-accent">Обсудить проект</a>
+                    <a href="tel:+79394404001" style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 16px;">📞 +7 (939) 440-40-01</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== РАЗДЕЛИТЕЛЬ ===== -->
+        <div style="padding: 40px 0 0; text-align: center; border-top: 1px solid #e9eef3;">
+            <div class="container">
+                <h2 style="margin-bottom: 8px;">Контрактное производство металлоизделий</h2>
+                <p style="color: var(--gray-dark); font-size: 17px; margin: 0 0 20px;">Полный цикл: от листового металла до готовых изделий</p>
+            </div>
+        </div>
+
+        <!-- ===== ЛИСТОВОЙ МЕТАЛЛ ===== -->
         <section id="sheet-metal" style="padding: 40px 0; scroll-margin-top: 80px;">
             <div class="container">
                 <h2 style="margin-bottom: 12px;">🔩 Листовой металл</h2>
@@ -101,7 +186,7 @@
             </div>
         </section>
 
-        <!-- ===== 2. МЕХАНООБРАБОТКА ===== -->
+        <!-- ===== МЕХАНООБРАБОТКА ===== -->
         <section id="machining" style="padding: 40px 0; background: var(--gray); scroll-margin-top: 80px;">
             <div class="container">
                 <h2 style="margin-bottom: 12px;">🛠️ Механообработка</h2>
@@ -131,7 +216,7 @@
                         <p>Проволочно-вырезной Sodick AQ300L и прошивной AD3L. Точность до 0.001 мм.</p>
                         <span class="badge">индивидуальный расчёт</span>
                         <a href="blog/tehnologii/elektroerozionnaya-obrabotka-metalla.html" onclick="event.stopPropagation();" style="font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 4px;">📄 Подробнее об ЭЭО →</a>
-						<a href="blog/tehnologii/pyatikoordinatnaya-elektroerozionnaya-obrabotka.html" onclick="event.stopPropagation();" style="font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 4px;">📄 5-осевая ЭЭО: паз от 0,25 мм →</a>
+                        <a href="blog/tehnologii/pyatikoordinatnaya-elektroerozionnaya-obrabotka.html" onclick="event.stopPropagation();" style="font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 4px;">📄 5-осевая ЭЭО: паз от 0,25 мм →</a>
                     </div>
                     <div class="service-card-full" onclick="location.href='index.html?tab=чпу#prices'">
                         <span class="icon">🤖</span>
@@ -143,7 +228,7 @@
             </div>
         </section>
 
-        <!-- ===== 3. ПОКРЫТИЯ ===== -->
+        <!-- ===== ПОКРЫТИЯ ===== -->
         <section id="coating" style="padding: 40px 0; scroll-margin-top: 80px;">
             <div class="container">
                 <h2 style="margin-bottom: 12px;">🎨 Покрытия</h2>
@@ -165,11 +250,11 @@
             </div>
         </section>
 
-        <!-- ===== 4. СБОРКА И МОНТАЖ ===== -->
+        <!-- ===== SMT-МОНТАЖ И ЖГУТЫ ===== -->
         <section id="assembly" style="padding: 40px 0; background: var(--gray); scroll-margin-top: 80px;">
             <div class="container">
-                <h2 style="margin-bottom: 12px;">🔌 Сборка и монтаж</h2>
-                <p style="color: var(--gray-dark); margin-bottom: 30px;">SMT-монтаж, сборка жгутов и электромонтаж</p>
+                <h2 style="margin-bottom: 12px;">💻 SMT-монтаж и жгуты</h2>
+                <p style="color: var(--gray-dark); margin-bottom: 30px;">Монтаж печатных плат и электромонтаж по ТЗ</p>
                 <div class="services-grid-full">
                     <div class="service-card-full" onclick="location.href='index.html?tab=сборка_кондиционеров#prices'">
                         <span class="icon">💻</span>
@@ -187,7 +272,7 @@
             </div>
         </section>
 
-        <!-- ===== 5. ОСНАСТКА ===== -->
+        <!-- ===== ОСНАСТКА ===== -->
         <section id="tooling" style="padding: 40px 0; scroll-margin-top: 80px;">
             <div class="container">
                 <h2 style="margin-bottom: 12px;">🔧 Оснастка</h2>
@@ -215,14 +300,58 @@
             </div>
         </section>
 
-        <!-- ===== ПРИЗЫВ К ДЕЙСТВИЮ ===== -->
-        <section style="padding: 60px 0; background: var(--primary); color: var(--white);">
-            <div class="container" style="text-align: center;">
-                <h2 style="color: var(--white);">Нужна консультация?</h2>
-                <p style="opacity: 0.8; max-width: 600px; margin: 12px auto 30px;">Позвоните нам или оставьте заявку — мы поможем подобрать оптимальное решение</p>
-                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                    <a href="tel:+79394404001" class="btn btn-accent btn-lg">📞 +7 (939) 440-40-01</a>
-                    <a href="index.html#contact" class="btn btn-secondary btn-lg">Оставить заявку</a>
+        <!-- ===== ФОРМА ЗАЯВКИ ===== -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2>Оставить заявку</h2>
+                        <p>Опишите задачу — подберём решение и рассчитаем стоимость</p>
+                        <div class="contact-details">
+                            <p>📞 <a href="tel:+79394404001">+7 (939) 440-40-01</a></p>
+                            <p>✉️ <a href="mailto:sale@tochtex.ru">sale@tochtex.ru</a></p>
+                            <p>📍 Рязань, проезд Шабулина, 2В</p>
+                            <p>🕐 Пн–Пт: 8:30–17:00</p>
+                        </div>
+                    </div>
+                    <form class="contact-form" action="send.php" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Ваше имя *" required maxlength="200" autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" name="phone" placeholder="Телефон *" required maxlength="50" autocomplete="tel">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email" maxlength="200" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <select name="service">
+                                <option value="">— Выберите направление —</option>
+                                <option value="Сборка и монтаж телеком-оборудования">Сборка и монтаж телеком-оборудования</option>
+                                <option value="Листовой металл">Листовой металл (резка, гибка, сварка)</option>
+                                <option value="Механообработка">Механообработка (токарка, фрезеровка, ЭЭО)</option>
+                                <option value="Покрытия">Покрытия (покраска, гальваника)</option>
+                                <option value="SMT-монтаж и электромонтаж">SMT-монтаж и электромонтаж</option>
+                                <option value="Оснастка">Оснастка (пресс-формы, штампы)</option>
+                                <option value="Другое">Другое / не определился</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Опишите задачу" maxlength="5000"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="file" class="file-input" accept=".pdf,.jpg,.jpeg,.png,.dxf,.dwg">
+                        </div>
+                        <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        <div class="form-checkbox">
+                            <label>
+                                <input type="checkbox" name="privacy_consent" required>
+                                <span>Согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и обработкой персональных данных</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-accent btn-block">Отправить заявку</button>
+                        <p class="form-note">Файлы: DXF, DWG, PDF, JPG, PNG до 30 МБ</p>
+                    </form>
                 </div>
             </div>
         </section>
@@ -245,10 +374,11 @@
                 </div>
                 <div>
                     <h4>Услуги</h4>
+                    <a href="services.html#telecom-assembly">Сборка телеком-оборудования</a>
                     <a href="services.html#sheet-metal">Листовой металл</a>
                     <a href="services.html#machining">Механообработка</a>
                     <a href="services.html#coating">Покрытия</a>
-                    <a href="services.html#assembly">Сборка и монтаж</a>
+                    <a href="services.html#assembly">SMT-монтаж и жгуты</a>
                     <a href="services.html#tooling">Оснастка</a>
                 </div>
                 <div>
