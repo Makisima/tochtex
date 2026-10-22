@@ -40,7 +40,6 @@ function checkRateLimit(string $ip, int $maxRequests = 3, int $windowSeconds = 6
         @mkdir($dir, 0700, true);
     }
     if (!is_dir($dir) || !is_writable($dir)) {
-        // Если не удалось создать — не блокируем, но логируем
         error_log('[send.php] Rate limit dir not writable');
         return true;
     }
@@ -59,7 +58,6 @@ function checkRateLimit(string $ip, int $maxRequests = 3, int $windowSeconds = 6
         }
     }
 
-    // Оставляем только записи в окне
     $data = array_filter($data, static fn($t) => ($now - (int)$t) < $windowSeconds);
 
     if (count($data) >= $maxRequests) {
@@ -71,46 +69,84 @@ function checkRateLimit(string $ip, int $maxRequests = 3, int $windowSeconds = 6
     return true;
 }
 
-// ==== 5. Приём данных ====
+// ==== 5. Отправка в Telegram (cURL, без библиотек) ====
+function sendTelegram(string $text, array $config): bool
+{
+    if (empty($config['tg_bot_token']) || empty($config['tg_chat_id'])) {
+        error_log('[send.php] TG: token or chat_id not configured');
+        return false;
+    }
+
+    $url = 'https://api.telegram.org/bot' . $config['tg_bot_token'] . '/sendMessage';
+    $payload = http_build_query([
+        'chat_id'                  => $config['tg_chat_id'],
+        'text'                     => $text,
+        'parse_mode'               => 'HTML',
+        'disable_web_page_preview' => true,
+    ]);
+
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $payload,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 10,
+    ]);
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $err      = curl_error($ch);
+    curl_close($ch);
+
+    if ($response === false) {
+        error_log('[send.php] TG cURL: ' . $err);
+        return false;
+    }
+    if ($httpCode >= 200 && $httpCode < 300) {
+        return true;
+    }
+    error_log('[send.php] TG HTTP ' . $httpCode . ': ' . $response);
+    return false;
+}
+
+// ==== 6. Приём данных ====
 $name    = clean($_POST['name']    ?? '', 200);
 $phone   = clean($_POST['phone']   ?? '', 50);
 $email   = clean($_POST['email']   ?? '', 200);
 $service = clean($_POST['service'] ?? '', 200);
 $message = clean($_POST['message'] ?? '', 5000);
 
-// ==== 6. Honeypot ====
+// ==== 7. Honeypot ====
 if (!empty($_POST['website'] ?? '')) {
-    // Имитируем успех, чтобы бот не понял
     header('Location: thanks.html');
     exit;
 }
 
-// ==== 7. Rate limiting по IP ====
+// ==== 8. Rate limiting по IP ====
 $client_ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 if (!checkRateLimit($client_ip)) {
     http_response_code(429);
     exit('Слишком много заявок. Попробуйте через минуту или позвоните: +7 (939) 440-40-01.');
 }
 
-// ==== 8. Валидация обязательных полей ====
+// ==== 9. Валидация обязательных полей ====
 if ($name === '' || $phone === '') {
     http_response_code(400);
     exit('Ошибка: имя и телефон обязательны.');
 }
 
-// ==== 9. Проверка согласия 152-ФЗ ====
+// ==== 10. Проверка согласия 152-ФЗ ====
 if (empty($_POST['privacy_consent'])) {
     http_response_code(400);
     exit('Необходимо согласие на обработку персональных данных.');
 }
 
-// ==== 10. Валидация email ====
+// ==== 11. Валидация email ====
 if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     exit('Ошибка: некорректный email.');
 }
 
-// ==== 11. Обработка файла ====
+// ==== 12. Обработка файла ====
 $attachment_path = null;
 $attachment_name = null;
 $attachment_size = 0;
@@ -123,26 +159,20 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
         exit('Ошибка загрузки файла. Позвоните: +7 (939) 440-40-01.');
     }
 
-    // Явная проверка, что файл пришёл через HTTP POST
     if (!is_uploaded_file($file['tmp_name'])) {
         error_log('[send.php] is_uploaded_file failed');
         http_response_code(400);
         exit('Ошибка загрузки файла.');
     }
 
-    // Лимит 30 МБ
     if ($file['size'] > 30 * 1024 * 1024) {
         http_response_code(400);
         exit('Файл слишком большой (макс. 30 МБ).');
     }
 
-    // Проверка расширения
     $orig_name = basename($file['name']);
     $ext = strtolower(pathinfo($orig_name, PATHINFO_EXTENSION));
 
-    // Соответствие расширений и допустимых MIME-типов.
-    // Для PDF/JPG/PNG — строго. Для DXF/DWG — допускаем octet-stream,
-    // т.к. многие серверы не знают эти MIME-типы.
     $ext_to_mimes = [
         'pdf'  => ['application/pdf'],
         'jpg'  => ['image/jpeg'],
@@ -157,7 +187,6 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
         exit('Недопустимое расширение файла. Разрешены: DXF, DWG, PDF, JPG, PNG.');
     }
 
-    // Проверка MIME через finfo
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mime  = finfo_file($finfo, $file['tmp_name']);
     finfo_close($finfo);
@@ -168,7 +197,6 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
         exit('Недопустимый тип файла. Разрешены: DXF, DWG, PDF, JPG, PNG.');
     }
 
-    // Санитизация имени
     $orig_name = preg_replace('/[^\w\s\.\-\(\)\[\]]/u', '_', $orig_name);
     $orig_name = mb_substr($orig_name, 0, 200);
 
@@ -177,7 +205,7 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
     $attachment_size = $file['size'];
 }
 
-// ==== 12. Тело письма ====
+// ==== 13. Тело письма ====
 $subject = 'Новая заявка с сайта tochtex.ru';
 
 $body  = "Новая заявка с сайта tochtex.ru\n";
@@ -198,7 +226,24 @@ $body .= "=====================================\n";
 $body .= "IP:    " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . "\n";
 $body .= "Время: " . date('Y-m-d H:i:s') . "\n";
 
-// ==== 13. Отправка через PHPMailer ====
+// ==== 14. Уведомление в Telegram ====
+// $name/$phone/$email/$message уже прошли через clean() (htmlspecialchars),
+// значит безопасны для parse_mode=HTML.
+$tgText  = "🔥 <b>Новая заявка с сайта</b>\n\n";
+$tgText .= "<b>Имя:</b> {$name}\n";
+$tgText .= "<b>Телефон:</b> {$phone}\n";
+$tgText .= "<b>Email:</b> " . ($email ?: 'не указан') . "\n";
+$tgText .= "<b>Услуга:</b> " . ($service ?: 'не выбрана') . "\n";
+$tgText .= "<b>Сообщение:</b> " . ($message ?: '(не указано)') . "\n";
+if ($attachment_name) {
+    $tgText .= "<b>Файл:</b> {$attachment_name} (" . round($attachment_size / 1024, 1) . " КБ) — см. письмо\n";
+}
+$tgText .= "\n<i>IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . " · " . date('d.m.Y H:i') . "</i>";
+
+$tgSent = sendTelegram($tgText, $config);
+
+// ==== 15. Отправка email через PHPMailer ====
+$mailSent = false;
 $mail = new PHPMailer(true);
 
 try {
@@ -227,19 +272,24 @@ try {
     }
 
     $mail->send();
-
-    header('Location: thanks.html');
-    exit;
+    $mailSent = true;
 
 } catch (Exception $e) {
     error_log('[send.php] Mail send failed: ' . $mail->ErrorInfo);
-    http_response_code(500);
-    echo 'Ошибка отправки. Позвоните: +7 (939) 440-40-01.';
-    exit;
 
 } finally {
-    // Гарантированное удаление tmp-файла (152-ФЗ), независимо от результата
     if ($attachment_path && file_exists($attachment_path)) {
         @unlink($attachment_path);
     }
 }
+
+// ==== 16. Итог: успех, если сработал хотя бы один канал ====
+if ($mailSent || $tgSent) {
+    header('Location: thanks.html');
+    exit;
+}
+
+error_log('[send.php] ALL channels failed: mail=' . ($mailSent ? '1' : '0') . ', tg=' . ($tgSent ? '1' : '0'));
+http_response_code(500);
+echo 'Ошибка отправки. Позвоните: +7 (939) 440-40-01.';
+exit;
