@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="alternate icon" href="/favicon.png" type="image/png">
-    <title>НПО «ТочныеТехнологии» — Производство металлоизделий под ключ</title>
-    <meta name="description" content="Лазерная резка, координатная пробивка, порошковая окраска, SMT-монтаж печатных плат. 30 лет на рынке. Бесплатный расчёт за 2 часа.">
+    
+    <!-- ОБНОВЛЕНО: Title и Description под фокус на ЦОД -->
+    <title>Инженерное оборудование для ЦОД — шкафы 19", стойки, БРП | НПО ТочныеТехнологии</title>
+    <meta name="description" content="Производство телеком-шкафов, стоек, БРП и ИБП для ЦОД. Собственный завод в Рязани. Контрактное производство металлоизделий. Расчёт за 2 часа.">
     
     <link rel="canonical" href="https://tochtex.ru/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,12 +56,15 @@
                 <a href="index.html">🏭 <strong>НПО «ТочныеТехнологии»</strong></a>
                 <small>Производство полного цикла</small>
             </div>
+            <!-- ОБНОВЛЕНО: Новое меню -->
             <nav class="nav">
                 <ul>
                     <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="products/index.html">Продукция</a></li>
                     <li><a href="services.html">Услуги</a></li>
                     <li><a href="calculator.html">Калькулятор</a></li>
                     <li><a href="about.html">О заводе</a></li>
+                    <li><a href="blog/index.html">Блог</a></li>
                     <li><a href="contacts.html">Контакты</a></li>
                 </ul>
             </nav>
@@ -70,22 +75,52 @@
         </div>
     </header>
 
-    <!-- ===== ГЕРОЙ (ФОН - workshop-panorama.jpg) ===== -->
-    <section class="hero" id="hero">
+    <!-- ===== ГЕРОЙ: ДВА НАПРАВЛЕНИЯ ===== -->
+    <section class="hero" id="hero" style="padding: 40px 0; background: #f8f9fa;">
         <div class="container">
-            <div class="hero-content">
-                <h1>Производство металлоизделий под ключ. 30 лет экспертизы.</h1>
-                <p>Лазерная резка, пробивка, покраска, SMT-монтаж плат. Бесплатный расчёт за 2 часа по вашим чертежам.</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-accent btn-lg">Рассчитать стоимость</a>
-                    <a href="services.html" class="btn btn-secondary btn-lg">Все услуги</a>
+            
+            <!-- БЛОК 1: ТЕЛЕКОМ (ОСНОВНОЙ) -->
+            <div class="hero-primary" style="margin-bottom: 30px; background: var(--primary, #1a1a2e); padding: 40px; border-radius: 12px; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h1 style="font-size: 2.5rem; margin-bottom: 15px; color: #fff; font-weight: 800;">Готовые телеком-решения для вашего бизнеса</h1>
+                <p style="font-size: 1.2rem; margin-bottom: 25px; opacity: 0.9; max-width: 800px;">Собственное производство шкафов и стоек с полной сборкой. Наполняем оборудованием, маркируем и упаковываем. Выгодные условия для системных интеграторов, операторов связи, дистрибьюторов и интернет-магазинов.</p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="products/index.html" class="btn btn-accent btn-lg">Смотреть продукцию</a>
+                    <a href="#contact" class="btn btn-secondary btn-lg" style="background: rgba(255,255,255,0.15); color: #fff; border: none;">Обсудить проект</a>
                 </div>
-                <div class="hero-stats">
-                    <div class="stat"><span>30+</span> лет на рынке</div>
-                    <div class="stat"><span>350+</span> единиц оборудования</div>
-                    <div class="stat"><span>12 000+ м²</span> производственных площадей</div>
-                    <div class="stat"><span>ISO 9001</span> сертифицированы</div>
+            </div>
+
+            <!-- БЛОК 2: МЕТАЛЛООБРАБОТКА (РАСШИРЕНИЕ) -->
+            <div class="hero-secondary" style="background: #fff; padding: 30px; border-radius: 12px; border: 1px solid #eaeaea;">
+                <h2 style="font-size: 1.8rem; margin-bottom: 10px; color: var(--primary, #1a1a2e);">Металлообработка и контрактное производство</h2>
+                <p style="margin-bottom: 20px; color: var(--gray-dark, #666); max-width: 800px;">Лазерная резка, координатная пробивка, гибка, ЭЭО и SMT-монтаж. Изготовим корпуса, крепеж и детали для вашего оборудования по вашим чертежам.</p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="services.html" class="btn btn-secondary">Все услуги</a>
+                    <a href="calculator.html" class="btn btn-secondary">Рассчитать в калькуляторе</a>
                 </div>
+            </div>
+
+            <!-- УТП: ПОЧЕМУ МЫ (СВЯЗКА ДВУХ НАПРАВЛЕНИЙ) -->
+            <<div class="hero-usp" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div class="usp-item" style="padding: 20px; background: #fff; border-left: 4px solid var(--accent, #ff6b00); border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                    <h4 style="margin-bottom: 8px; font-size: 1.1rem;">Полный цикл (под ключ)</h4>
+                    <p style="font-size: 14px; color: var(--gray-dark, #666); line-height: 1.5;">Не просто продаем «железо». Изготавливаем корпус, монтируем начинку (ИБП, БРП, жгуты) и отгружаем готовое к работе оборудование.</p>
+                </div>
+                <div class="usp-item" style="padding: 20px; background: #fff; border-left: 4px solid var(--accent, #ff6b00); border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                    <h4 style="margin-bottom: 8px; font-size: 1.1rem;">Гибкость под B2B</h4>
+                    <p style="font-size: 14px; color: var(--gray-dark, #666); line-height: 1.5;">Делаем нестандартные размеры (19", ETSI, 23"). Работаем напрямую с интеграторами, операторами и розничными каналами.</p>
+                </div>
+                <div class="usp-item" style="padding: 20px; background: #fff; border-left: 4px solid var(--accent, #ff6b00); border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                    <h4 style="margin-bottom: 8px; font-size: 1.1rem;">Опыт в отрасли</h4>
+                    <p style="font-size: 14px; color: var(--gray-dark, #666); line-height: 1.5;">Собственное производство в Рязани. Реализовали проекты для операторов связи (МТС, Билайн, Теле2, Ростелеком), ЦОД, предприятий промышленности, интеграторов .</p>
+                </div>
+            </div>
+            
+            <!-- СТАРЫЕ ЦИФРЫ -->
+            <div class="hero-stats" style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; display: flex; gap: 30px; flex-wrap: wrap;">
+                <div class="stat"><span style="font-weight: bold; font-size: 1.5rem; color: var(--accent, #ff6b00);">30+</span> лет на рынке</div>
+                <div class="stat"><span style="font-weight: bold; font-size: 1.5rem; color: var(--accent, #ff6b00);">350+</span> единиц оборудования</div>
+                <div class="stat"><span style="font-weight: bold; font-size: 1.5rem; color: var(--accent, #ff6b00);">12 000+ м²</span> производственных площадей</div>
+                <div class="stat"><span style="font-weight: bold; font-size: 1.5rem; color: var(--accent, #ff6b00);">ISO 9001</span> сертифицированы</div>
             </div>
         </div>
     </section>
@@ -94,6 +129,11 @@
     <section class="quick-nav" id="services">
         <div class="container">
             <div class="quick-nav-buttons">
+                <a class="quick-nav-btn" data-service="сборочная_чпу">
+                    <span class="icon">📦</span>
+                    <span class="label">Телеком-шкафы</span>
+                    <span class="sub">под заказ</span>
+                </a>
                 <a class="quick-nav-btn" data-service="лазерная">
                     <span class="icon">🔦</span>
                     <span class="label">Лазерная резка</span>
@@ -143,11 +183,6 @@
                     <span class="icon">💻</span>
                     <span class="label">SMT-монтаж плат</span>
                     <span class="sub">автоматизированная линия</span>
-                </a>
-                <a class="quick-nav-btn" data-service="сборочная_чпу">
-                    <span class="icon">📦</span>
-                    <span class="label">Телеком-шкафы</span>
-                    <span class="sub">под заказ</span>
                 </a>
             </div>
         </div>
@@ -235,6 +270,7 @@
             <p class="section-subtitle">Цены указаны ориентировочно и зависят от объёма, сложности и материала.<br>Актуальную стоимость уточняйте у менеджера.</p>
 
             <div class="prices-tabs" style="display: flex; gap: 8px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap;">
+                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="сборочная_чпу">Телеком-шкафы</button>
                 <button class="price-tab-btn btn btn-sm" style="background: var(--accent); color: var(--white);" data-tab="лазерная">Лазерная резка</button>
                 <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="пробивка">Координатная пробивка</button>
                 <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="покраска">Порошковая окраска</button>
@@ -245,7 +281,6 @@
                 <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="прессформы">Пресс-формы</button>
                 <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="гальваника">Гальваника</button>
                 <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="сборка_кондиционеров">SMT-монтаж</button>
-                <button class="price-tab-btn btn btn-sm" style="background: var(--primary); color: var(--white);" data-tab="сборочная_чпу">Телеком-шкафы</button>
             </div>
 
             <div id="price-tab-content">
@@ -277,7 +312,7 @@
                 </div>
                 <div class="contact-form">
                     <form id="contactForm" action="send.php" method="POST" enctype="multipart/form-data">
-                        <!-- Honeypot: скрытое поле для ботов. Люди его не видят и не заполняют -->
+                        <!-- Honeypot: скрытое поле для ботов -->
                         <div style="position:absolute; left:-9999px;" aria-hidden="true">
                             <input type="text" name="website" tabindex="-1" autocomplete="off">
                         </div>
@@ -294,6 +329,7 @@
                         <div class="form-group">
                             <select name="service">
                                 <option value="">Выберите услугу</option>
+                                <option value="Телеком-шкафы">Телеком-шкафы (ЦОД)</option>
                                 <option value="Лазерная резка">Лазерная резка</option>
                                 <option value="Координатная пробивка">Координатная пробивка</option>
                                 <option value="Порошковая окраска">Порошковая окраска</option>
@@ -304,7 +340,6 @@
                                 <option value="Пресс-формы">Пресс-формы</option>
                                 <option value="Гальваника">Гальваника</option>
                                 <option value="SMT-монтаж">SMT-монтаж</option>
-                                <option value="Телеком-шкафы">Телеком-шкафы</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -346,10 +381,11 @@
                 </div>
                 <div>
                     <h4>Услуги</h4>
+                    <a href="services.html#telecom-assembly">Сборка телеком-оборудования</a>
                     <a href="services.html#sheet-metal">Листовой металл</a>
                     <a href="services.html#machining">Механообработка</a>
                     <a href="services.html#coating">Покрытия</a>
-                    <a href="services.html#assembly">Сборка и монтаж</a>
+                    <a href="services.html#assembly">SMT-монтаж и жгуты</a>
                     <a href="services.html#tooling">Оснастка</a>
                 </div>
                 <div>
