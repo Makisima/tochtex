@@ -69,6 +69,16 @@ h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; }
 .logo a:hover { color: var(--accent); }
 .logo small { display: block; font-size: 11px; opacity: 0.6; color: var(--white); }
 
+.logo-img {
+    height: 36px;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 8px;
+    border-radius: 4px;
+    background-color: #fff; /* На случай, если у jpg белый фон, чтобы сливалось с шапкой */
+    padding: 2px;
+}
+
 .header-contacts { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .header-contacts .phone { color: var(--white); font-weight: 600; font-size: 16px; text-decoration: none; }
 .header-contacts .phone:hover { color: var(--accent); }
