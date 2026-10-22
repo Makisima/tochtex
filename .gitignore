@@ -46,3 +46,4 @@ public_html/data/pek_towns.json
 *.broken_*
 *.broken
 zen_*.html
+Images/*.jpg

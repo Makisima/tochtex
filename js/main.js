@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (priceLoader) {
         // Проверяем URL-параметр ?tab=<slug>
         var urlParams = new URLSearchParams(window.location.search);
-        var initialTab = urlParams.get('tab') || 'лазерная';
+        var initialTab = urlParams.get('tab') || 'сборочная_чпу';
         switchPriceTab(initialTab);
 
         fetch('data/prices.json')
@@ -188,7 +188,7 @@ function renderPrices(data) {
         var wrap = document.createElement('div');
         wrap.className = 'price-table-wrap';
         wrap.id = 'price-table-' + serviceKey;
-        if (serviceKey !== 'лазерная') {
+        if (serviceKey !== 'сборочная_чпу') {
             wrap.style.display = 'none';
         }
 
