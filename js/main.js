@@ -281,3 +281,43 @@ function updatePriceDate() {
         el.textContent = now.toLocaleDateString('ru-RU', options);
     }
 }
+
+// ===== ЛАЙТБОКС ДЛЯ ИЗОБРАЖЕНИЙ В КАТАЛОГЕ =====
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-image');
+    const closeBtn = document.querySelector('.close-modal-btn');
+
+    if (modal && modalImg) {
+        // Ищем все картинки товаров в таблицах
+        const productImages = document.querySelectorAll('img[src*="izdelie_"]');
+
+        productImages.forEach(img => {
+            img.classList.add('zoomable-img');
+            img.addEventListener('click', (e) => {
+                e.preventDefault();
+                modalImg.src = img.src;
+                modalImg.alt = img.alt;
+                modal.showModal();
+            });
+        });
+
+        // Закрытие по крестику
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => modal.close());
+        }
+
+        // Закрытие по клику на пустое место (фон)
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.close();
+            }
+        });
+
+        // Закрытие по клавише Esc (встроено в dialog, но на всякий случай)
+        modal.addEventListener('cancel', (e) => {
+            e.preventDefault();
+            modal.close();
+        });
+    }
+});
