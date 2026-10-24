@@ -180,11 +180,13 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
         'png'  => ['image/png'],
         'dxf'  => ['image/vnd.dxf', 'application/dxf', 'application/x-dxf', 'application/octet-stream', 'text/plain'],
         'dwg'  => ['image/vnd.dwg', 'application/acad', 'application/x-autocad', 'application/octet-stream'],
+        'step' => ['application/step', 'application/x-step', 'application/octet-stream', 'text/plain'],
+        'stp'  => ['application/step', 'application/x-step', 'application/octet-stream', 'text/plain'],
     ];
 
     if (!isset($ext_to_mimes[$ext])) {
         http_response_code(400);
-        exit('Недопустимое расширение файла. Разрешены: DXF, DWG, PDF, JPG, PNG.');
+        exit('Недопустимое расширение файла. Разрешены: DXF, DWG, STEP, STP, PDF, JPG, PNG.');
     }
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -194,7 +196,7 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
     if (!in_array($mime, $ext_to_mimes[$ext], true)) {
         error_log("[send.php] MIME mismatch: ext=$ext, mime=$mime, name=$orig_name");
         http_response_code(400);
-        exit('Недопустимый тип файла. Разрешены: DXF, DWG, PDF, JPG, PNG.');
+        exit('Недопустимый тип файла. Разрешены: DXF, DWG, STEP, STP, PDF, JPG, PNG.');
     }
 
     $orig_name = preg_replace('/[^\w\s\.\-\(\)\[\]]/u', '_', $orig_name);
