@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=14">
+    <link rel="stylesheet" href="css/style.css?v=15">
 
     <!-- Микроразметка Schema.org -->
     <script type="application/ld+json">
@@ -46,6 +46,7 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/113089370" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+    <script src="js/theme-init.js"></script>
 </head>
 <body>
 
@@ -66,6 +67,7 @@
                     <li><a href="about.html">О заводе</a></li>
                     <li><a href="blog/index.html">Блог</a></li>
                     <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="settings.html">⚙️ Настройки</a></li>
                 </ul>
             </nav>
             <div class="header-contacts">
@@ -76,7 +78,7 @@
     </header>
 
     <!-- ===== ГЕРОЙ: ДВА НАПРАВЛЕНИЯ ===== -->
-    <section class="hero" id="hero" style="padding: 40px 0; background: #f8f9fa;">
+    <section class="hero" id="hero" style="padding: 40px 0;">
         <div class="container">
             
             <!-- БЛОК 1: ТЕЛЕКОМ (ОСНОВНОЙ) -->
@@ -94,13 +96,13 @@
                 <h2 style="font-size: 1.8rem; margin-bottom: 10px; color: var(--primary, #1a1a2e);">Металлообработка и контрактное производство</h2>
                 <p style="margin-bottom: 20px; color: var(--gray-dark, #666); max-width: 800px;">Лазерная резка, координатная пробивка, гибка, ЭЭО и SMT-монтаж. Изготовим корпуса, крепеж и детали для вашего оборудования по вашим чертежам.</p>
                 <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="services.html" class="btn btn-secondary">Все услуги</a>
-                    <a href="calculator.html" class="btn btn-secondary">Рассчитать в калькуляторе</a>
+                    <a href="services.html" class="btn btn-secondary" style="color: var(--primary); border-color: var(--primary);">Все услуги</a>
+                    <a href="calculator.html" class="btn btn-secondary" style="color: var(--primary); border-color: var(--primary);">Рассчитать в калькуляторе</a>
                 </div>
             </div>
 
             <!-- УТП: ПОЧЕМУ МЫ (СВЯЗКА ДВУХ НАПРАВЛЕНИЙ) -->
-            <<div class="hero-usp" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div class="hero-usp" style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 <div class="usp-item" style="padding: 20px; background: #fff; border-left: 4px solid var(--accent, #ff6b00); border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
                     <h4 style="margin-bottom: 8px; font-size: 1.1rem;">Полный цикл (под ключ)</h4>
                     <p style="font-size: 14px; color: var(--gray-dark, #666); line-height: 1.5;">Не просто продаем «железо». Изготавливаем корпус, монтируем начинку (ИБП, БРП, жгуты) и отгружаем готовое к работе оборудование.</p>
@@ -407,5 +409,35 @@
     </footer>
 
     <script src="js/main.js?v=12"></script>
+    
+
+    <script>
+        // Скрипт для переключения тем
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeSelect = document.getElementById('theme-select');
+            const body = document.body;
+
+            // Проверяем, сохранена ли тема в памяти браузера
+            const savedTheme = localStorage.getItem('selected-theme');
+            if (savedTheme) {
+                themeSelect.value = savedTheme;
+                if (savedTheme !== 'default') {
+                    body.setAttribute('data-theme', savedTheme);
+                }
+            }
+
+            // Обработчик смены темы
+            themeSelect.addEventListener('change', function(e) {
+                const selectedTheme = e.target.value;
+                if (selectedTheme === 'default') {
+                    body.removeAttribute('data-theme');
+                } else {
+                    body.setAttribute('data-theme', selectedTheme);
+                }
+                // Сохраняем выбор
+                localStorage.setItem('selected-theme', selectedTheme);
+            });
+        });
+    </script>
 </body>
 </html>

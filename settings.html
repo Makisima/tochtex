@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки сайта — НПО «ТочныеТехнологии»</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css?v=17">
+    <script src="js/theme-init.js"></script>
+</head>
+<body>
+
+    <!-- ШАПКА (не забудьте добавить активный класс) -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="Images/Logo.jpg" alt="Логотип" class="logo-img"> <strong>НПО «ТочныеТехнологии»</strong></a>
+                <small>Производство полного цикла</small>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="products/index.html">Продукция</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="calculator.html">Калькулятор</a></li>
+                    <li><a href="about.html">О заводе</a></li>
+                    <li><a href="blog/index.html">Блог</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="settings.html" class="active">⚙️ Настройки</a></li>
+                </ul>
+            </nav>
+            <div class="header-contacts">
+                <a href="tel:+79394404001" class="phone">📞 +7 (939) 440-40-01</a>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding: 60px 0; min-height: 60vh; background: var(--gray);">
+        <div class="container" style="max-width: 600px;">
+            <div style="background: var(--white); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow);">
+                <h1 style="margin-bottom: 30px; color: var(--primary);">Настройки интерфейса</h1>
+
+                <!-- Настройка темы -->
+                <div style="margin-bottom: 30px;">
+                    <label for="themeSelect" style="display: block; font-weight: 600; margin-bottom: 10px; color: var(--primary);">Цветовая схема сайта</label>
+                    <select id="themeSelect" style="width: 100%; padding: 12px; border: 2px solid #e0e6ed; border-radius: 8px; font-size: 16px; cursor: pointer;">
+                        <option value="theme-hightech">Тема 1: High-Tech (Серо-синий) — По умолчанию</option>
+                        <option value="theme-industrial">Тема 2: Industrial (Графит + Красный)</option>
+                        <option value="theme-evolution">Тема 3: Evolution (Синий + Золотой)</option>
+                        <option value="theme-telecom">Тема 4: Telecom (Корпоративный + Голубой)</option>
+                        <option value="theme-eco">Тема 5: Eco-Tech (Зеленый + Янтарный)</option>
+                        <option value="theme-burgundy">Тема 6: Burgundy (Винный + Золотой)</option>
+                        <option value="theme-ocean">Тема 7: Ocean (Бирюзовый + Коралловый)</option>
+                        <option value="theme-steel">Тема 8: Steel (Антрацит + Мятный)</option>
+                        <option value="theme-ultraviolet">Тема 9: Ultraviolet (Фиолетовый + Неон)</option>
+                        <option value="default">Классическая (Темно-синяя)</option>
+                    </select>
+                </div>
+
+                <!-- Настройка ИИ -->
+                <div style="margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--gray); border-radius: 8px;">
+                    <div>
+                        <strong style="display: block; color: var(--primary);">ИИ-помощник</strong>
+                        <span style="font-size: 14px; color: var(--gray-dark);">Включить умного чат-бота на сайте</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="aiToggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <p id="saveStatus" style="text-align: center; margin-top: 15px; color: #10B981; font-weight: 600; display: none;">✅ Настройки сохранены!</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ПОДВАЛ (скопируйте из index.html) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <span>© 2026 НПО «ТочныеТехнологии». Все права защищены.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/settings.js"></script>
+</body>
+</html>
