@@ -1,3 +1,9 @@
+# ===== ОБРАБОТКА ОШИБОК =====
+# Отдаем нашу красивую страницу вместо стандартных ошибок сервера
+ErrorDocument 404 /error.html
+ErrorDocument 500 /error.html
+ErrorDocument 503 /error.html
+
 # ===== ЗАЩИТА VENDOR =====
 <IfModule mod_rewrite.c>
     RewriteEngine On
@@ -5,7 +11,6 @@
 
     # 301: старая статья → новая категория
     RewriteRule ^blog/kak-rasschitat-stoimost-lazernoy-rezki\.html$ https://tochtex.ru/blog/tehnologii/kak-rasschitat-stoimost-lazernoy-rezki.html [R=301,L]
-
 </IfModule>
 
 # ===== ОТКЛЮЧЕНИЕ ЛИСТИНГА ДИРЕКТОРИЙ =====
