@@ -4,48 +4,45 @@ config.php
 *.env
 
 # ===== Composer =====
+# Внимание: vendor/ игнорируется, так как собирается на сервере
+# А composer.json и composer.lock ОБЯЗАТЕЛЬНО должны быть в Git!
 /vendor/
-composer.json
-composer.lock
 
 # ===== Загруженные файлы (если появится) =====
 /uploads/
 
-# ===== Системные =====
+# ===== Системные файлы =====
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# ===== Резервные копии и бэкапы =====
+# ===== Резервные копии, бэкапы и архивы =====
 *.bak
 *.backup
 *.old
 *.orig
+*.bak_*
+*.broken_*
+*.broken
 blog_backup_*/
 *_backup_*/
+site.zip
+_for_next_chat/
+phone_backup_*.tar.gz
+canonical_backup_*.tar.gz
 
 # ===== Логи =====
 *.log
 error_log
 
-# ===== IDE =====
-.vscode/
-.idea/
-*.swp
-
-_for_next_chat/
-phone_backup_*.tar.gz
-canonical_backup_*.tar.gz
-
 # ===== Сгенерированные данные ПЭК =====
 data/pek_towns.json
 public_html/data/pek_towns.json
 
-# ===== Бэкапы статей и файлов =====
-*.bak_*
-*.broken_*
-*.broken
+# ===== Прочие временные файлы =====
 zen_*.html
-Images/*.jpg
-Images/*.png
-site.zip
+*.swp
+
+# ===== IDE и редакторы =====
+.vscode/
+.idea/
