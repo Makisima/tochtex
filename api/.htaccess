@@ -1,0 +1,12 @@
+# Запрещаем просматривать содержимое папки
+Options -Indexes
+
+# Разрешаем выполнение только PHP-скриптов
+<FilesMatch "\.(php)$">
+    Require all granted
+</FilesMatch>
+
+# Блокируем любые другие файлы (txt, log, bak и т.д.)
+<FilesMatch "\.(?!php$)[^.]+$">
+    Require all denied
+</FilesMatch>

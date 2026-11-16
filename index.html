@@ -409,35 +409,7 @@
     </footer>
 
     <script src="js/main.js?v=12"></script>
-    
+    <script src="js/chat-widget.js"></script>
 
-    <script>
-        // Скрипт для переключения тем
-        document.addEventListener('DOMContentLoaded', function() {
-            const themeSelect = document.getElementById('theme-select');
-            const body = document.body;
-
-            // Проверяем, сохранена ли тема в памяти браузера
-            const savedTheme = localStorage.getItem('selected-theme');
-            if (savedTheme) {
-                themeSelect.value = savedTheme;
-                if (savedTheme !== 'default') {
-                    body.setAttribute('data-theme', savedTheme);
-                }
-            }
-
-            // Обработчик смены темы
-            themeSelect.addEventListener('change', function(e) {
-                const selectedTheme = e.target.value;
-                if (selectedTheme === 'default') {
-                    body.removeAttribute('data-theme');
-                } else {
-                    body.setAttribute('data-theme', selectedTheme);
-                }
-                // Сохраняем выбор
-                localStorage.setItem('selected-theme', selectedTheme);
-            });
-        });
-    </script>
 </body>
 </html>

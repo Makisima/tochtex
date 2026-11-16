@@ -896,3 +896,72 @@ dialog#image-modal::backdrop { background: rgba(var(--primary-rgb), 0.85); backd
 .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
 input:checked + .slider { background-color: var(--accent); }
 input:checked + .slider:before { transform: translateX(22px); }
+
+/* ===== ВИДЖЕТ ИИ ===== */
+#ai-widget-container { 
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; /* ПЕРЕМЕСТИЛИ ВЛЕВО */
+    z-index: 9999; 
+    font-family: 'Inter', sans-serif; 
+}
+
+#ai-chat-btn { 
+    height: 56px; 
+    padding: 0 24px; 
+    border-radius: 30px; 
+    background: var(--accent); 
+    color: #fff; 
+    border: none; 
+    font-size: 16px; 
+    font-weight: 600;
+    cursor: pointer; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3); 
+    transition: transform 0.2s; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+#ai-chat-btn:hover { transform: scale(1.05); }
+
+#ai-chat-window { 
+    position: absolute; 
+    bottom: 70px; 
+    right: 0; /* Окно открывается вправо */
+    width: 380px; 
+    height: 500px; 
+    background: var(--white); 
+    border-radius: var(--radius); 
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2); 
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden; 
+    border: 1px solid #e0e6ed; 
+    
+    /* ВОЗМОЖНОСТЬ РАСТЯГИВАТЬ ОКНО (ресайз) */
+    resize: both; 
+    min-width: 300px;
+    min-height: 400px;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+#ai-chat-window.hidden { display: none; }
+.ai-chat-header { background: var(--primary); color: var(--white); padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+.ai-chat-header small { display: block; font-size: 11px; opacity: 0.7; }
+#ai-chat-close { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; }
+#ai-chat-messages { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #f9f9f9; }
+.ai-msg { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
+.ai-msg.user { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 4px; }
+.ai-msg.bot { align-self: flex-start; background: #e9eef3; color: #1A1A2E; border-bottom-left-radius: 4px; }
+#ai-chat-input-area { display: flex; padding: 10px; background: #fff; border-top: 1px solid #e0e6ed; }
+#ai-chat-input { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 20px; outline: none; font-size: 14px; }
+#ai-chat-input:focus { border-color: var(--accent); }
+#ai-chat-send { background: var(--accent); color: #fff; border: none; border-radius: 50%; width: 40px; height: 40px; margin-left: 8px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+
+.ai-chat-header-actions { display: flex; gap: 8px; align-items: center; }
+#ai-chat-clear {
+    background: none; border: none; color: #fff;
+    font-size: 16px; cursor: pointer; opacity: .8;
+}
+#ai-chat-clear:hover { opacity: 1; }
