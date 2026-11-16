@@ -22,9 +22,20 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # ДОБАВЛЕНА ПАПКА api, А ТАКЖЕ .htaccess и send.php
+          # Заливаем только исходный код. Папка vendor собирается отдельно!
           source: "index.html,calculator.html,about.html,services.html,contacts.html,thanks.html,requisites.html,privacy.html,send.php,sitemap.xml,robots.txt,yandex_8901882a24b0abef.html,google087b4b52b6a7996f.html,.htaccess,css,js,data,Images,api"
           target: "~/www/tochtex.ru/"
           overwrite: true
           rm: false
           strip_components: 0
+
+      # НОВЫЙ ШАГ: Установка зависимостей Composer на сервере по SSH
+      - name: Install Composer dependencies
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/www/tochtex.ru/
+            ~/composer install --no-dev --optimize-autoloader
