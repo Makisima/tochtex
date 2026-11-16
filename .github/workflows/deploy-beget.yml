@@ -23,7 +23,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           # Заливаем только исходный код. Папка vendor собирается отдельно!
-          source: "index.html,calculator.html,about.html,services.html,contacts.html,thanks.html,requisites.html,privacy.html,send.php,sitemap.xml,robots.txt,yandex_8901882a24b0abef.html,google087b4b52b6a7996f.html,.htaccess,css,js,data,Images,api"
+          source: "index.html,calculator.html,about.html,services.html,contacts.html,thanks.html,requisites.html,privacy.html,send.php,sitemap.xml,robots.txt,yandex_8901882a24b0abef.html,google087b4b52b6a7996f.html,.htaccess,css,js,data,Images,api,composer.json,composer.lock"
           target: "~/www/tochtex.ru/"
           overwrite: true
           rm: false
